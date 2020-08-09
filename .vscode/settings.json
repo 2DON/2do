@@ -1,0 +1,5 @@
+{
+  "eslint.format.enable": true,
+  "eslint.codeActionsOnSave.mode": "all",
+  "eslint.enable": true
+}

@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "2gua.rainbow-brackets",
+    "aaron-bond.better-comments",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "EditorConfig.EditorConfig",
+    "VisualStudioExptTeam.vscodeintellicode",
+  ]
+}

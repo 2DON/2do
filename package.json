@@ -15,7 +15,6 @@
     "postlint:fix": "prettier --ignore-path .gitignore --single-quote --write ./**/*.{js,jsx,json,html,css,less,scss,yml}"
   },
   "dependencies": {
-    "electron": "^9.2.0",
     "electron-is-dev": "^1.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
@@ -28,6 +27,7 @@
     "@testing-library/user-event": "^7.1.2",
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.2",
+    "electron": "^9.2.0",
     "electron-builder": "^22.8.0",
     "eslint-config-airbnb": "18.1.0",
     "eslint-config-prettier": "6.10.1",
