@@ -9,28 +9,42 @@
     "react:build": "react-scripts build",
     "electron:dev": "electron .",
     "preelectron:pack": "yarn react:build",
-    "electron:pack": "electron-builder"
+    "electron:pack": "electron-builder",
+    "lint": "eslint . --ignore-path .gitignore --ext .js,.jsx --cache",
+    "lint:fix": "yarn lint --fix",
+    "postlint:fix": "prettier --ignore-path .gitignore --single-quote --write ./**/*.{js,jsx,json,html,css,less,scss,yml}"
   },
   "dependencies": {
+    "electron": "^9.2.0",
+    "electron-is-dev": "^1.2.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@imaginary-cloud/eslint-config-react": "1.0.1",
+    "@imaginary-cloud/prettier-config": "^1.0.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "electron-is-dev": "^1.2.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
-  },
-  "devDependencies": {
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.2",
-    "electron": "^9.2.0",
     "electron-builder": "^22.8.0",
+    "eslint-config-airbnb": "18.1.0",
+    "eslint-config-prettier": "6.10.1",
+    "eslint-plugin-import": "2.20.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-prettier": "3.1.3",
+    "eslint-plugin-react": "7.19.0",
+    "eslint-plugin-react-hooks": "2.5.1",
+    "prettier": "^2.0.5",
+    "react-scripts": "3.4.1",
     "wait-on": "^5.2.0"
   },
   "browserslist": "last 1 electron version",
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "@imaginary-cloud/react"
   },
+  "prettier": "@imaginary-cloud/prettier-config",
   "homepage": "./",
   "build": {
     "appId": "io.github.2done.2do-electron",
