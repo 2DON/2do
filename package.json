@@ -2,6 +2,8 @@
   "name": "2do",
   "version": "0.1.0",
   "main": "public/electron.js",
+  "description": "A complete todo app for you or your company",
+  "author": "2DON (https://github.com/2DON)",
   "private": true,
   "scripts": {
     "dev": "concurrently \"yarn react:dev\" \"wait-on http://localhost:3000 && yarn electron:dev\"",
@@ -47,7 +49,7 @@
   "prettier": "@imaginary-cloud/prettier-config",
   "homepage": "./",
   "build": {
-    "appId": "io.github.2done.2do-electron",
+    "appId": "io.github.2don.2do-electron",
     "files": [
       "build/**/*",
       "node_modules/**/*"
