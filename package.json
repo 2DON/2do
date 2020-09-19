@@ -8,16 +8,19 @@
   "scripts": {
     "dev": "concurrently \"yarn react:dev\" \"wait-on http://localhost:3000 && yarn electron:dev\"",
     "react:dev": "cross-env BROWSER=none react-scripts start",
-    "react:build": "react-scripts build",
+    "prereact:build": "yarn run lint:fix",
+    "react:build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
     "electron:dev": "electron .",
-    "preelectron:pack": "yarn react:build",
-    "electron:pack": "electron-builder",
+    "electron:build": "electron-builder",
+    "prebuild": "yarn run react:build",
+    "build": "yarn run electron:build",
     "lint": "eslint . --ignore-path .gitignore --ext .js,.jsx --cache",
-    "lint:fix": "yarn lint --fix",
+    "lint:fix": "yarn run lint --fix",
     "postlint:fix": "prettier --ignore-path .gitignore --single-quote --write ./**/*.{js,jsx,json,html,css,less,scss,yml}"
   },
   "dependencies": {
     "electron-is-dev": "^1.2.0",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
