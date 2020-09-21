@@ -2,9 +2,7 @@ import React from 'react'
 import './App.scss'
 import Routes from './Routes'
 
-// TODO: nodesas native dep?
-// TODO: icon
-// TODO: Back Button
+// TODO: window title and icon, installer icon
 
 function App() {
   return <Routes />
