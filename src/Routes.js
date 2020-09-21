@@ -1,8 +1,10 @@
 import React from 'react'
-import Start from './pages/start/Start'
+import SignIn from './pages/signin/SignIn'
+
+// TODO: React-Router
 
 function Routes() {
-  return <Start />
+  return <SignIn />
 }
 
 export default Routes

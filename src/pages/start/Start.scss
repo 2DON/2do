@@ -1,5 +1,23 @@
-#root {
+.Start {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.Start {
+  width: 272px;
+
+  & .logo {
+    width: 100%;
+  }
+
+  & button {
+    margin-top: 1em;
+    width: 92%;
+  }
+
+  & p {
+    margin-top: 1em;
+  }
 }
