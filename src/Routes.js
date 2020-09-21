@@ -1,10 +1,10 @@
 import React from 'react'
-import SignIn from './pages/signin/SignIn'
+import SignUp from './pages/signup/SignUp'
 
 // TODO: React-Router
 
 function Routes() {
-  return <SignIn />
+  return <SignUp />
 }
 
 export default Routes
