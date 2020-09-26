@@ -84,10 +84,10 @@ $baseline: 16px;
       letter-spacing: 0.4px;
       padding-left: $baseline;
     }
+  }
 
-    &.invalid span,
-    & input:not(:valid) + label + span {
-      color: var(--error);
-    }
+  &.invalid div span,
+  & div input:not(:valid) + label + span {
+    color: var(--error);
   }
 }

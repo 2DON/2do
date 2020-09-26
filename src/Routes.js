@@ -7,7 +7,7 @@ import Start from './pages/start/Start'
 import { useAuth } from './services/AuthService'
 
 function Routes() {
-  const authorized = useAuth()
+  const [authorized] = useAuth()
 
   return (
     <Router>

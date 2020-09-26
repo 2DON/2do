@@ -14,14 +14,14 @@ function createWindow() {
     height: 600,
     webPreferences: {
       worldSafeExecuteJavaScript: true,
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.resolve(__dirname, 'preload.js'),
     },
   })
 
   mainWindow.loadURL(
     isDev
       ? 'http://localhost:3000'
-      : `file://${path.join(__dirname, '..', 'build', 'index.html')}`,
+      : `file://${path.resolve(__dirname, 'index.html')}`,
   )
   mainWindow.on('closed', () => {
     mainWindow = null

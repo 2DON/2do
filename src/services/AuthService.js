@@ -1,23 +1,47 @@
 import { useEffect, useState } from 'react'
+import { API_URL, TOKEN_HEADER } from '../config'
 
-export function unauthorized(status) {
-  if (status !== 403) return
+let updateAccountInfo
 
-  window.setAuthorized(false)
+/**
+ * Asks to the API if this email is in use
+ *
+ * @param {string} email
+ * @returns true if the email is in use
+ */
+export async function exists(email) {
+  return window
+    .fetch(`${API_URL}/accounts/exists/${encodeURIComponent(email)}`)
+    .then((res) => res.json())
+}
+
+export function signOut() {
+  sessionStorage.removeItem(TOKEN_HEADER)
+  updateAccountInfo(undefined)
+}
+
+export async function signIn(email, password) {
+  const response = await fetch(`${API_URL}/accounts/sign-in`, {
+    method: 'POST',
+    body: { email, password },
+  })
+
+  if (response.ok) {
+    sessionStorage.setItem(TOKEN_HEADER, response.headers.get(TOKEN_HEADER))
+    updateAccountInfo(
+      await fetch(`${API_URL}/accounts/info`).then((res) => res.json()),
+    )
+  }
+
+  return response.status
 }
 
 export function useAuth() {
-  const [authorized, setAuthorized] = useState(false)
+  const [_accountInfo, _updateAccountInfo] = useState(undefined)
 
   useEffect(() => {
-    window.setAuthorized = setAuthorized
+    updateAccountInfo = _updateAccountInfo
   }, [])
 
-  return authorized
-}
-
-export async function signOut() {
-  fetch('localhost:8080/accounts/sign-out').then(() => {
-    window.setAuthorized(false)
-  })
+  return [_accountInfo !== undefined, _accountInfo]
 }

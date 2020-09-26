@@ -51,7 +51,18 @@
   },
   "browserslist": "last 1 electron version",
   "eslintConfig": {
-    "extends": "@imaginary-cloud/react"
+    "extends": "@imaginary-cloud/react",
+    "rules": {
+      "no-console": [
+        "warn",
+        {
+          "allow": [
+            "warn",
+            "error"
+          ]
+        }
+      ]
+    }
   },
   "prettier": "@imaginary-cloud/prettier-config",
   "homepage": "./",

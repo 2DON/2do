@@ -10,6 +10,7 @@ function Input({
   pattern,
   invalid,
   message,
+  onChange,
   min,
   max,
 }) {
@@ -25,6 +26,7 @@ function Input({
           minLength={min}
           maxLength={max}
           placeholder=" "
+          onChange={onChange}
         />
         <label htmlFor={id}>{placeholder}</label>
         <span>{message}</span>
@@ -59,6 +61,7 @@ Input.propTypes = {
   pattern: PropTypes.string,
   invalid: PropTypes.bool,
   message: PropTypes.string,
+  onChange: PropTypes.func,
   min: PropTypes.number,
   max: PropTypes.number,
 }
@@ -69,6 +72,7 @@ Input.defaultProps = {
   pattern: undefined,
   invalid: false,
   message: '',
+  onChange: undefined,
   min: undefined,
   max: undefined,
 }
