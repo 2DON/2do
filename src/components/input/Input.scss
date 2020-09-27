@@ -1,0 +1,93 @@
+$baseline: 16px;
+
+.Input {
+  border-radius: 4px 4px 0px 0px;
+  overflow: hidden;
+  font-size: 16px;
+  width: 100%;
+  height: 72px;
+  margin: 8px 0;
+
+  & div {
+    position: relative;
+    width: 100%;
+    height: 56px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+
+      background: var(--surface-overlay);
+      opacity: 0.08;
+    }
+
+    &:hover::after {
+      opacity: 0.12;
+    }
+
+    & label {
+      font-size: 1em;
+      color: var(--on-surface-medium);
+
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      transform: translateY(-50%);
+
+      padding-left: $baseline;
+      pointer-events: none;
+
+      transition: all 0.3s ease;
+    }
+
+    & input {
+      background-color: transparent;
+      font-size: 1em;
+      width: 100%;
+      height: 100%;
+      padding-top: 1.2em;
+      padding-bottom: 0.2em;
+      padding-left: $baseline;
+
+      &:focus + label,
+      &:not(:placeholder-shown) + label {
+        font-size: 0.8em;
+        transform: translateY(0%);
+        top: 8%;
+      }
+
+      &:hover {
+        background: var(--surface-overlay-hover);
+        border-bottom: 1px solid var(--on-surface-medium);
+      }
+
+      &:focus {
+        border-bottom: 1px solid var(--primary-200);
+      }
+
+      &:focus + label {
+        color: var(--primary-200);
+      }
+    }
+
+    & span {
+      color: var(--on-surface-medium);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+      letter-spacing: 0.4px;
+      padding-left: $baseline;
+    }
+  }
+
+  &.invalid div span,
+  & div input:not(:valid) + label + span {
+    color: var(--error);
+  }
+}

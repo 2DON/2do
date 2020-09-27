@@ -5,6 +5,8 @@
     "dbaeumer.vscode-eslint",
     "eamodio.gitlens",
     "EditorConfig.EditorConfig",
-    "VisualStudioExptTeam.vscodeintellicode"
+    "VisualStudioExptTeam.vscodeintellicode",
+    "fabiospampinato.vscode-todo-plus",
+    "visualstudioexptteam.vscodeintellicode"
   ]
 }

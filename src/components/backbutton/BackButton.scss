@@ -1,0 +1,19 @@
+.BackButton {
+  display: flex;
+
+  border-radius: 50%;
+  background-color: rgba($color: #fff, $alpha: 0.2);
+
+  &:hover {
+    background-color: rgba($color: #fff, $alpha: 0.25);
+  }
+
+  &:focus:not(:active) {
+    border: 1px solid #fff;
+    background-color: rgba($color: #fff, $alpha: 0.12);
+  }
+
+  &:active {
+    background-color: rgba($color: #fff, $alpha: 0.1);
+  }
+}
