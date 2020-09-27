@@ -4,16 +4,16 @@ import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import SignIn from './pages/signin/SignIn'
 import SignUp from './pages/signup/SignUp'
 import Start from './pages/start/Start'
-import { useAuth } from './services/AuthService'
+import { useAccountInfo } from './services/AuthService'
 
 function Routes() {
-  const [authorized] = useAuth()
+  const [authorized, accountInfo] = useAccountInfo()
 
   return (
     <Router>
       <Switch>
         <ProtectedRoute path="/app" authorized={authorized}>
-          <h1>Authorized!</h1>
+          <pre style={{ fontSize: 36 }}>{JSON.stringify(accountInfo)}</pre>
         </ProtectedRoute>
 
         <Route path="/home">

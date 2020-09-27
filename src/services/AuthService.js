@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { API_URL, TOKEN_HEADER } from '../config'
 
+let accountInfo
 let updateAccountInfo
 
 /**
@@ -37,11 +38,9 @@ export async function signIn(email, password) {
 }
 
 export function useAuth() {
-  const [_accountInfo, _updateAccountInfo] = useState(undefined)
+  ;[accountInfo, updateAccountInfo] = useState(undefined)
+}
 
-  useEffect(() => {
-    updateAccountInfo = _updateAccountInfo
-  }, [])
-
-  return [_accountInfo !== undefined, _accountInfo]
+export function useAccountInfo() {
+  return [accountInfo !== undefined, accountInfo]
 }
