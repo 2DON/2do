@@ -13,7 +13,7 @@ function Routes() {
     <Router>
       <Switch>
         <ProtectedRoute path="/app" authorized={authorized}>
-          <pre style={{ fontSize: 36 }}>{JSON.stringify(accountInfo)}</pre>
+          <pre>{JSON.stringify(accountInfo, undefined, 2)}</pre>
         </ProtectedRoute>
 
         <Route path="/home">

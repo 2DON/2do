@@ -1,52 +1,39 @@
-const { TOKEN_HEADER, TOKEN_EXPIRED_VALUE, API_URL } = require('./config')
-const { signOut } = require('./services/AuthService')
+const { API_URL } = require('./config')
+const { checkAuth, addAuth } = require('./services/AuthService')
+
+const rawFetch = window.fetch.bind(window)
 
 /**
- * Checks if the response sinalizes a invalid token
  *
- * @param {Response} response
+ * @param {String} url
+ * @param {RequestInit} init
+ * @param {boolean} auth true will add Authorization header
  */
-function checkAuth(response) {
-  const header = response.headers.get(TOKEN_HEADER)
+function fetch(url, init, auth = true) {
+  // eslint-disable-next-line no-param-reassign
+  init = init || {}
 
-  if (header && header === TOKEN_EXPIRED_VALUE) {
-    signOut()
-    throw new Error(`Invalid token recieved at '${response.url}', signing out`)
+  const injectHeaders = !init.headers || init.headers instanceof Headers
+
+  // add Authorization header
+  if (injectHeaders && auth && url.startsWith(API_URL)) {
+    // eslint-disable-next-line no-param-reassign
+    init.headers = addAuth(init.headers || new Headers())
   }
 
-  return response
-}
-
-;(() => {
-  const rawFetch = window.fetch.bind(window)
-
-  /**
-   *
-   * @param {String} url
-   * @param {RequestInit} init
-   */
-  function fetch(url, init) {
+  if (init.body) {
     // eslint-disable-next-line no-param-reassign
-    init = init || {}
+    init.body = JSON.stringify(init.body)
 
-    if (
-      url &&
-      url.startsWith(API_URL) &&
-      sessionStorage.getItem(TOKEN_HEADER)
-    ) {
+    if (injectHeaders) {
       const headers = init.headers || new Headers()
-      headers.append(TOKEN_HEADER, sessionStorage.getItem(TOKEN_HEADER))
+      headers.append('Content-Type', 'application/json')
       // eslint-disable-next-line no-param-reassign
       init.headers = headers
     }
-
-    if (init.body) {
-      // eslint-disable-next-line no-param-reassign
-      init.body = JSON.stringify(init.body)
-    }
-
-    return rawFetch(url, init).then(checkAuth)
   }
 
-  window.fetch = fetch
-})()
+  return rawFetch(url, init).then(checkAuth)
+}
+
+window.fetch = fetch

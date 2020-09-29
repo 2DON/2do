@@ -9,13 +9,17 @@ import './SignIn.scss'
 
 function SignIn() {
   const history = useHistory()
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState()
 
   async function handleSubmit(event) {
     event.preventDefault()
+    if (errors) return
+
     const form = new FormData(event.target)
 
-    switch (await signIn(form.get('email'), form.get('password'))) {
+    switch (
+      await signIn(form.get('email').trim(), form.get('password').trim())
+    ) {
       case 200:
         history.push('/app')
         break
@@ -28,10 +32,6 @@ function SignIn() {
       default:
         console.error('unknown error at sign-in')
     }
-  }
-
-  function clearMessage() {
-    setErrors({})
   }
 
   return (
@@ -48,19 +48,19 @@ function SignIn() {
           type="email"
           required
           pattern={emailPattern}
-          onChange={errors.email ? clearMessage : undefined}
-          invalid={!!errors.email}
-          message={errors.email}
+          onChange={errors?.email && (() => setErrors())}
+          invalid={!!errors?.email}
+          message={errors?.email}
         />
         <Input
           placeholder="Senha"
           id="password"
           type="password"
-          min={4}
+          min={8}
           required
-          onChange={errors.password ? clearMessage : undefined}
-          invalid={!!errors.password}
-          message={errors.password}
+          onChange={errors?.password && (() => setErrors())}
+          invalid={!!errors?.password}
+          message={errors?.password}
         />
         <button type="submit" className="primary">
           ENTRAR

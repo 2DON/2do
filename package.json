@@ -52,6 +52,9 @@
   "browserslist": "last 1 electron version",
   "eslintConfig": {
     "extends": "@imaginary-cloud/react",
+    "parserOptions": {
+      "ecmaVersion": 2020
+    },
     "rules": {
       "no-console": [
         "warn",
