@@ -1,27 +1,4 @@
-:root {
-  --surface: #121212;
-  --surface-overlay: #ffffff;
-  --on-surface: #ffffff;
-  --on-surface-medium: #ffffff60;
-  --on-surface-disabled: #ffffff26;
-
-  --primary: #bb86fc;
-  --primary-100: #f2e7fe;
-  --primary-200: var(--primary);
-  --primary-300: #985eff;
-  --primary-400: #7f39fb;
-  --primary-500: #6200ee;
-  --primary-600: #5600e8;
-  --primary-700: #3700b3;
-  --primary-800: #30009c;
-  --primary-900: #23036a;
-  --primary-overlay: #fff;
-  --on-primary: #000000;
-  --on-primary-medium: #0000003c;
-  --on-primary-disabled: #00000026;
-
-  --error: #cf6679;
-}
+@import 'styles/colors';
 
 body,
 input,
@@ -32,8 +9,8 @@ button {
   line-height: 1.2em;
   letter-spacing: 0.5px;
 
-  background-color: var(--surface);
-  color: var(--on-surface);
+  background-color: $surface;
+  color: $on-surface;
 }
 
 h1 {
@@ -99,7 +76,7 @@ button {
     z-index: 0;
     pointer-events: none;
 
-    background: var(--surface-overlay);
+    background: $surface-overlay;
     opacity: 0;
   }
 
@@ -108,7 +85,7 @@ button {
   }
 
   &:focus:not(:active) {
-    border: 1px solid var(--surface-overlay);
+    border: 1px solid $surface-overlay;
   }
 
   &:focus::after:not(:active) {
@@ -120,15 +97,28 @@ button {
   }
 
   &.primary {
-    background-color: var(--primary);
-    color: var(--on-primary);
+    background-color: $primary;
+    color: $on-primary;
 
     &::after {
-      background: var(--primary-overlay);
+      background: $primary-overlay;
     }
 
     &:focus:not(:active) {
-      border: 1px solid var(--primary-overlay);
+      border: 1px solid $primary-overlay;
+    }
+  }
+
+  &.outlined {
+    color: $primary;
+    border: 1px solid rgba($primary-overlay, 0.12);
+
+    &::after {
+      background: $primary-overlay;
+    }
+
+    &:focus:not(:active) {
+      border: 1px solid $primary-overlay;
     }
   }
 }

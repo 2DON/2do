@@ -30,7 +30,7 @@ function SignUp() {
 
     switch (await signUp(email, password)) {
       case 201:
-        signIn(email, password).then(() => history.push('/app'))
+        signIn(email, password).then(() => history.push('/sign-up/first-steps'))
         break
       case 409:
         setErrors({ email: 'email em uso' })

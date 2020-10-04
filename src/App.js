@@ -1,5 +1,4 @@
 import React from 'react'
-import './App.scss'
 import Routes from './Routes'
 import { useAuth } from './services/AuthService'
 

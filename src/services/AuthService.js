@@ -113,3 +113,21 @@ export function signOut() {
   sessionStorage.removeItem(TOKEN_HEADER)
   updateAccountInfo(undefined)
 }
+
+/**
+ * FIXME: avatar as file / multipart form data
+ *
+ * @param {{email?: string, password?: string, name?: string, options?: string, avatar?: string}} changes
+ */
+export async function edit(changes) {
+  const response = await fetch(`${API_URL}/accounts/edit`, {
+    method: 'PATCH',
+    body: changes,
+  })
+
+  if (response.ok) {
+    updateAccountInfo(await response.json())
+  }
+
+  return response.status
+}

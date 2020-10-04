@@ -1,12 +1,13 @@
 {
   "recommendations": [
-    "2gua.rainbow-brackets",
     "aaron-bond.better-comments",
     "dbaeumer.vscode-eslint",
     "eamodio.gitlens",
-    "EditorConfig.EditorConfig",
-    "VisualStudioExptTeam.vscodeintellicode",
+    "editorconfig.editorconfig",
+    "visualstudioexptteam.vscodeintellicode",
     "fabiospampinato.vscode-todo-plus",
-    "visualstudioexptteam.vscodeintellicode"
+    "christian-kohler.path-intellisense",
+    "naumovs.color-highlight",
+    "coenraads.bracket-pair-colorizer-2"
   ]
 }
