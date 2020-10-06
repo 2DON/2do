@@ -1,0 +1,50 @@
+@import '../../../styles/colors';
+
+.FirstSteps.SetupAvatar {
+  & .avatar label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 4px;
+    padding: 1em;
+
+    transition: background-color 0.3s ease;
+
+    img {
+      width: 100%;
+      max-width: clamp(128px, 35vh, 512px);
+      max-height: clamp(128px, 35vh, 512px);
+    }
+
+    span {
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 17x;
+      line-height: 1.2em;
+      letter-spacing: 1.25px;
+
+      margin-top: 0.75em;
+    }
+
+    .message {
+      font-size: 13px;
+      margin-top: 0.1em;
+
+      transition: all 0.3s ease;
+
+      color: $on-surface-medium;
+
+      &.wrong {
+        font-size: 15px;
+        margin-top: 0.3em;
+        color: $error;
+      }
+    }
+
+    &:hover {
+      background-color: $surface-overlay-hover;
+    }
+  }
+}

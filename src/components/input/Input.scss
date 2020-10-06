@@ -1,3 +1,4 @@
+@import '../../styles/colors';
 $baseline: 16px;
 
 .Input {
@@ -6,34 +7,26 @@ $baseline: 16px;
   font-size: 16px;
   width: 100%;
   height: 72px;
-  margin: 8px 0;
+
+  & + & {
+    margin-top: 0.5em;
+  }
 
   & div {
     position: relative;
     width: 100%;
     height: 56px;
 
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
+    transition: background-color 0.3s ease;
+    background-color: rgba($surface-overlay, 0.06);
 
-      background: var(--surface-overlay);
-      opacity: 0.08;
-    }
-
-    &:hover::after {
-      opacity: 0.12;
+    &:hover {
+      background-color: $surface-overlay-hover;
     }
 
     & label {
       font-size: 1em;
-      color: var(--on-surface-medium);
+      color: $on-surface-medium;
 
       position: absolute;
       top: 50%;
@@ -55,6 +48,8 @@ $baseline: 16px;
       padding-bottom: 0.2em;
       padding-left: $baseline;
 
+      transition: background-color 0.3s ease;
+
       &:focus + label,
       &:not(:placeholder-shown) + label {
         font-size: 0.8em;
@@ -63,21 +58,22 @@ $baseline: 16px;
       }
 
       &:hover {
-        background: var(--surface-overlay-hover);
-        border-bottom: 1px solid var(--on-surface-medium);
+        background-color: rgba($surface-overlay, 0.06);
+        border-bottom: 1px solid $on-surface-medium;
       }
 
       &:focus {
-        border-bottom: 1px solid var(--primary-200);
+        background-color: rgba($surface-overlay, 0.06);
+        border-bottom: 1px solid $primary-200;
       }
 
       &:focus + label {
-        color: var(--primary-200);
+        color: $primary-200;
       }
     }
 
     & span {
-      color: var(--on-surface-medium);
+      color: $on-surface-medium;
       font-weight: 400;
       font-size: 14px;
       line-height: 16px;
@@ -88,6 +84,6 @@ $baseline: 16px;
 
   &.invalid div span,
   & div input:not(:valid) + label + span {
-    color: var(--error);
+    color: $error;
   }
 }

@@ -1,0 +1,29 @@
+.FullScreenQuestion {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+
+  & h2 {
+    margin-top: 1.5em;
+  }
+
+  & .Input {
+    max-width: 50%;
+  }
+
+  & .options {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 1.75em;
+
+    & button {
+      max-width: 286px;
+      margin: 0 0.75em;
+    }
+  }
+}
