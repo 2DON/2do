@@ -36,7 +36,9 @@ function SetupName() {
     event.preventDefault()
     const form = new FormData(event.target)
 
-    if ((await edit({ name: form.get('name').trim() })) === 200) {
+    form.set('name', form.get('name').trim())
+
+    if ((await edit(form)) === 200) {
       history.push(next)
     } else {
       console.error('unknown error at first-steps/name')
@@ -73,15 +75,15 @@ function SetupAvatar() {
   const history = useHistory()
 
   const [preview, setPreview] = useState(person)
+  const [wrong, setWrong] = useState(false)
 
   async function handleSubmit(event) {
     event.preventDefault()
-    const form = new FormData(event.target)
+    const formData = new FormData(event.target)
 
-    const avatar = form.get('avatar')
-    if (!avatar.path) history.push(next)
+    if (!preview) history.push(next)
 
-    if ((await edit({ avatar })) === 200) {
+    if ((await edit(formData)) === 200) {
       history.push(next)
     } else {
       console.error('unknown error at first-steps/avatar')
@@ -102,13 +104,24 @@ function SetupAvatar() {
             accept="image/x-png,image/jpeg"
             name="avatar"
             onChange={(event) => {
-              if (event.target.files)
-                setPreview(URL.createObjectURL(event.target.files[0]))
+              if (!event.target.files || event.target.files.length < 1) return
+
+              const [image] = event.target.files
+
+              if (image.size > /* 900KB */ 900000) {
+                setWrong(true)
+                return
+              }
+
+              setWrong(false)
+              setPreview(URL.createObjectURL(image))
             }}
           />
-
-          <img src={preview} alt="avatar" />
+          <img src={preview || person} alt="avatar" />
           <span>SELECIONAR AVATAR</span>
+          <p className={`message ${wrong ? 'wrong' : ''}`}>
+            tamanho maximo 900KB
+          </p>
         </label>
       </div>
       <div className="options">

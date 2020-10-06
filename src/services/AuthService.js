@@ -12,7 +12,7 @@ export function useAuth() {
 }
 
 /**
- * @returns {[boolean, Account]}
+ * @returns {[boolean, {id: number, email: string, name: string, avatarUrl?: string, premium: boolean, options?: string, deleteRequest?: Date, createdAt: Date}]}
  */
 export function useAccountInfo() {
   return [accountInfo !== undefined, accountInfo]
@@ -38,14 +38,8 @@ export function checkAuth(response) {
  *
  * @param {Headers} email
  */
-export function addAuth(headers) {
-  const token = sessionStorage.getItem(TOKEN_HEADER)
-
-  if (token) {
-    headers.append(TOKEN_HEADER, token)
-  }
-
-  return headers
+export function getAuth() {
+  return { [TOKEN_HEADER]: sessionStorage.getItem(TOKEN_HEADER) }
 }
 
 /**
@@ -55,13 +49,11 @@ export function addAuth(headers) {
  * @returns {Promise<boolean>} true if the email is in use
  */
 export async function exists(email) {
-  return window
-    .fetch(
-      `${API_URL}/accounts/exists/${encodeURIComponent(email)}`,
-      undefined,
-      false,
-    )
-    .then((res) => res.json())
+  return fetch(
+    `${API_URL}/accounts/exists/${encodeURIComponent(email)}`,
+    undefined,
+    false,
+  ).then((res) => res.json())
 }
 
 /**
@@ -75,7 +67,8 @@ export async function signIn(email, password) {
     `${API_URL}/accounts/sign-in`,
     {
       method: 'POST',
-      body: { email, password },
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
     },
     false,
   )
@@ -101,7 +94,8 @@ export async function signUp(email, password) {
     `${API_URL}/accounts/sign-up`,
     {
       method: 'POST',
-      body: { email, password },
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
     },
     false,
   )

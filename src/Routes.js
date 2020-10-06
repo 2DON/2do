@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
+import person from './assets/person.svg'
 import SignIn from './pages/signin/SignIn'
 import FirstSteps from './pages/signup/firststeps/FirstSteps'
 import SignUp from './pages/signup/SignUp'
@@ -14,7 +15,19 @@ function Routes() {
     <Router>
       <Switch>
         <ProtectedRoute path="/app" authorized={authorized}>
-          <pre>{JSON.stringify(accountInfo, undefined, 2)}</pre>
+          <img
+            width="30%"
+            style={{ marginRight: '30px' }}
+            src={accountInfo?.avatarUrl || person}
+            alt=""
+          />
+          <pre>
+            {JSON.stringify(
+              { ...accountInfo, avatarUrl: undefined },
+              undefined,
+              2,
+            )}
+          </pre>
         </ProtectedRoute>
 
         <Route path="/home">
