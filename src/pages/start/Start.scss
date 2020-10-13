@@ -6,12 +6,6 @@
 }
 
 .Start {
-  width: 272px;
-
-  & .logo {
-    width: 100%;
-  }
-
   & button {
     margin-top: 1em;
     width: 92%;
@@ -20,5 +14,29 @@
   & p {
     margin-top: 1em;
     cursor: pointer;
+  }
+}
+
+@media screen and (min-width: 601px){
+
+
+  .Start {
+    width: 272px;
+
+    & .logo {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 600px){
+
+  .Start {
+    width: 85%;
+
+    & .logo {
+      opacity: 0;
+      height: 0;
+    }
   }
 }
