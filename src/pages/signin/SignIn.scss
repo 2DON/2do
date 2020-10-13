@@ -6,22 +6,15 @@
 
   .BackButton {
     position: absolute;
-
-    top: 100px;
-    left: 100px;
   }
 
-  & .logo {
-    width: 276px;
-  }
+  
 
   & form {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
-    width: 328px;
 
     & h2 {
       width: 100%;
@@ -35,5 +28,40 @@
     & p {
       margin-top: 1em;
     }
+  }
+}
+
+@media screen and (min-width: 701px){
+  .BackButton {
+    position: absolute;
+
+    top: 100px;
+    left: 100px;
+  }
+
+  & .logo {
+    width: 276px;
+  }
+
+  & form {
+    width: 328px;
+  }
+}
+
+@media screen and (max-width: 700px){
+  .BackButton {
+    position: absolute;
+
+    top: 9%;
+    left: 10%;
+  }
+
+  & .logo {
+    opacity: 0;
+    height: 0;
+  }
+
+  & form {
+    width: 85%;
   }
 }
