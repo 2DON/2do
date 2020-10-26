@@ -17,9 +17,7 @@
   }
 }
 
-@media screen and (min-width: 601px){
-
-
+@media screen and (min-width: 601px) {
   .Start {
     width: 272px;
 
@@ -29,14 +27,17 @@
   }
 }
 
-@media screen and (max-width: 600px){
-
+@media screen and (max-width: 600px) {
   .Start {
     width: 85%;
 
     & .logo {
-      opacity: 0;
-      height: 0;
+      // width: 75%;
+      height: 70%;
+    }
+
+    p.caption {
+      text-align: center;
     }
   }
 }
