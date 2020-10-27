@@ -6,38 +6,20 @@
 }
 
 .Start {
+  width: clamp(120px, 47vmin, 272px);
+
+  & .logo {
+    width: 100%;
+  }
+
   & button {
     margin-top: 1em;
-    width: 92%;
+    width: 100%;
   }
 
   & p {
     margin-top: 1em;
     cursor: pointer;
-  }
-}
-
-@media screen and (min-width: 601px) {
-  .Start {
-    width: 272px;
-
-    & .logo {
-      width: 100%;
-    }
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .Start {
-    width: 85%;
-
-    & .logo {
-      // width: 75%;
-      height: 70%;
-    }
-
-    p.caption {
-      text-align: center;
-    }
+    text-align: center;
   }
 }

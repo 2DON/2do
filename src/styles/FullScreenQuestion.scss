@@ -7,11 +7,11 @@
   flex-direction: column;
 
   & h2 {
-    margin-top: 1.5em;
+    margin-top: clamp(0.5em, 5vh, 1.5em);
   }
 
   & .Input {
-    max-width: 50%;
+    width: clamp(380px, 60%, 720px);
   }
 
   & .options {
@@ -19,6 +19,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding: 0 1.75em;
     margin-bottom: 1.75em;
 
     & button {
