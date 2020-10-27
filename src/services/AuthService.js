@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { API_URL, TOKEN_EXPIRED_VALUE, TOKEN_HEADER } from '../config'
 
+const ACCOUNT_INFO = 'Account-Info'
+
 let accountInfo
 let updateAccountInfo
 
@@ -8,7 +10,20 @@ let updateAccountInfo
  * Enables authentication, use on the main component
  */
 export function useAuth() {
-  ;[accountInfo, updateAccountInfo] = useState(undefined)
+  let initial
+  const token = sessionStorage.getItem(TOKEN_HEADER)
+  if (token && token !== TOKEN_EXPIRED_VALUE) {
+    initial = JSON.parse(sessionStorage.getItem(ACCOUNT_INFO))
+  }
+
+  const [state, update] = useState(initial)
+
+  function cacheAccountInfo(info) {
+    sessionStorage.setItem(ACCOUNT_INFO, JSON.stringify(info))
+    update(info)
+  }
+
+  ;[accountInfo, updateAccountInfo] = [state, cacheAccountInfo]
 }
 
 /**
@@ -104,7 +119,7 @@ export async function signUp(email, password) {
 }
 
 export function signOut() {
-  sessionStorage.removeItem(TOKEN_HEADER)
+  sessionStorage.setItem(TOKEN_HEADER, TOKEN_EXPIRED_VALUE)
   updateAccountInfo(undefined)
 }
 

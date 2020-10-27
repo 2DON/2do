@@ -1,8 +1,17 @@
 .BackButton {
   display: flex;
 
-  border-radius: 50%;
-  background-color: rgba($color: #fff, $alpha: 0.2);
+  position: absolute;
+  top: 2vmin;
+  left: 2vmin;
+  border-radius: 12%;
+
+  $size: 10vmin;
+
+  &, & img {
+    width: clamp(30px, $size, 72px);
+    height: clamp(30px, $size, 72px);
+  }
 
   &:hover {
     background-color: rgba($color: #fff, $alpha: 0.25);
@@ -16,4 +25,5 @@
   &:active {
     background-color: rgba($color: #fff, $alpha: 0.1);
   }
+
 }
