@@ -1,6 +1,6 @@
 // Modules to control application life and create native browser window
 // eslint-disable-next-line import/no-extraneous-dependencies
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Menu, MenuItem } = require('electron')
 const path = require('path')
 
 const isDev = require('electron-is-dev')
@@ -10,8 +10,11 @@ let mainWindow
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 858,
+    height: 480,
+    minHeight: 360,
+    minWidth: 480,
+    autoHideMenuBar: true,
     webPreferences: {
       worldSafeExecuteJavaScript: true,
       preload: path.resolve(__dirname, 'preload.js'),
@@ -27,8 +30,22 @@ function createWindow() {
     mainWindow = null
   })
 
-  if (isDev) mainWindow.webContents.openDevTools()
-  else mainWindow.removeMenu()
+  if (isDev) {
+    const menu = Menu.getApplicationMenu()
+    const view = menu.items[2]
+    view.submenu.append(new MenuItem({ type: 'separator' }))
+    view.submenu.append(
+      new MenuItem({
+        label: 'Always On Top',
+        type: 'checkbox',
+        checked: mainWindow.isAlwaysOnTop(),
+        click() {
+          mainWindow.setAlwaysOnTop(!mainWindow.isAlwaysOnTop())
+        },
+      }),
+    )
+    Menu.setApplicationMenu(menu)
+  } else mainWindow.removeMenu()
 }
 
 // allows only one instance at a time
