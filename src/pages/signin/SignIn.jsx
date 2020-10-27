@@ -1,14 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import logo from '../../assets/2DO.svg'
 import BackButton from '../../components/backbutton/BackButton'
 import Input from '../../components/input/Input'
-import { signIn } from '../../services/AuthService'
+import { AuthContext } from '../../context/AuthContext'
+import { info, signIn } from '../../services/AuthService'
 import { email as emailPattern } from '../../utils/Patterns'
 import './SignIn.scss'
 
 function SignIn() {
   const history = useHistory()
+  const [, setAccount] = useContext(AuthContext)
   const [errors, setErrors] = useState()
 
   async function handleSubmit(event) {
@@ -21,6 +23,7 @@ function SignIn() {
       await signIn(form.get('email').trim(), form.get('password').trim())
     ) {
       case 200:
+        setAccount(await info())
         history.push('/app')
         break
       case 404:

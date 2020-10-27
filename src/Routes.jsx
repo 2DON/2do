@@ -1,32 +1,28 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useContext } from 'react'
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import person from './assets/person.svg'
+import { AuthContext } from './context/AuthContext'
 import SignIn from './pages/signin/SignIn'
 import FirstSteps from './pages/signup/firststeps/FirstSteps'
 import SignUp from './pages/signup/SignUp'
 import Start from './pages/start/Start'
-import { useAccountInfo } from './services/AuthService'
 
 function Routes() {
-  const [authorized, accountInfo] = useAccountInfo()
+  const [account] = useContext(AuthContext)
 
   return (
     <Router>
       <Switch>
-        <ProtectedRoute path="/app" authorized={authorized}>
+        <ProtectedRoute path="/app" authorized={!!account}>
           <img
             width="30%"
             style={{ marginRight: '30px' }}
-            src={accountInfo?.avatarUrl || person}
+            src={account?.avatarUrl || person}
             alt=""
           />
           <pre>
-            {JSON.stringify(
-              { ...accountInfo, avatarUrl: undefined },
-              undefined,
-              2,
-            )}
+            {JSON.stringify({ ...account, avatarUrl: undefined }, null, 2)}
           </pre>
         </ProtectedRoute>
 
@@ -36,14 +32,14 @@ function Routes() {
         <Route path="/sign-in">
           <SignIn />
         </Route>
-        <ProtectedRoute path="/sign-up/first-steps" authorized={authorized}>
+        <ProtectedRoute path="/sign-up/first-steps" authorized={!!account}>
           <FirstSteps />
         </ProtectedRoute>
         <Route path="/sign-up">
           <SignUp />
         </Route>
 
-        <Redirect to={authorized ? '/home' : '/app'} />
+        <Redirect to={account ? '/home' : '/app'} />
       </Switch>
     </Router>
   )

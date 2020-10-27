@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import logo from '../../assets/2DO.svg'
 import BackButton from '../../components/backbutton/BackButton'
 import Input from '../../components/input/Input'
-import { exists, signIn, signUp } from '../../services/AuthService'
+import { AuthContext } from '../../context/AuthContext'
+import { exists, info, signIn, signUp } from '../../services/AuthService'
 import { email as emailPattern } from '../../utils/Patterns'
 import timed from '../../utils/timed'
 import './SignUp.scss'
 
 function SignUp() {
   const history = useHistory()
+  const [, setAccount] = useContext(AuthContext)
   const [errors, setErrors] = useState()
 
   async function handleSubmit(event) {
@@ -30,7 +32,10 @@ function SignUp() {
 
     switch (await signUp(email, password)) {
       case 201:
-        signIn(email, password).then(() => history.push('/sign-up/first-steps'))
+        await signIn(email, password).then(async () => {
+          setAccount(await info())
+          history.push('/sign-up/first-steps')
+        })
         break
       case 409:
         setErrors({ email: 'email em uso' })

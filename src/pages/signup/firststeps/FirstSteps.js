@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   Redirect,
   Route,
@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom'
 import person from '../../../assets/person.svg'
 import Input from '../../../components/input/Input'
+import { AuthContext } from '../../../context/AuthContext'
 import { edit } from '../../../services/AuthService'
 import '../../../styles/FullScreenQuestion.scss'
 import './FirstSteps.scss'
@@ -30,15 +31,18 @@ function FirstSteps() {
 
 function SetupName() {
   const next = '/sign-up/first-steps/avatar'
+  const [, setAccount] = useContext(AuthContext)
   const history = useHistory()
 
   async function handleSubmit(event) {
     event.preventDefault()
-    const form = new FormData(event.target)
+    const formData = new FormData(event.target)
 
-    form.set('name', form.get('name').trim())
+    formData.set('name', formData.get('name').trim())
 
-    if ((await edit(form)) === 200) {
+    const response = await edit(formData)
+    if (response.status === 200) {
+      setAccount(await response.json())
       history.push(next)
     } else {
       console.error('unknown error at first-steps/name')
@@ -72,6 +76,7 @@ function SetupName() {
 
 function SetupAvatar() {
   const next = '/app'
+  const [, setAccount] = useContext(AuthContext)
   const history = useHistory()
 
   const [preview, setPreview] = useState(person)
@@ -83,7 +88,9 @@ function SetupAvatar() {
 
     if (!preview) history.push(next)
 
-    if ((await edit(formData)) === 200) {
+    const response = await edit(formData)
+    if (response.status === 200) {
+      setAccount(await response.json())
       history.push(next)
     } else {
       console.error('unknown error at first-steps/avatar')
