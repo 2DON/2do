@@ -1,12 +1,23 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React from 'react'
+import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import logo from '../../assets/2DO.svg'
+import { AuthContext } from '../../context/AuthContext'
 import './Start.scss'
 
 function Start() {
   const history = useHistory()
+  const [, setAccount] = useContext(AuthContext)
+
+  // React.useState(() => {
+  //   if (token.exists()) {
+  //     info().then((account) => {
+  //       setAccount(account)
+  //       history.push('/app')
+  //     })
+  //   }
+  // }, [setAccount])
 
   return (
     <div className="Start">

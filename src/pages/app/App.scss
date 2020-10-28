@@ -1,0 +1,55 @@
+.App {
+
+  display: flex;
+
+  width: 100vw;
+  height: 100vh;
+
+  .Sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    background-color: gray;
+    width: clamp(72px, 10vw, 86px);
+    height: 100vh;
+
+    .Icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: clamp(52px, 8vw, 70px);
+      height: clamp(52px, 8vw, 70px);
+      margin-top: 10px;
+      border-radius: 12%;
+      background-color: red;
+
+      & img {
+        width: 100%;
+      }
+
+      .selected {
+        background-color: white;
+      }
+    }
+
+    .Icon:nth-child(1) {
+      margin-bottom: 10px;
+    }
+
+    .separator {
+      background-color: white;
+      width: 75%;
+      height: 2px;
+      border-radius: 100%;
+    }
+  }
+
+  main {
+    background-color: pink;
+    width: 100%;
+    height: 100vh;
+  }
+}

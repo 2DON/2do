@@ -1,6 +1,19 @@
 import { API_URL, TOKEN_EXPIRED_VALUE, TOKEN_HEADER } from '../config'
 
-let JWT_TOKEN
+export const token = {
+  set(_token) {
+    sessionStorage.setItem(TOKEN_HEADER, _token)
+  },
+  get() {
+    return sessionStorage.getItem(TOKEN_HEADER)
+  },
+  exists() {
+    // eslint-disable-next-line no-underscore-dangle
+    const _token = this.get()
+
+    return !!_token && _token !== TOKEN_EXPIRED_VALUE
+  },
+}
 
 /**
  * Checks if the response sinalizes a invalid token
@@ -24,7 +37,7 @@ export function checkAuth(response) {
  * @returns {{[TOKEN_HEADER]: string}}
  */
 export function getAuth() {
-  return { [TOKEN_HEADER]: JWT_TOKEN }
+  return { [TOKEN_HEADER]: token.get() }
 }
 
 /**
@@ -75,7 +88,7 @@ export async function signIn(email, password) {
   )
 
   if (response.ok) {
-    JWT_TOKEN = response.headers.get(TOKEN_HEADER)
+    token.set(response.headers.get(TOKEN_HEADER))
   }
 
   return response.status
@@ -102,7 +115,7 @@ export async function signUp(email, password) {
 }
 
 export function signOut() {
-  JWT_TOKEN = undefined
+  token.set(null)
 }
 
 /**
