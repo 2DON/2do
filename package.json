@@ -65,20 +65,5 @@
     "directories": {
       "buildResources": "assets"
     }
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": [
-        "lint-staged"
-      ]
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx}": [
-      "eslint --fix"
-    ],
-    "*.{md,mdx,js,jsx,json,html,css,less,scss,yaml,yml}": [
-      "prettier --write"
-    ]
   }
 }
