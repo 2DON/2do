@@ -6,7 +6,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import { AuthContext } from './context/AuthContext';
+import AuthContext from './context/AuthContext';
 import App from './pages/app/App';
 import SignIn from './pages/signin/SignIn';
 import FirstSteps from './pages/signup/firststeps/FirstSteps';

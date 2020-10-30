@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import logo from '../../assets/2DO.svg';
 import BackButton from '../../components/backbutton/BackButton';
 import Input from '../../components/input/Input';
-import { AuthContext } from '../../context/AuthContext';
+import AuthContext from '../../context/AuthContext';
 import { exists, info, signIn, signUp } from '../../services/AuthService';
 import { email as emailPattern } from '../../utils/Patterns';
 import timed from '../../utils/timed';

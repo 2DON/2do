@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 import person from '../../../assets/person.svg';
 import Input from '../../../components/input/Input';
-import { AuthContext } from '../../../context/AuthContext';
+import AuthContext from '../../../context/AuthContext';
 import { edit } from '../../../services/AuthService';
 import '../../../styles/FullScreenQuestion.scss';
 import './FirstSteps.scss';

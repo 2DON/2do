@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import person from '../../assets/person.svg';
-import { AuthContext } from '../../context/AuthContext';
+import AuthContext from '../../context/AuthContext';
 import './App.scss';
 
 const App: React.FC = () => {
