@@ -1,5 +1,7 @@
 import { app, BrowserWindow, Menu, MenuItem } from 'electron';
-import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer";
+import installExtension, {
+  REACT_DEVELOPER_TOOLS,
+} from 'electron-devtools-installer';
 import * as isDev from 'electron-is-dev';
 
 let win: BrowserWindow | null = null;
@@ -13,9 +15,9 @@ function createWindow() {
     autoHideMenuBar: true,
     webPreferences: {
       worldSafeExecuteJavaScript: true,
-      nodeIntegration: true
-    }
-  })
+      nodeIntegration: true,
+    },
+  });
 
   if (isDev) {
     /* DEVELOPMENT */
@@ -35,11 +37,11 @@ function createWindow() {
       type: 'checkbox',
       checked: win.isAlwaysOnTop(),
       click() {
-        win?.setAlwaysOnTop(!win.isAlwaysOnTop())
-      }
-    })
-    menu?.items?.[3]?.submenu?.insert?.(0, alwaysOnTop)
-    Menu.setApplicationMenu(menu)
+        win?.setAlwaysOnTop(!win.isAlwaysOnTop());
+      },
+    });
+    menu?.items?.[3]?.submenu?.insert?.(0, alwaysOnTop);
+    Menu.setApplicationMenu(menu);
   } else {
     /* PRODUCTION */
     // 'build/index.html'
@@ -47,26 +49,26 @@ function createWindow() {
     win.removeMenu();
   }
 
-  win.on('closed', () => win = null);
+  win.on('closed', () => (win = null));
 }
 
 if (!app.requestSingleInstanceLock()) {
-  app.quit()
+  app.quit();
 } else {
   app.on('second-instance', () => {
     if (win) {
-      if (win.isMinimized()) win.restore()
-      win.focus()
+      if (win.isMinimized()) win.restore();
+      win.focus();
     }
-  })
+  });
 
   app.whenReady().then(createWindow);
 
   app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') app.quit()
-  })
+    if (process.platform !== 'darwin') app.quit();
+  });
 
   app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
 }

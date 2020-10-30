@@ -1,7 +1,7 @@
-const { API_URL } = require('./config')
-const { checkAuth, getAuth } = require('./services/AuthService')
+import { API_URL } from './config';
+import { checkAuth, getAuth } from './services/AuthService';
 
-const rawFetch = window.fetch.bind(window)
+const rawFetch = window.fetch.bind(window);
 
 /**
  *
@@ -11,16 +11,16 @@ const rawFetch = window.fetch.bind(window)
  */
 function fetch(url, init, auth = true) {
   // eslint-disable-next-line no-param-reassign
-  init = init || {}
+  init = init || {};
 
   // add Authorization header
   if (auth && url && url.startsWith(API_URL)) {
     // eslint-disable-next-line no-param-reassign
-    init.headers = init.headers || {}
-    Object.assign(init.headers, getAuth())
+    init.headers = init.headers || {};
+    Object.assign(init.headers, getAuth());
   }
 
-  return rawFetch(url, init).then(checkAuth)
+  return rawFetch(url, init).then(checkAuth);
 }
 
-window.fetch = fetch
+window.fetch = fetch;

@@ -5,14 +5,17 @@
  * @param {VoidFunction} handler
  * @returns {VoidFunction}
  */
-export default function (time, handler) {
-  let id
+export default function timed(
+  time: number,
+  handler: (...args: any[]) => Promise<void>
+): (...args: any[]) => void {
+  let id: NodeJS.Timeout;
 
   return (...args) => {
     if (id != null) {
-      clearTimeout(id)
+      clearTimeout(id);
     }
 
-    id = setTimeout(() => handler(...args), time)
-  }
+    id = setTimeout(() => handler(...args), time);
+  };
 }

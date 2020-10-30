@@ -8,7 +8,8 @@
 
   $size: 10vmin;
 
-  &, & img {
+  &,
+  & img {
     width: clamp(30px, $size, 72px);
     height: clamp(30px, $size, 72px);
   }
@@ -25,5 +26,4 @@
   &:active {
     background-color: rgba($color: #fff, $alpha: 0.1);
   }
-
 }

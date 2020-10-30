@@ -1,18 +1,22 @@
-import { API_URL, TOKEN_EXPIRED_VALUE, TOKEN_HEADER } from '../config'
+import { API_URL, TOKEN_EXPIRED_VALUE, TOKEN_HEADER } from '../config';
 
 export const token = {
   set(_token) {
-    sessionStorage.setItem(TOKEN_HEADER, _token)
+    sessionStorage.setItem(TOKEN_HEADER, _token);
   },
   get() {
-    return sessionStorage.getItem(TOKEN_HEADER)
+    return sessionStorage.getItem(TOKEN_HEADER);
   },
   exists() {
     // eslint-disable-next-line no-underscore-dangle
-    const _token = this.get()
+    const TOKEN = this.get();
 
-    return !!_token && _token !== TOKEN_EXPIRED_VALUE
+    return !!TOKEN && TOKEN !== TOKEN_EXPIRED_VALUE;
   },
+};
+
+export function signOut() {
+  token.set(null);
 }
 
 /**
@@ -21,23 +25,23 @@ export const token = {
  * @param {Response} response
  */
 export function checkAuth(response) {
-  const header = response.headers.get(TOKEN_HEADER)
+  const header = response.headers.get(TOKEN_HEADER);
 
   if (header && header === TOKEN_EXPIRED_VALUE) {
-    signOut()
+    signOut();
     throw new Error(
-      `Invalid token recieved at '${response.url}', signing out...`,
-    )
+      `Invalid token recieved at '${response.url}', signing out...`
+    );
   }
 
-  return response
+  return response;
 }
 
 /**
  * @returns {{[TOKEN_HEADER]: string}}
  */
 export function getAuth() {
-  return { [TOKEN_HEADER]: token.get() }
+  return { [TOKEN_HEADER]: token.get() };
 }
 
 /**
@@ -50,8 +54,8 @@ export async function exists(email) {
   return fetch(
     `${API_URL}/accounts/exists/${encodeURIComponent(email)}`,
     undefined,
-    false,
-  ).then((res) => res.json())
+    false
+  ).then((res) => res.json());
 }
 
 /**
@@ -67,7 +71,7 @@ export async function exists(email) {
  *          }}
  */
 export async function info() {
-  return fetch(`${API_URL}/accounts/info`).then((res) => res.json())
+  return fetch(`${API_URL}/accounts/info`).then((res) => res.json());
 }
 
 /**
@@ -84,14 +88,14 @@ export async function signIn(email, password) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     },
-    false,
-  )
+    false
+  );
 
   if (response.ok) {
-    token.set(response.headers.get(TOKEN_HEADER))
+    token.set(response.headers.get(TOKEN_HEADER));
   }
 
-  return response.status
+  return response.status;
 }
 
 /**
@@ -108,27 +112,24 @@ export async function signUp(email, password) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     },
-    false,
-  )
+    false
+  );
 
-  return response.status
-}
-
-export function signOut() {
-  token.set(null)
+  return response.status;
 }
 
 /**
  * FIXME: avatar as file / multipart form data
  *
- * @param {{email?: string, password?: string, name?: string, options?: string, avatar?: string}} changes
+ * @param {FormData} changes
  * @returns {Response}
  */
+// TODO Account
 export async function edit(changes) {
   const response = await fetch(`${API_URL}/accounts/edit`, {
     method: 'PATCH',
     body: changes,
-  })
+  });
 
-  return response
+  return response;
 }
