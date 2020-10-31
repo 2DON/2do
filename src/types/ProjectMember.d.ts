@@ -1,9 +1,9 @@
 interface ProjectMember {
-  account: Account;
+  account: Account | number;
   team?: Team | number;
   permissions: 'VIEW' | 'MAN_TASKS' | 'MAN_MEMBERS' | 'MAN_PROJECT' | 'OWNER';
   createdAt: Date;
-  createdBy: number;
+  createdBy: Account | number;
   updatedAt: Date;
-  updatedBy: number;
+  updatedBy: Account | number;
 }

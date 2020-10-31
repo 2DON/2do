@@ -7,6 +7,7 @@ interface Account {
   options?: string;
   deleteRequest?: Date;
   createdAt: Date;
+  updatedAt: Date;
 }
 
 interface PublicAccount {
