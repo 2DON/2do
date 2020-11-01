@@ -9,14 +9,14 @@ import {
 } from 'react-router-dom';
 import person from '../../../assets/person.svg';
 import Input from '../../../components/input/Input';
-import AuthContext from '../../../context/AuthContext';
-import { edit } from '../../../services/AuthService';
+import AccountContext from '../../../context/AccountContext';
+import { edit } from '../../../services/AccountService';
 import '../../../styles/FullScreenQuestion.scss';
 import './FirstSteps.scss';
 
 const SetupName: React.FC = () => {
   const next = '/sign-up/first-steps/avatar';
-  const [, setAccount]: any = useContext(AuthContext);
+  const { setAccount } = useContext(AccountContext) as AccountContext;
   const history = useHistory();
 
   async function handleSubmit(event: SubmitEvent) {
@@ -27,7 +27,7 @@ const SetupName: React.FC = () => {
 
     const response = await edit(formData);
     if (response.status === 200) {
-      setAccount(await response.json());
+      setAccount(response.data);
       history.push(next);
     } else {
       console.error('unknown error at first-steps/name');
@@ -61,7 +61,7 @@ const SetupName: React.FC = () => {
 
 const SetupAvatar: React.FC = () => {
   const next = '/app';
-  const [, setAccount]: any = useContext(AuthContext);
+  const [, setAccount]: any = useContext(AccountContext);
   const history = useHistory();
 
   const [preview, setPreview] = useState(person);
@@ -75,7 +75,7 @@ const SetupAvatar: React.FC = () => {
 
     const response = await edit(formData);
     if (response.status === 200) {
-      setAccount(await response.json());
+      setAccount(response.data);
       history.push(next);
     } else {
       console.error('unknown error at first-steps/avatar');

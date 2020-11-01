@@ -3,15 +3,17 @@ import { useHistory } from 'react-router-dom';
 import logo from '../../assets/2DO.svg';
 import BackButton from '../../components/backbutton/BackButton';
 import Input from '../../components/input/Input';
+import AccountContext from '../../context/AccountContext';
 import AuthContext from '../../context/AuthContext';
-import { info, signIn } from '../../services/AuthService';
+import { info } from '../../services/AccountService';
+import { signIn } from '../../services/AuthService';
 import { email as emailPattern } from '../../utils/Patterns';
 import './SignIn.scss';
 
 const SignIn: React.FC = () => {
   const history = useHistory();
-  // TODO Account Interface
-  const [, setAccount]: any = useContext(AuthContext);
+  const { setToken } = useContext(AuthContext) as AuthContext;
+  const { setAccount } = useContext(AccountContext) as AccountContext;
   const [errors, setErrors] = useState<Dict<string> | null>(null);
 
   async function handleSubmit(event: SubmitEvent) {
@@ -20,24 +22,28 @@ const SignIn: React.FC = () => {
 
     const form = new FormData(event.currentTarget);
 
-    switch (
-      await signIn(
+    try {
+      const token = await signIn(
         (form.get('email') as string)?.trim(),
         (form.get('password') as string)?.trim()
-      )
-    ) {
-      case 200:
-        setAccount(await info());
-        history.push('/app');
-        break;
-      case 404:
-        setErrors({ email: 'conta não encontrada' });
-        break;
-      case 403:
-        setErrors({ password: 'senha invalida' });
-        break;
-      default:
-        console.error('unknown error at sign-in');
+      );
+
+      setToken(token);
+
+      setAccount(await info());
+
+      history.push('/app');
+    } catch (err) {
+      switch (err.response.status) {
+        case 404:
+          setErrors({ email: 'conta não encontrada' });
+          break;
+        case 403:
+          setErrors({ password: 'senha invalida' });
+          break;
+        default:
+          console.error('unknown error at sign-in');
+      }
     }
   }
 

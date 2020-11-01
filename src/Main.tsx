@@ -1,18 +1,23 @@
-import React, { useMemo, useState } from 'react';
-import AuthContext from './context/AuthContext';
+import React from 'react';
+import { HashRouter } from 'react-router-dom';
+import AccountContext, { useAccountContext } from './context/AccountContext';
+import AuthContext, { useAuthContext } from './context/AuthContext';
 import Routes from './Routes';
 
-// TODO: window title and icon, installer icon
+// TODO: window title, self-hosted icon, installer icon
 
 const Main: React.FC = () => {
-  // TODO Account
-  const authState = useState<any | null>(null);
-  const authContext = useMemo(() => authState, [authState]);
+  const authContext = useAuthContext();
+  const accountContext = useAccountContext();
 
   return (
-    <AuthContext.Provider value={authContext}>
-      <Routes />
-    </AuthContext.Provider>
+    <HashRouter>
+      <AuthContext.Provider value={authContext}>
+        <AccountContext.Provider value={accountContext}>
+          <Routes />
+        </AccountContext.Provider>
+      </AuthContext.Provider>
+    </HashRouter>
   );
 };
 

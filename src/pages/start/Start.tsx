@@ -1,12 +1,19 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import logo from '../../assets/2DO.svg';
+import AuthContext from '../../context/AuthContext';
 import './Start.scss';
 
 const Start: React.FC = () => {
   const history = useHistory();
+  const { authorized } = useContext(AuthContext) as AuthContext;
+
+  // AUTO LOGIN
+  useEffect(() => {
+    if (!authorized) return;
+
+    history.push('/app');
+  }, [authorized, history]);
 
   return (
     <div className="Start">

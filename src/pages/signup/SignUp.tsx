@@ -3,16 +3,16 @@ import { useHistory } from 'react-router-dom';
 import logo from '../../assets/2DO.svg';
 import BackButton from '../../components/backbutton/BackButton';
 import Input from '../../components/input/Input';
-import AuthContext from '../../context/AuthContext';
-import { exists, info, signIn, signUp } from '../../services/AuthService';
+import AccountContext from '../../context/AccountContext';
+import { exists, info } from '../../services/AccountService';
+import { signIn, signUp } from '../../services/AuthService';
 import { email as emailPattern } from '../../utils/Patterns';
 import timed from '../../utils/timed';
 import './SignUp.scss';
 
 const SignUp: React.FC = () => {
   const history = useHistory();
-  // TODO Account
-  const [, setAccount]: any = useContext(AuthContext);
+  const { setAccount } = useContext(AccountContext) as AccountContext;
   const [errors, setErrors] = useState<Dict<string> | null>(null);
 
   async function handleSubmit(event: SubmitEvent) {

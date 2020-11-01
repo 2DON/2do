@@ -1,11 +1,10 @@
 import React, { useContext, useState } from 'react';
 import person from '../../assets/person.svg';
-import AuthContext from '../../context/AuthContext';
+import AccountContext from '../../context/AccountContext';
 import './App.scss';
 
 const App: React.FC = () => {
-  // TODO Account Interface
-  const [account]: any = useContext(AuthContext);
+  const { account } = useContext(AccountContext) as AccountContext;
 
   const [selected, setSelected] = useState(-1);
 
