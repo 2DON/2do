@@ -61,7 +61,7 @@ const SetupName: React.FC = () => {
 
 const SetupAvatar: React.FC = () => {
   const next = '/app';
-  const [, setAccount]: any = useContext(AccountContext);
+  const { setAccount } = useContext(AccountContext) as AccountContext;
   const history = useHistory();
 
   const [preview, setPreview] = useState(person);
