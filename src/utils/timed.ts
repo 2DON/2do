@@ -1,14 +1,9 @@
-/**
- * Returns a function that, when called, if not called again within the specified time, will be executed
- *
- * @param {number} time
- * @param {VoidFunction} handler
- * @returns {VoidFunction}
- */
-export default function timed(
+type TimedHandler<T> = (t: T) => void;
+
+export default function timed<T>(
   time: number,
-  handler: (...args: any[]) => Promise<void>
-): (...args: any[]) => void {
+  handler: TimedHandler<T>
+): TimedHandler<T> {
   let id: NodeJS.Timeout;
 
   return (...args) => {
