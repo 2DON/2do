@@ -1,79 +1,74 @@
 {
   "name": "2do",
   "version": "0.1.0",
-  "main": "public/electron.js",
-  "description": "A complete todo app for you or your company",
   "author": "2DON (https://github.com/2DON)",
+  "description": "project management made easy",
+  "homepage": ".",
+  "main": "build/electron/main.js",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"yarn react:dev\" \"wait-on http://localhost:3000 && yarn electron:dev\"",
-    "react:dev": "cross-env BROWSER=none react-scripts start",
-    "prereact:build": "yarn run lint:fix",
-    "react:build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
-    "electron:dev": "electron .",
-    "electron:build": "electron-builder",
-    "prebuild": "yarn run react:build",
+    "dev": "concurrently \"cross-env BROWSER=none yarn react:dev\" \"wait-on http://localhost:3000 && yarn run electron:dev\"",
+    "react:dev": "react-scripts start",
+    "electron:dev": "yarn run electron:build && electron .",
     "build": "yarn run electron:build",
-    "lint": "eslint . --ignore-path .gitignore --ext .js,.jsx --cache",
+    "prebuild": "yarn run react:build",
+    "react:build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
+    "prereact:build": "yarn run lint:fix && yarn run format",
+    "electron:build": "tsc -p electron",
+    "package": "electron-builder",
+    "prepackage": "yarn run build",
+    "lint": "tsc --noEmit && eslint . --ignore-path .gitignore --ext .js,.jsx,.ts,.tsx --cache",
     "lint:fix": "yarn run lint --fix",
-    "postlint:fix": "prettier --ignore-path .gitignore --single-quote --write ./**/*.{md,mdx,js,jsx,json,html,css,less,scss,yaml,yml}"
+    "format": "prettier --ignore-path .gitignore --write ./**/*.{md,mdx,js,jsx,ts,tsx,json,html,css,less,scss,yaml,yml}",
+    "test": "react-scripts test"
   },
   "dependencies": {
+    "@types/electron-devtools-installer": "^2.2.0",
+    "@types/jest": "26.0.14",
+    "@types/node": "14.11.10",
+    "@types/react": "16.9.53",
+    "@types/react-dom": "16.9.8",
+    "axios": "^0.21.0",
+    "electron-devtools-installer": "^3.1.1",
     "electron-is-dev": "^1.2.0",
     "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0"
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.3",
+    "typescript": "4.0.3",
+    "web-vitals": "^0.2.4"
   },
   "devDependencies": {
-    "@imaginary-cloud/eslint-config-react": "1.0.1",
-    "@imaginary-cloud/prettier-config": "^1.0.0",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
+    "@types/prop-types": "^15.7.3",
+    "@types/react-router-dom": "^5.1.6",
+    "@typescript-eslint/eslint-plugin": "^4.6.0",
+    "@typescript-eslint/parser": "^4.6.0",
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.2",
-    "electron": "^9.2.0",
-    "electron-builder": "^22.8.0",
-    "eslint-config-airbnb": "18.1.0",
-    "eslint-config-prettier": "6.10.1",
-    "eslint-plugin-import": "2.20.2",
-    "eslint-plugin-jsx-a11y": "6.2.3",
-    "eslint-plugin-prettier": "3.1.3",
-    "eslint-plugin-react": "7.19.0",
-    "eslint-plugin-react-hooks": "2.5.1",
+    "electron": "^10.1.3",
+    "electron-builder": "^22.9.1",
+    "eslint-config-airbnb": "18.2.0",
+    "eslint-config-airbnb-typescript": "^12.0.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "2.21.2",
+    "eslint-plugin-jest": "^24.1.0",
+    "eslint-plugin-jsx-a11y": "6.3.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "7.20.0",
+    "eslint-plugin-react-hooks": "4.0.0",
     "husky": "^4.3.0",
-    "lint-staged": "^10.4.0",
+    "lint-staged": "^10.5.0",
     "node-sass": "^4.14.1",
-    "prettier": "^2.0.5",
-    "react-scripts": "3.4.1",
+    "prettier": "^2.1.2",
     "wait-on": "^5.2.0"
   },
   "browserslist": "last 1 electron version",
-  "eslintConfig": {
-    "extends": "@imaginary-cloud/react",
-    "parserOptions": {
-      "ecmaVersion": 2020
-    },
-    "rules": {
-      "no-console": [
-        "warn",
-        {
-          "allow": [
-            "warn",
-            "error"
-          ]
-        }
-      ]
-    }
-  },
-  "prettier": "@imaginary-cloud/prettier-config",
-  "homepage": "./",
   "build": {
     "appId": "io.github.2don.2do-electron",
+    "extends": null,
     "files": [
-      "build/**/*",
-      "node_modules/**/*"
+      "build/**/*"
     ],
     "directories": {
       "buildResources": "assets"
@@ -87,10 +82,10 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx}": [
+    "*.{js,jsx,ts,tsx}": [
       "eslint --fix"
     ],
-    "*.{md,mdx,js,jsx,json,html,css,less,scss,yaml,yml}": [
+    "*.{md,mdx,js,jsx,ts,tsx,json,html,css,less,scss,yaml,yml}": [
       "prettier --write"
     ]
   }
