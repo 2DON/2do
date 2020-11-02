@@ -11,7 +11,7 @@
     align-items: center;
 
     background-color: gray;
-    width: clamp(72px, 10vw, 86px);
+    width: 92px;
     height: 100vh;
 
     .Icon {
@@ -19,8 +19,8 @@
       justify-content: center;
       align-items: center;
 
-      width: clamp(52px, 8vw, 70px);
-      height: clamp(52px, 8vw, 70px);
+      width: 82px;
+      height: 82px;
       margin-top: 10px;
       border-radius: 12%;
       background-color: red;
@@ -47,7 +47,7 @@
   }
 
   main {
-    background-color: pink;
+    background-color: magenta;
     width: 100%;
     height: 100vh;
   }
