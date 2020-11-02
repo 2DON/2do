@@ -3,6 +3,15 @@ directories:
   output: dist
   buildResources: buildResources
 appId: io.github.2don.2do
-files:
-  - filter:
-      - build/**/*
+files: [build/**/*]
+win:
+  target: [nsis, zip]
+nsis:
+  artifactName: ${productName}-setup-${version}.${ext}
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  unicode: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  menuCategory: false

@@ -1,6 +1,6 @@
 {
   "name": "2do",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "author": "2DON (https://github.com/2DON)",
   "description": "project management made easy",
   "homepage": ".",
@@ -15,6 +15,7 @@
     "react:build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
     "prereact:build": "yarn run lint:fix && yarn run format",
     "electron:build": "tsc -p electron",
+    "package-only": "electron-builder",
     "package": "electron-builder",
     "prepackage": "yarn run build",
     "lint": "tsc --noEmit && eslint . --ignore-path .gitignore --ext .js,.jsx,.ts,.tsx --cache",
