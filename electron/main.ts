@@ -3,6 +3,7 @@ import installExtension, {
   REACT_DEVELOPER_TOOLS,
 } from 'electron-devtools-installer';
 import * as isDev from 'electron-is-dev';
+import * as path from 'path';
 
 let win: BrowserWindow | null = null;
 
@@ -14,8 +15,9 @@ function createWindow() {
     minWidth: 480,
     autoHideMenuBar: true,
     webPreferences: {
+      nodeIntegration: false,
       worldSafeExecuteJavaScript: true,
-      nodeIntegration: true,
+      preload: path.join(app.getAppPath(), 'build', 'electron', 'preload.js'),
     },
   });
 

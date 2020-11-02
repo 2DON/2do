@@ -64,16 +64,6 @@
     "wait-on": "^5.2.0"
   },
   "browserslist": "last 1 electron version",
-  "build": {
-    "appId": "io.github.2don.2do-electron",
-    "extends": null,
-    "files": [
-      "build/**/*"
-    ],
-    "directories": {
-      "buildResources": "assets"
-    }
-  },
   "husky": {
     "hooks": {
       "pre-commit": [
