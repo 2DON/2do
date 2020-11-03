@@ -10,40 +10,40 @@
     justify-content: flex-start;
     align-items: center;
 
-    background-color: gray;
-    width: 92px;
-    height: 100vh;
+    //   background-color: gray;
+    //   width: 92px;
+    //   height: 100vh;
 
-    .Icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    //   .Icon {
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
 
-      width: 82px;
-      height: 82px;
-      margin-top: 10px;
-      border-radius: 12%;
-      background-color: red;
+    //     width: 82px;
+    //     height: 82px;
+    //     margin-top: 10px;
+    //     border-radius: 12%;
+    //     background-color: red;
 
-      & img {
-        width: 100%;
-      }
+    //     & img {
+    //       width: 100%;
+    //     }
 
-      .selected {
-        background-color: white;
-      }
-    }
+    //     .selected {
+    //       background-color: white;
+    //     }
+    //   }
 
-    .Icon:nth-child(1) {
-      margin-bottom: 10px;
-    }
+    //   .Icon:nth-child(1) {
+    //     margin-bottom: 10px;
+    //   }
 
-    .separator {
-      background-color: white;
-      width: 75%;
-      height: 2px;
-      border-radius: 100%;
-    }
+    //   .separator {
+    //     background-color: white;
+    //     width: 75%;
+    //     height: 2px;
+    //     border-radius: 100%;
+    //   }
   }
 
   main {
