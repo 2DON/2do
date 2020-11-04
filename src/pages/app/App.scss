@@ -1,3 +1,5 @@
+@import '../../styles/colors';
+
 .App {
   display: flex;
 
@@ -10,14 +12,46 @@
     justify-content: flex-start;
     align-items: center;
 
-    //   background-color: gray;
-    //   width: 92px;
-    //   height: 100vh;
+    $size: 82px;
+
+    background-color: #212121;
+    width: $size;
+    height: 100vh;
+
+    .Tile {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      margin-top: $size * 0.1;
+      width: $size * 0.7;
+      height: $size * 0.7;
+
+      background-color: #313131;
+      border-radius: 12%;
+
+      &:nth-child(1) {
+        position: relative;
+        margin-bottom: $size * 0.1;
+
+        &::after {
+          content: '';
+          position: absolute;
+
+          background-color: $on-surface-disabled;
+          width: 85%;
+          height: 2px;
+          bottom: -$size * 0.1;
+        }
+      }
+
+      .icon {
+        width: $size * 0.5;
+        height: $size * 0.5;
+      }
+    }
 
     //   .Icon {
-    //     display: flex;
-    //     justify-content: center;
-    //     align-items: center;
 
     //     width: 82px;
     //     height: 82px;

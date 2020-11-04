@@ -13,5 +13,5 @@ export async function info(): Promise<Account> {
 export async function edit(
   changes: FormData
 ): Promise<Promise<AxiosResponse<Account>>> {
-  return api.post('/accounts/edit', changes, { headers: auth() });
+  return api.patch('/accounts/edit', changes, { headers: auth() });
 }

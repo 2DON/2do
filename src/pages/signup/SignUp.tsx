@@ -4,6 +4,7 @@ import logo from '../../assets/2DO.svg';
 import BackButton from '../../components/backbutton/BackButton';
 import Input from '../../components/input/Input';
 import AccountContext from '../../context/AccountContext';
+import AuthContext from '../../context/AuthContext';
 import { exists, info } from '../../services/AccountService';
 import { signIn, signUp } from '../../services/AuthService';
 import { email as emailPattern } from '../../utils/Patterns';
@@ -12,6 +13,7 @@ import './SignUp.scss';
 
 const SignUp: React.FC = () => {
   const history = useHistory();
+  const { setToken } = useContext(AuthContext) as AuthContext;
   const { setAccount } = useContext(AccountContext) as AccountContext;
   const [errors, setErrors] = useState<Dict<string> | null>(null);
 
@@ -31,18 +33,21 @@ const SignUp: React.FC = () => {
       return;
     }
 
-    switch (await signUp(email, password)) {
-      case 201:
-        await signIn(email, password).then(async () => {
-          setAccount(await info());
-          history.push('/sign-up/first-steps');
-        });
-        break;
-      case 409:
-        setErrors({ email: 'email em uso' });
-        break;
-      default:
-        console.error('unknown error at sign-up');
+    try {
+      await signUp(email, password);
+      const token = await signIn(email, password);
+
+      setToken(token);
+      setAccount(await info());
+      history.push('/sign-up/first-steps');
+    } catch (err) {
+      switch (err.response.status) {
+        case 409:
+          setErrors({ email: 'email em uso' });
+          break;
+        default:
+          console.error('unknown error at sign-up');
+      }
     }
   }
 

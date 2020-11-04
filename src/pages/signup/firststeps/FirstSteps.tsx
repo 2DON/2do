@@ -25,11 +25,11 @@ const SetupName: React.FC = () => {
 
     formData.set('name', (formData.get('name') as string)?.trim());
 
-    const response = await edit(formData);
-    if (response.status === 200) {
+    try {
+      const response = await edit(formData);
       setAccount(response.data);
       history.push(next);
-    } else {
+    } catch {
       console.error('unknown error at first-steps/name');
     }
   }
@@ -73,11 +73,11 @@ const SetupAvatar: React.FC = () => {
 
     if (!preview) history.push(next);
 
-    const response = await edit(formData);
-    if (response.status === 200) {
+    try {
+      const response = await edit(formData);
       setAccount(response.data);
       history.push(next);
-    } else {
+    } catch {
       console.error('unknown error at first-steps/avatar');
     }
   }
@@ -109,7 +109,11 @@ const SetupAvatar: React.FC = () => {
               setPreview(URL.createObjectURL(image));
             }}
           />
-          {preview ? <img src={preview} alt="avatar" /> : <FiUser />}
+          {preview ? (
+            <img src={preview} alt="avatar" className="img" />
+          ) : (
+            <FiUser className="img" />
+          )}
           <span>SELECIONAR AVATAR</span>
           <p className={`message ${wrong ? 'wrong' : ''}`}>
             tamanho maximo 900KB
