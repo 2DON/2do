@@ -9,6 +9,7 @@ button {
   line-height: 1.2em;
   letter-spacing: 0.5px;
 
+  -webkit-font-smoothing: subpixel-antialiased;
   background-color: $surface;
   color: $on-surface;
 }
