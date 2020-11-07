@@ -28,6 +28,11 @@ const Start: React.FC = () => {
       <p className="caption" onClick={() => history.push('/sign-up')}>
         Novo? Crie uma Conta!
       </p>
+      <button
+        type="button"
+        className="primary"
+        onClick={() => history.push('/error')}
+      />
     </div>
   );
 };
