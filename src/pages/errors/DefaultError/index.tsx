@@ -17,6 +17,7 @@ const DefaultError: React.FC<Props> = ({title, children}) => {
   const history = useHistory();
   return <>
   	<BackButton onClick={() => history.push('/home')} />
+    {/* TODO fix align */}
     <h2>{ title }</h2><br/>
     { children }
   </>
