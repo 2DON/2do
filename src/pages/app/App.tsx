@@ -3,6 +3,12 @@ import { FiUser } from 'react-icons/fi';
 import AccountContext from '../../context/AccountContext';
 import './App.scss';
 
+const testProjectIcons = new Array(18)
+  .fill('http://unsplash.it')
+  .map((url) => `${url}/${Math.round(Math.random() * 30 + 80)}`)
+  .map((url) => `${url}/${Math.round(Math.random() * 30 + 80)}`)
+  .map((url, index) => ({ index, url }));
+
 const App: React.FC = () => {
   const [selectedIndex, selectIndex] = useState(-1);
   const { account } = useContext(AccountContext) as AccountContext;
@@ -21,27 +27,18 @@ const App: React.FC = () => {
             <FiUser className="icon" />
           )}
         </div>
-        {new Array(12)
-          .fill('http://unsplash.it/')
-          .map(
-            (url) =>
-              `${url + Math.round(Math.random() * 30 + 80)}/${Math.round(
-                Math.random() * 30 + 80
-              )}`
-          )
-          .map((value, index) => (
-            <div
-              className={`Tile ${selectedIndex === index ? 'selected' : ''}`}
-              // eslint-disable-next-line react/no-array-index-key
-              key={`tile-${index}`}
-              onDragStart={(e) => e.preventDefault()}
-              onClick={() => selectIndex(index)}
-            >
-              <img className="icon" src={value} alt={value} />
-            </div>
-          ))}
+        {testProjectIcons.map(({ index, url }) => (
+          <div
+            className={`Tile ${selectedIndex === index ? 'selected' : ''}`}
+            key={index}
+            onDragStart={(e) => e.preventDefault()}
+            onClick={() => selectIndex(index)}
+          >
+            <img className="icon" src={url} alt={`${index}@${url}`} />
+          </div>
+        ))}
       </aside>
-      <main>main</main>
+      <main />
     </div>
   );
 };

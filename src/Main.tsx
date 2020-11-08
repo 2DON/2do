@@ -4,6 +4,7 @@ import { SELF_HOSTED } from './config';
 import AccountContext, { useAccountContext } from './context/AccountContext';
 import AuthContext, { useAuthContext } from './context/AuthContext';
 import Routes from './Routes';
+import { info } from './services/AccountService';
 
 // TODO: installer icon
 
@@ -17,6 +18,14 @@ const Main: React.FC = () => {
       window.setIcon('icon-golden.png');
     }
   }, []);
+
+  useEffect(() => {
+    (async () => {
+      if (authContext.authorized && !accountContext.account) {
+        accountContext.setAccount(await info());
+      }
+    })();
+  }, [accountContext, authContext.authorized]);
 
   return (
     <HashRouter>
