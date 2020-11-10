@@ -12,8 +12,9 @@
 
     transition: background-color 0.3s ease;
 
-    img {
-      width: 100%;
+    .img {
+      width: 85%;
+      height: 85%;
       max-width: clamp(128px, 35vh, 512px);
       max-height: clamp(128px, 35vh, 512px);
     }

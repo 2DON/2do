@@ -4,6 +4,7 @@ interface Project {
   description: string;
   observation?: string;
   archived: boolean;
+  avatarUrl?: string;
   options?: string;
   createdAt: Date;
   createdBy: number;

@@ -1,54 +1,29 @@
+@import '../../styles/colors';
+
+$sidebar-icon-size: 64px;
+$sidebar-icon-vertical-spacing: 17px;
+$indicator-width: 6px;
+$sidebar-width: $sidebar-icon-vertical-spacing * 2 + $sidebar-icon-size +
+  $indicator-width;
+
 .App {
   display: flex;
 
   width: 100vw;
   height: 100vh;
 
+  &,
   .Sidebar {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-
-    background-color: gray;
-    width: 92px;
-    height: 100vh;
-
-    .Icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      width: 82px;
-      height: 82px;
-      margin-top: 10px;
-      border-radius: 12%;
-      background-color: red;
-
-      & img {
-        width: 100%;
-      }
-
-      .selected {
-        background-color: white;
-      }
-    }
-
-    .Icon:nth-child(1) {
-      margin-bottom: 10px;
-    }
-
-    .separator {
-      background-color: white;
-      width: 75%;
-      height: 2px;
-      border-radius: 100%;
-    }
+    background-color: $primary-surface;
   }
 
-  main {
-    background-color: magenta;
+  & main {
     width: 100%;
-    height: 100vh;
+    height: 100%;
+
+    border-left: 1px solid $main-accent;
+    border-style: none none none solid;
+
+    background-color: $main-surface;
   }
 }

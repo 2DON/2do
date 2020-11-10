@@ -9,7 +9,7 @@
   $size: 10vmin;
 
   &,
-  & img {
+  & .icon {
     width: clamp(30px, $size, 72px);
     height: clamp(30px, $size, 72px);
   }

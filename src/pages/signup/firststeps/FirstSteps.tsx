@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext, useState } from 'react';
+import { FiUser } from 'react-icons/fi';
 import {
   Redirect,
   Route,
@@ -7,7 +8,6 @@ import {
   useHistory,
   useRouteMatch,
 } from 'react-router-dom';
-import person from '../../../assets/person.svg';
 import Input from '../../../components/input/Input';
 import AccountContext from '../../../context/AccountContext';
 import { edit } from '../../../services/AccountService';
@@ -25,11 +25,11 @@ const SetupName: React.FC = () => {
 
     formData.set('name', (formData.get('name') as string)?.trim());
 
-    const response = await edit(formData);
-    if (response.status === 200) {
+    try {
+      const response = await edit(formData);
       setAccount(response.data);
       history.push(next);
-    } else {
+    } catch {
       console.error('unknown error at first-steps/name');
     }
   }
@@ -64,7 +64,7 @@ const SetupAvatar: React.FC = () => {
   const { setAccount } = useContext(AccountContext) as AccountContext;
   const history = useHistory();
 
-  const [preview, setPreview] = useState(person);
+  const [preview, setPreview] = useState<string | null>(null);
   const [wrong, setWrong] = useState(false);
 
   async function handleSubmit(event: SubmitEvent) {
@@ -73,11 +73,11 @@ const SetupAvatar: React.FC = () => {
 
     if (!preview) history.push(next);
 
-    const response = await edit(formData);
-    if (response.status === 200) {
+    try {
+      const response = await edit(formData);
       setAccount(response.data);
       history.push(next);
-    } else {
+    } catch {
       console.error('unknown error at first-steps/avatar');
     }
   }
@@ -109,7 +109,11 @@ const SetupAvatar: React.FC = () => {
               setPreview(URL.createObjectURL(image));
             }}
           />
-          <img src={preview || person} alt="avatar" />
+          {preview ? (
+            <img src={preview} alt="avatar" className="img" />
+          ) : (
+            <FiUser className="img" />
+          )}
           <span>SELECIONAR AVATAR</span>
           <p className={`message ${wrong ? 'wrong' : ''}`}>
             tamanho maximo 900KB

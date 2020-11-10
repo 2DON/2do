@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import api from '../api';
 import { TOKEN_HEADER } from '../config';
 
@@ -12,6 +13,6 @@ export async function signIn(email: string, password: string): Promise<string> {
 export async function signUp(
   email: string,
   password: string
-): Promise<string | number> {
-  return (await api.post('/accounts/sign-up', { email, password })).status;
+): Promise<AxiosResponse<void>> {
+  return api.post('/accounts/sign-up', { email, password });
 }
