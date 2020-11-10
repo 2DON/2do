@@ -31,7 +31,7 @@ const AuthRoute: React.FC<AuthRouteProps> = ({
 
 interface AuthRouteProps {
   path: string;
-  component: React.ReactNode | React.FunctionComponent;
+  component: React.ReactNode | React.FC;
   exact?: boolean;
 }
 

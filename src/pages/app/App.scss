@@ -1,13 +1,10 @@
 @import '../../styles/colors';
 
-$app-surface: #201b25;
 $sidebar-icon-size: 64px;
 $sidebar-icon-vertical-spacing: 17px;
 $indicator-width: 6px;
 $sidebar-width: $sidebar-icon-vertical-spacing * 2 + $sidebar-icon-size +
   $indicator-width;
-$main-surface: #2e2e2e;
-$main-accent: #626262;
 
 .App {
   display: flex;
@@ -17,93 +14,16 @@ $main-accent: #626262;
 
   &,
   .Sidebar {
-    background-color: $app-surface;
+    background-color: $primary-surface;
   }
 
   & main {
-    $top: 7px;
-    margin-top: $top;
     width: 100%;
-    height: calc(100% - $top);
+    height: 100%;
 
-    border: 1px solid $main-accent;
-    border-style: solid none none solid;
-    border-radius: 8px 0 0 0;
+    border-left: 1px solid $main-accent;
+    border-style: none none none solid;
 
     background-color: $main-surface;
-  }
-
-  .Sidebar {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    position: relative;
-
-    width: $sidebar-width;
-    height: 100vh;
-    overflow-x: hidden;
-    overflow-y: scroll;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    .Tile {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      margin-top: $sidebar-icon-vertical-spacing;
-      width: $sidebar-icon-size;
-      height: $sidebar-icon-size;
-
-      user-select: none;
-
-      background-color: rgba($color: #fff, $alpha: 0.1);
-      border: 1.5px solid #fff0;
-      border-radius: 12%;
-
-      .icon {
-        border-radius: 12%;
-        width: 62px;
-        height: 62px;
-      }
-
-      &:nth-child(1) {
-        margin-bottom: $sidebar-icon-vertical-spacing;
-
-        &::before {
-          content: '';
-          $height: 2px;
-          position: absolute;
-          width: $sidebar-icon-size - 10px;
-          height: $height;
-          top: $sidebar-icon-size + $sidebar-icon-vertical-spacing * 2 - $height /
-            2;
-
-          background-color: $main-accent;
-        }
-      }
-
-      &.selected {
-        border: 1.5px solid rgba($color: #fff, $alpha: 1);
-      }
-
-      &:hover:not(.selected) {
-        border: 1.5px solid rgba($color: #fff, $alpha: 0.8);
-      }
-
-      &.selected::after {
-        content: '';
-        position: absolute;
-        right: 0;
-        width: $indicator-width;
-        height: 58px;
-
-        background-color: $main-accent;
-        border-radius: 5px 0 0 5px;
-      }
-    }
   }
 }
