@@ -6,6 +6,7 @@ import ProjectContext, {
 import './App.scss';
 
 const App: React.FC = () => {
+  // const history = useHistory();
   const projectContext = useProjectContext();
 
   return (

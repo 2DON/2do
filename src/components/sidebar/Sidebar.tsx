@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { FiUser } from 'react-icons/fi';
+import { FiPlus, FiUser } from 'react-icons/fi';
+import { useHistory } from 'react-router-dom';
 import api from '../../api';
 import AccountContext from '../../context/AccountContext';
 import { auth } from '../../context/AuthContext';
@@ -10,7 +11,7 @@ import SidebarTile from './SidebarTile';
 const Sidebar: React.FC = () => {
   const { project, setProject } = useContext(ProjectContext) as ProjectContext;
   const { account } = useContext(AccountContext) as AccountContext;
-
+  const history = useHistory();
   const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
@@ -45,6 +46,15 @@ const Sidebar: React.FC = () => {
           selected={proj.id === project?.id}
         />
       ))}
+
+      <div
+        className="SidebarTile CreateProject"
+        title="Create Project"
+        onDragStart={(e) => e.preventDefault()}
+        onClick={() => history.push('/app/create-project')}
+      >
+        <FiPlus />
+      </div>
     </aside>
   );
 };

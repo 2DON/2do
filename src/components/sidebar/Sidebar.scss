@@ -79,5 +79,15 @@ $sidebar-width: $sidebar-icon-vertical-spacing * 2 + $sidebar-icon-size +
       background-color: $main-accent;
       border-radius: 5px 0 0 5px;
     }
+
+    &.CreateProject {
+      margin-bottom: 30vh;
+      border-radius: 50%;
+
+      svg {
+        width: 46px;
+        height: 46px;
+      }
+    }
   }
 }
