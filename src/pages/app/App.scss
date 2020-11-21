@@ -40,15 +40,9 @@ $sidebar-width: $sidebar-icon-vertical-spacing * 2 + $sidebar-icon-size +
     letter-spacing: -0.4px;
     margin: 20px;
   }
-  & div {
+  & #idDiv {
     display: flex;
-    
-    width: 230px;
-    height: 200px;
-    & div{
-      width: 100%;
-      height: 100%;
-    }
+
     & ul {
       display: flex;
       flex-direction: column;
