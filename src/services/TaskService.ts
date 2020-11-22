@@ -1,5 +1,5 @@
 
-import api from '../api';
+import api, { _ } from '../api';
 import { auth } from '../context/AuthContext';
 import { OK } from '../utils/Status';
 
@@ -10,9 +10,9 @@ import { OK } from '../utils/Status';
  * NOT_FOUND
  */
 export async function index(projectId: number): Promise<Task[]> {
-    const { status, data } = await api.get(
+    const { status, data } = await _(api.get(
         `/projects/${projectId}/tasks`,
-        { headers: auth() });
+        { headers: auth() }));
 
     if (status === OK) {
         return data;
@@ -34,10 +34,10 @@ export async function index(projectId: number): Promise<Task[]> {
  * BAD_REQUEST    description.length() < 1 || >= 80
  */
 export async function store(projectId: number, body: FormData): Promise<Task> {
-    const { status, data } = await api.post(
+    const { status, data } = await _(api.post(
         `/projects/${projectId}/tasks`,
         body,
-        { headers: auth() });
+        { headers: auth() }));
 
     if (status === OK) {
         return data;
@@ -68,10 +68,10 @@ export async function store(projectId: number, body: FormData): Promise<Task> {
  * BAD_REQUEST    description.length() < 1 || >= 80
  */
 export async function uptade(projectId: number, taskId: number, body: FormData): Promise<Task> {
-    const { status, data } = await api.patch(
+    const { status, data } = await _(api.patch(
         `/projects/${projectId}/tasks${taskId}`,
         body,
-        { headers: auth() });
+        { headers: auth() }));
 
     if (status === OK) {
         return data;
@@ -89,9 +89,9 @@ export async function uptade(projectId: number, taskId: number, body: FormData):
  * NOT_FOUND
  */
 export async function destroy(projectId: number, taskId: number): Promise<void> {
-    const { status } = await api.delete(
+    const { status } = await _(api.delete(
         `/projects/${projectId}/tasks${taskId}`,
-        { headers: auth() });
+        { headers: auth() }));
 
     if (status === OK) {
         return;

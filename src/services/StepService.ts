@@ -1,4 +1,4 @@
-import api from '../api';
+import api, { _ } from '../api';
 import { auth } from '../context/AuthContext';
 import { OK } from '../utils/Status';
 
@@ -10,9 +10,9 @@ import { OK } from '../utils/Status';
  * UNAUTHORIZED   project and account exists and the account is part of the project
  */
 export async function index(projectId: number, taskId: number): Promise<Step[]> {
-    const { status, data } = await api.get(
+    const { status, data } = await _(api.get(
         `/projects/${projectId}/tasks/${taskId}/steps`,
-        { headers: auth() })
+        { headers: auth() }));
 
     if (status === OK) {
         return data;
@@ -35,10 +35,10 @@ export async function index(projectId: number, taskId: number): Promise<Step[]> 
  * BAD_REQUEST     (description.length() < 1 || >= 80
  */
 export async function store(projectId: number, taskId: number, body: FormData): Promise<Step> {
-    const { status, data } = await api.post(
+    const { status, data } = await _(api.post(
         `/projects/${projectId}/tasks/${taskId}/steps`,
         body,
-        { headers: auth() });
+        { headers: auth() }));
 
     if (status === OK) {
         return data;
@@ -67,10 +67,10 @@ export async function store(projectId: number, taskId: number, body: FormData): 
  * BAD_REQUEST    description.length() < 1 || >= 80
  */
 export async function update(projectId: number, taskId: number, stepId: number, body: FormData): Promise<Step> {
-    const { status, data } = await api.patch(
+    const { status, data } = await _(api.patch(
         `/projects/${projectId}/tasks/${taskId}/steps/${stepId}`,
         body,
-        { headers: auth() });
+        { headers: auth() }));
 
     if (status === OK) {
         return data;
@@ -90,9 +90,9 @@ export async function update(projectId: number, taskId: number, stepId: number, 
  * NOT_FOUND       not find step id, task id or project id
  */
 export async function destroy(projectId: number, taskId: number, stepId: number): Promise<void> {
-    const { status } = await api.delete(
+    const { status } = await _(api.delete(
         `/projects/${projectId}/tasks/${taskId}/steps/${stepId}`,
-        { headers: auth() });
+        { headers: auth() }));
 
     if (status === OK) {
         return;
