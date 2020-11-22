@@ -5,7 +5,7 @@ import BackButton from '../../components/backbutton/BackButton';
 import Input from '../../components/input/Input';
 import AccountContext from '../../context/AccountContext';
 import AuthContext from '../../context/AuthContext';
-import { info } from '../../services/AccountService';
+import { me } from '../../services/AccountService';
 import { signIn } from '../../services/AuthService';
 import { email as emailPattern } from '../../utils/Patterns';
 import './SignIn.scss';
@@ -30,7 +30,7 @@ const SignIn: React.FC = () => {
 
       setToken(token);
 
-      setAccount(await info());
+      setAccount(await me());
 
       history.push('/app');
     } catch (err) {

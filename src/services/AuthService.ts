@@ -1,10 +1,10 @@
-import api from '../api';
+import api, { _ } from '../api';
 import { TOKEN_HEADER } from '../config';
-import { CONFLICT, OK } from '../utils/Status';
+import { CREATED, OK } from '../utils/Status';
 
 const HEADER = TOKEN_HEADER.toLowerCase();
 
-/**
+/**   
  * @throws
  * 
  * NOT_FOUND      account not found
@@ -14,10 +14,8 @@ const HEADER = TOKEN_HEADER.toLowerCase();
  * UNAUTHORIZED   invalid password
  */
 export async function signIn(email: string, password: string): Promise<string> {
-  const { status, headers } = await api.post(
-    '/auth/sign-in', 
-    { email, password });
-
+  const { status, headers } = await _(api.post('/auth/sign-in', { email, password }));
+  
   if (status === OK) {
     return headers[HEADER];
   } else {
@@ -26,28 +24,28 @@ export async function signIn(email: string, password: string): Promise<string> {
 }
 
 /**
+ * @param {string} email 
+ * @param {string} password
+ * @param {string} name
+ * @param {string} options
+ * 
  * @throws
  * 
  * BAD_REQUEST     invalid request
  * 
  * CONFLICT        email already in use
  */
-export async function signUp(email: string, 
-                             password: string, 
-                             name?: string, 
-                             options?: string): Promise<void> {
-  const { status } = await api.post(
-    '/auth/sign-up', 
-    { email, password, name, options });
+export async function signUp(body: FormData): Promise<void> {
+  const { status } = await  _(api.post('/auth/sign-up', body));
 
-  if (status === CONFLICT) {
-    return;
-  } else {
+  if (status !== CREATED) {
     throw status;
   }
 }
 
 /**
+ * @param {string} new-email
+ * 
  * @throws
  * 
  * NOT_FOUND       account not found
@@ -56,15 +54,10 @@ export async function signUp(email: string,
  * 
  * CONFLICT        email already in use
  */
-export async function signUpFixEmail(email: string, 
-                                     newEmail: string): Promise<void> {
-  const { status } = await api.post(
-    `/auth/sign-up/${encodeURIComponent(email)}`, 
-    { ["new-email"]: newEmail });
+export async function signUpFixEmail(email: string, body: FormData): Promise<void> {
+  const { status } = await _(api.post(`/auth/sign-up/${encodeURIComponent(email)}`, body));
 
-  if (status === OK) {
-   return; 
-  } else {
+  if (status !== OK) {
     throw status;
   }
 }
