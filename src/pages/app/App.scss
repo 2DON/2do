@@ -51,20 +51,21 @@ $sidebar-width: $sidebar-icon-vertical-spacing * 2 + $sidebar-icon-size +
       & li {
         display: flex;
         font-size: 18px;
-        margin: 7px; 
+        margin: 7px;
         padding: 13px 60px 13px 10px;
         justify-content: flex-start;
         align-items: center;
 
-        &:hover, &.selected{
+        &:hover,
+        &.selected {
           background-color: $primary-200;
           color: black;
         }
-       & .icon {
-         display: flex;
-         font-size: 25px;
-         margin-right: 17px;
-       }
+        & .icon {
+          display: flex;
+          font-size: 25px;
+          margin-right: 17px;
+        }
       }
     }
   }

@@ -4,6 +4,7 @@ import { VscPerson } from 'react-icons/vsc';
 import { BiTask, BiData } from 'react-icons/bi';
 import Sidebar from '../../components/sidebar/Sidebar';
 import Dados from './Dados';
+import Tasks from './Task';
 import ProjectContext, {
   useProjectContext,
 } from '../../context/ProjectContext';
@@ -48,7 +49,7 @@ const App: React.FC = () => {
             {selected === 0 ? (
               <Dados />
             ) : selected === 1 ? (
-              <div style={{ backgroundColor: 'blue', padding: 100 }} />
+              <Tasks />
             ) : selected === 2 ? (
               <div style={{ backgroundColor: 'green', padding: 100 }} />
             ) : (
