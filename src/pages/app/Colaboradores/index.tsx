@@ -1,5 +1,5 @@
 import React from 'react';
-import './Colaboradores.scss';
+import './styles.scss';
 
 const Colaboradores: React.FC = () => {
   const projects = [

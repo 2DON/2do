@@ -3,17 +3,30 @@ import { BsListTask } from 'react-icons/bs';
 import { VscPerson } from 'react-icons/vsc';
 import { BiTask, BiData } from 'react-icons/bi';
 import { AiOutlineTeam } from 'react-icons/ai';
-import Sidebar from '../../components/sidebar/Sidebar';
-import Dados from './Dados';
-import Tasks from './Task';
+import Sidebar from '../../../components/sidebar/Sidebar';
+import Dados from '../Dados';
+import Tasks from '../Task';
 import ProjectContext, {
   useProjectContext,
-} from '../../context/ProjectContext';
-import './App.scss';
-import Colaboradores from './Colaboradores';
-import TeamMember from './teamMembers';
+} from '../../../context/ProjectContext';
+import './styles.scss';
+import Colaboradores from '../Colaboradores';
+import TeamMember from '../TeamMember';
 
 const App: React.FC = () => {
+  const chooseComponent = (selected: number) => {
+    if(selected === 0)
+      return <Dados />;
+    if(selected === 1)
+      return <Tasks />;
+    if(selected === 2)
+      return <div style={{ backgroundColor: 'green', padding: 100 }} />;
+    if(selected === 3)
+      return <Colaboradores />;
+    return <TeamMember />;
+    
+  }
+
   const projectContext = useProjectContext();
   const [selected, setSelected] = useState(0);
   return (
@@ -55,17 +68,7 @@ const App: React.FC = () => {
                 <AiOutlineTeam className="icon" /> <p>Membros Do Time</p>
               </li>
             </ul>
-            {selected === 0 ? (
-              <Dados />
-            ) : selected === 1 ? (
-              <Tasks />
-            ) : selected === 2 ? (
-              <div style={{ backgroundColor: 'green', padding: 100 }} />
-            ) : selected === 3 ? (
-              <Colaboradores />
-            ) : (
-                      <TeamMember />
-                    )}
+            {chooseComponent(selected)}
           </div>
         </main>
       </ProjectContext.Provider>

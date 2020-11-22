@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { FiUser } from 'react-icons/fi';
-import Input from '../../components/input/Input';
-import AccountContext from '../../context/AccountContext';
-import { email as emailPattern } from '../../utils/Patterns';
-import './Dados.scss';
+import Input from '../../../components/input/Input';
+import AccountContext from '../../../context/AccountContext';
+import { email as emailPattern } from '../../../utils/Patterns';
+import './styles.scss';
 
 const Dados: React.FC = () => {
 

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import './Task.scss';
+import './styles.scss';
 
 const Task: React.FC = () => {
 
