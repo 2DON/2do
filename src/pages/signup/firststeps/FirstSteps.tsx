@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom';
 import Input from '../../../components/input/Input';
 import AccountContext from '../../../context/AccountContext';
-import { edit } from '../../../services/AccountService';
+import { update } from '../../../services/AccountService';
 import '../../../styles/FullScreenQuestion.scss';
 import './FirstSteps.scss';
 
@@ -26,7 +26,7 @@ const SetupName: React.FC = () => {
     formData.set('name', (formData.get('name') as string)?.trim());
 
     try {
-      const response = await edit(formData);
+      const response = await update(formData);
       setAccount(response.data);
       history.push(next);
     } catch {
@@ -74,7 +74,7 @@ const SetupAvatar: React.FC = () => {
     if (!preview) history.push(next);
 
     try {
-      const response = await edit(formData);
+      const response = await update(formData);
       setAccount(response.data);
       history.push(next);
     } catch {
