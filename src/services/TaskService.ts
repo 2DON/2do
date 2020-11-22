@@ -4,10 +4,8 @@ import { auth } from '../context/AuthContext';
 import { OK } from '../utils/Status';
 
 /**
- * 
  * @throws
- * 
- * NOT_FOUND
+ * - NOT_FOUND
  */
 export async function index(projectId: number): Promise<Task[]> {
     const { status, data } = await _(api.get(
@@ -23,15 +21,13 @@ export async function index(projectId: number): Promise<Task[]> {
 }
 
 /**
- * description: string
- * 
- * ordinal?: number
+ * @param description string
+ * @param ordinal ?number
  * 
  * @throws
- * 
- * UNAUTORIZED    if the current account cannot manage project members
- * 
- * BAD_REQUEST    description.length() < 1 || >= 80
+ * - UNAUTORIZED    if the current account cannot manage project members
+ * - BAD_REQUEST    
+ *          description.length() < 1 || >= 80
  */
 export async function store(projectId: number, body: FormData): Promise<Task> {
     const { status, data } = await _(api.post(
@@ -49,23 +45,16 @@ export async function store(projectId: number, body: FormData): Promise<Task> {
 
 
 /**
- * description?: string
- * 
- * ordinal?: number
- * 
- * status?: string
- * 
- * options?: string
- * 
- * assingTo?: string
+ * @param description ?string
+ * @param ordinal ?number
+ * @param status ?string
+ * @param options ?string
+ * @param assingTo? :tring
  * 
  * @throws
- * 
- * UNAUTORIZED    if the current account cannot manage project members
- * 
- * NOT_FOUND      not found task id and account id
- * 
- * BAD_REQUEST    description.length() < 1 || >= 80
+ * - UNAUTORIZED    if the current account cannot manage project members
+ * - NOT_FOUND      not found task id and account id
+ * - BAD_REQUEST    description.length() < 1 || >= 80
  */
 export async function uptade(projectId: number, taskId: number, body: FormData): Promise<Task> {
     const { status, data } = await _(api.patch(
@@ -81,12 +70,9 @@ export async function uptade(projectId: number, taskId: number, body: FormData):
 }
 
 /**
- * 
  * @throws
- * 
- * UNAUTORIZED    if the current account cannot manage project members
- * 
- * NOT_FOUND
+ * - UNAUTORIZED    if the current account cannot manage project members
+ * - NOT_FOUND
  */
 export async function destroy(projectId: number, taskId: number): Promise<void> {
     const { status } = await _(api.delete(

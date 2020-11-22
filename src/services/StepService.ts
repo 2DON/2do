@@ -6,8 +6,7 @@ import { OK } from '../utils/Status';
 /**
  * 
  * @throws
- * 
- * UNAUTHORIZED   project and account exists and the account is part of the project
+ * - UNAUTHORIZED   project and account exists and the account is part of the project
  */
 export async function index(projectId: number, taskId: number): Promise<Step[]> {
     const { status, data } = await _(api.get(
@@ -23,16 +22,13 @@ export async function index(projectId: number, taskId: number): Promise<Step[]> 
 
 
 /**
- * 
- * description: string
- * 
- * ordinal?: number
+ * @param description string
+ * @param ordinal ?number
  * 
  * @throws
- * 
- * UNAUTHORIZED    if the current account cannot manage steps
- * 
- * BAD_REQUEST     (description.length() < 1 || >= 80
+ * - UNAUTHORIZED    if the current account cannot manage steps
+ * - BAD_REQUEST     
+ *        (description.length() < 1 || >= 80
  */
 export async function store(projectId: number, taskId: number, body: FormData): Promise<Step> {
     const { status, data } = await _(api.post(
@@ -49,22 +45,16 @@ export async function store(projectId: number, taskId: number, body: FormData): 
 
 
 /**
- * 
- * descriprion?: string
- * 
- * status?: string
- * 
- * ordinal?: number
- * 
- * observation?: string
+ * @param descriprion ?string
+ * @param status ?string
+ * @param ordinal ?number
+ * @param observation ?string
  * 
  * @throws
- * 
- * UNAUTHORIZED   not have permission to modified
- * 
- * NOT_FOUND      not found task id, project id or step id
- * 
- * BAD_REQUEST    description.length() < 1 || >= 80
+ * - UNAUTHORIZED   not have permission to modified
+ * - NOT_FOUND      not found task id, project id or step id
+ * - BAD_REQUEST    
+ *          description.length() < 1 || >= 80
  */
 export async function update(projectId: number, taskId: number, stepId: number, body: FormData): Promise<Step> {
     const { status, data } = await _(api.patch(
@@ -82,12 +72,9 @@ export async function update(projectId: number, taskId: number, stepId: number, 
 
 
 /**
- * 
  * @throws
- * 
- * UNAUTHORIZED    not have permission to delete the step
- * 
- * NOT_FOUND       not find step id, task id or project id
+ * - UNAUTHORIZED    not have permission to delete the step
+ * - NOT_FOUND       not find step id, task id or project id
  */
 export async function destroy(projectId: number, taskId: number, stepId: number): Promise<void> {
     const { status } = await _(api.delete(
