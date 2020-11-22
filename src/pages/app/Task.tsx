@@ -2,14 +2,13 @@ import React, { useContext, useState } from 'react';
 import './Task.scss';
 
 const Task: React.FC = () => {
-  const [projects] = useState<Project[]>([]);
+
 
   return (
     <form className="Task">
       <div className="wrap-collabsible">
-        <input className="input" type="checkbox">
-          <label className="prop">in progress</label>
-        </input>
+        <input className="input" id="put" type="checkbox" />
+        <label htmlFor="put" className="prop">in progress</label>
         <div className="collapsible-content">
           <div className="content-inner">
             <p>OPOOOORRRAAAAA</p>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BsListTask } from 'react-icons/bs';
 import { VscPerson } from 'react-icons/vsc';
 import { BiTask, BiData } from 'react-icons/bi';
+import { AiOutlineTeam } from 'react-icons/ai';
 import Sidebar from '../../components/sidebar/Sidebar';
 import Dados from './Dados';
 import Tasks from './Task';
@@ -9,6 +10,8 @@ import ProjectContext, {
   useProjectContext,
 } from '../../context/ProjectContext';
 import './App.scss';
+import Colaboradores from './Colaboradores';
+import TeamMember from './teamMembers';
 
 const App: React.FC = () => {
   const projectContext = useProjectContext();
@@ -45,6 +48,12 @@ const App: React.FC = () => {
               >
                 <VscPerson className="icon" /> <p>Colaboradores</p>
               </li>
+              <li
+                className={`${selected === 4 ? 'selected' : ''}`}
+                onClick={() => setSelected(4)}
+              >
+                <AiOutlineTeam className="icon" /> <p>Membros Do Time</p>
+              </li>
             </ul>
             {selected === 0 ? (
               <Dados />
@@ -52,9 +61,11 @@ const App: React.FC = () => {
               <Tasks />
             ) : selected === 2 ? (
               <div style={{ backgroundColor: 'green', padding: 100 }} />
+            ) : selected === 3 ? (
+              <Colaboradores />
             ) : (
-                    <div style={{ backgroundColor: 'yellow', padding: 100 }} />
-                  )}
+                      <TeamMember />
+                    )}
           </div>
         </main>
       </ProjectContext.Provider>

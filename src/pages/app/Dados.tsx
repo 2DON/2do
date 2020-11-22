@@ -6,20 +6,20 @@ import { email as emailPattern } from '../../utils/Patterns';
 import './Dados.scss';
 
 const Dados: React.FC = () => {
-  const [projects] = useState<Project[]>([]);
+
   const { account } = useContext(AccountContext) as AccountContext;
 
   return (
     <div className="Data">
       <p id="title">Avatar</p>
-      <caption>
+      <p id="avatar">
         {account?.avatarUrl &&
           account?.avatarUrl !== 'data:image/png;base64,' ? (
             <img src={account.avatarUrl} alt="Avatar" />
           ) : (
             <FiUser />
           )}
-      </caption>
+      </p>
       <Input
         placeholder="Nome"
         id="Nome"
