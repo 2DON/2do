@@ -5,17 +5,19 @@ const Task: React.FC = () => {
 
 
   return (
-    <form className="Task">
-      <div className="wrap-collabsible">
-        <input className="input" id="put" type="checkbox" />
-        <label htmlFor="put" className="prop">in progress</label>
-        <div className="collapsible-content">
-          <div className="content-inner">
-            <p>OPOOOORRRAAAAA</p>
-          </div>
+
+    < div className="wrap-collabsible" >
+      <input id="collapsible" className="toggle" type="checkbox" />
+      <label className="lbl-toggle">More Info</label>
+      <div className="collapsible-content">
+        <div className="content-inner">
+          <p> QUnit is by calling one of the object that are embedded in JavaScript
+          , and faster JavaScript program could also used with its elegant, well
+          documented, and functional programming using JS, HTML pages Modernizr is
+          a popular browsers without plug-ins. Test-Driven Development.</p>
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 
