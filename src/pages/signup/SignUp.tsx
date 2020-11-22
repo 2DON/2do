@@ -5,9 +5,10 @@ import BackButton from '../../components/backbutton/BackButton';
 import Input from '../../components/input/Input';
 import AccountContext from '../../context/AccountContext';
 import AuthContext from '../../context/AuthContext';
-import { exists, me } from '../../services/AccountService';
-import { signIn, signUp } from '../../services/AuthService';
+import * as AccountService from '../../services/AccountService';
+import * as AuthService from '../../services/AuthService';
 import { email as emailPattern } from '../../utils/Patterns';
+import { CONFLICT, isStatus } from '../../utils/Status';
 import timed from '../../utils/timed';
 import './SignUp.scss';
 
@@ -21,12 +22,11 @@ const SignUp: React.FC = () => {
     event.preventDefault();
     if (errors) return;
 
-    const form = new FormData(event.currentTarget);
+    const formData = new FormData(event.currentTarget);
 
-    const email = (form.get('email') as string)?.trim();
-    const password = form.get('password') as string;
+    formData.set('email', (formData.get('email') as string)?.trim());
 
-    if (password !== form.get('password-confirmation')) {
+    if (formData.get('password') !== formData.get('password-confirmation')) {
       setErrors({
         passwordConfirmation: 'senha e confirmação são diferentes',
       });
@@ -34,15 +34,19 @@ const SignUp: React.FC = () => {
     }
 
     try {
-      await signUp(email, password);
-      const token = await signIn(email, password);
+      await AuthService.signUp(formData);
+
+      const token = await AuthService.signIn(
+        formData.get('email') as string, 
+        formData.get('password') as string);
 
       setToken(token);
-      setAccount(await me());
+      setAccount(await AccountService.me());
       history.push('/sign-up/first-steps');
-    } catch (err) {
-      switch (err.response.status) {
-        case 409:
+    } catch (status) {
+      if (!isStatus(status)) throw status;
+      switch (status) {
+        case CONFLICT:
           setErrors({ email: 'email em uso' });
           break;
         default:
@@ -60,7 +64,7 @@ const SignUp: React.FC = () => {
       return;
     }
 
-    exists(email).then((used) => {
+    AccountService.exists(email).then((used) => {
       if (!used) return;
 
       setErrors({ email: 'email em uso' });

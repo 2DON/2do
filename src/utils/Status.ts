@@ -13,3 +13,5 @@ export const LOCKED = 423
 export const UNAUTHORIZED = 401
 
 export const UPGRADE_REQUIRED = 426
+
+export const isStatus = (status: any): status is number => typeof status === 'number';
