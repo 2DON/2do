@@ -2,7 +2,7 @@ interface Task {
   id: number;
   ordinal: number;
   description: string;
-  status: 'IN_PROGRESS' | 'DONE';
+  status: TaskStatus;
   options?: string;
   assignedTo?: number;
   createdAt: Date;
