@@ -13,7 +13,7 @@ import './styles.scss';
 import Colaboradores from '../Colaboradores';
 import TeamMember from '../TeamMember';
 
-const App: Page = () => {
+const App: React.FC = () => {
   const chooseComponent = (selected: number) => {
     if(selected === 0)
       return <Dados />;
@@ -75,7 +75,5 @@ const App: Page = () => {
     </div>
   );
 };
-
-App.path = "/path"
 
 export default App;

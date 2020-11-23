@@ -21,8 +21,8 @@ export async function signIn(email: string, password: string): Promise<string> {
 }
 
 /**
- * @param email     ?string
- * @param password  ?string
+ * @param email     string
+ * @param password  string
  * @param name      ?string
  * @param options   ?string
  * 

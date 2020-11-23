@@ -7,5 +7,3 @@ type SubmitEvent = React.BaseSyntheticEvent<
   EventTarget & HTMLFormElement,
   EventTarget
 >;
-
-type Page<T = {}> = React.FC<T> & { path: string }

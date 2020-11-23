@@ -9,13 +9,15 @@ import {
 } from 'react-router-dom';
 import Input from '../../../components/input/Input';
 import AccountContext from '../../../context/AccountContext';
+import AuthContext from '../../../context/AuthContext';
 import * as AccountService from '../../../services/AccountService';
+import * as AuthService from '../../../services/AuthService';
 import '../../../styles/FullScreenQuestion.scss';
-import SignUp from '../SignUp';
 import './FirstSteps.scss';
 
 const SetupName: React.FC = () => {
   const next = '/sign-up/first-steps/avatar';
+  const { setToken } = useContext(AuthContext) as AuthContext;
   const { setAccount } = useContext(AccountContext) as AccountContext;
   const history = useHistory();
 
@@ -23,15 +25,11 @@ const SetupName: React.FC = () => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
-    formData.set('name', (formData.get('name') as string)?.trim());
+    const { email, password } = JSON.parse(sessionStorage.getItem('sign-up-cache') as string) as {email: string, password: string};
 
-    try {
-      const account = await AccountService.update(formData);
-      setAccount(account);
-      history.push(next);
-    } catch {
-      console.error('unknown error at first-steps/name');
-    }
+    sessionStorage.setItem('sign-up-cache', JSON.stringify({ email, password, name: (formData.get('name') as string)?.trim() }))
+
+    history.push(next);
   }
 
   return (
@@ -72,6 +70,22 @@ const SetupAvatar: React.FC = () => {
     const formData = new FormData(event.currentTarget);
 
     if (!preview) return; // TODO make avatar red? alert?
+
+    const { email, password, name } = JSON.parse(sessionStorage.getItem('sign-up-cache') as string);
+
+    formData.set('email', email);
+    formData.set('password', password);
+    formData.set('name', name);
+
+    try {
+      await AuthService.signUp(formData);
+      sessionStorage.removeItem('sign-up-cache')
+      
+      alert('plz verify your email and click on the verification link :)');
+      // TODO now the user needs to verify his email
+    } catch {
+      console.error('unknown error at first-steps/name');
+    }
 
     try {
       const account = await AccountService.updateAvatar(formData);
@@ -136,7 +150,7 @@ const SetupAvatar: React.FC = () => {
   );
 };
 
-const FirstSteps: Page = () => {
+const FirstSteps: React.FC = () => {
   const match = useRouteMatch();
 
   return (
@@ -151,7 +165,5 @@ const FirstSteps: Page = () => {
     </Switch>
   );
 };
-
-FirstSteps.path =  `${SignUp.path}/first-steps`
 
 export default FirstSteps;

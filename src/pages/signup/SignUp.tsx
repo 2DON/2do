@@ -3,21 +3,15 @@ import { useHistory } from 'react-router-dom';
 import logo from '../../assets/2DO.svg';
 import BackButton from '../../components/backbutton/BackButton';
 import Input from '../../components/input/Input';
-import AccountContext from '../../context/AccountContext';
-import AuthContext from '../../context/AuthContext';
+import { first_steps_path, start_path } from '../../pages';
 import * as AccountService from '../../services/AccountService';
-import * as AuthService from '../../services/AuthService';
 import { email as emailPattern } from '../../utils/Patterns';
 import { CONFLICT, isStatus } from '../../utils/Status';
 import timed from '../../utils/timed';
-import Start from '../start/Start';
-import FirstSteps from './firststeps/FirstSteps';
 import './SignUp.scss';
 
-const SignUp: Page = () => {
+const SignUp: React.FC = () => {
   const history = useHistory();
-  const { setToken } = useContext(AuthContext) as AuthContext;
-  const { setAccount } = useContext(AccountContext) as AccountContext;
   const [errors, setErrors] = useState<Dict<string> | null>(null);
 
   async function handleSubmit(event: SubmitEvent) {
@@ -36,15 +30,10 @@ const SignUp: Page = () => {
     }
 
     try {
-      await AuthService.signUp(formData);
+      sessionStorage.setItem("sign-up-cache", JSON.stringify({ email: (formData.get('email') as string).trim(),
+                                                               password: formData.get('password') as string }))
 
-      const token = await AuthService.signIn(
-        formData.get('email') as string, 
-        formData.get('password') as string);
-
-      setToken(token);
-      setAccount(await AccountService.me());
-      history.push(FirstSteps.path);
+      history.push(first_steps_path);
     } catch (status) {
       if (!isStatus(status)) throw status;
       switch (status) {
@@ -75,7 +64,7 @@ const SignUp: Page = () => {
 
   return (
     <div className="SignUp">
-      <BackButton onClick={() => history.push(Start.path)} />
+      <BackButton onClick={() => history.push(start_path)} />
 
       <form onSubmit={handleSubmit}>
         <h2>Cadastro</h2>
@@ -120,7 +109,5 @@ const SignUp: Page = () => {
     </div>
   );
 };
-
-SignUp.path = "/sign-up"
 
 export default SignUp;

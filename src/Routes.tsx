@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import AuthRoute from './components/AuthRoute';
 import AuthContext from './context/AuthContext';
+import { app_path, first_steps_path, sign_in_path, sign_up_path, start_path } from './pages';
 import App from './pages/app/App';
 import SignIn from './pages/signin/SignIn';
 import FirstSteps from './pages/signup/firststeps/FirstSteps';
@@ -13,18 +14,18 @@ const Routes: React.FC = () => {
 
   return (
     <Switch>
-      <Route path={Start.path} component={Start} />
-      <Route path={SignIn.path} component={SignIn} />
-      <Route path={SignUp.path} exact component={SignUp} />
+      <Route path={start_path} component={Start} />
+      <Route path={sign_in_path} component={SignIn} />
+      <Route path={sign_up_path} exact component={SignUp} />
+      <Route path={first_steps_path} component={FirstSteps} />
 
-      <AuthRoute path={FirstSteps.path} component={<FirstSteps />} />
-      <AuthRoute path={App.path} component={
+      <AuthRoute path={app_path} exact component={
         <Switch>
-          <Route path={App.path} component={App} />
+          <Route path={app_path} exact component={App} />
         </Switch>
       } />
 
-      <Redirect to={authorized ? App.path : Start.path} />
+      <Redirect to={authorized ? app_path : start_path} />
     </Switch>
   );
 };

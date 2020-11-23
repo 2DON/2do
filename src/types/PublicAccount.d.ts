@@ -3,4 +3,5 @@ interface PublicAccount {
   name: string;
   avatarUrl?: string;
   premium: boolean;
+  verificationSentAt: Date;
 }
