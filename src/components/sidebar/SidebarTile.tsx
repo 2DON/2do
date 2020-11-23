@@ -11,7 +11,7 @@ const SidebarTile: React.FC<SidebarTileProps> = ({
 
   const className = `SidebarTile ${selected ? 'selected' : ''}`;
   const title = project.description;
-  const image = project.avatarUrl;
+  const image = project.icon;
 
   return (
     <div
