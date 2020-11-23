@@ -10,9 +10,11 @@ import * as AuthService from '../../services/AuthService';
 import { email as emailPattern } from '../../utils/Patterns';
 import { CONFLICT, isStatus } from '../../utils/Status';
 import timed from '../../utils/timed';
+import Start from '../start/Start';
+import FirstSteps from './firststeps/FirstSteps';
 import './SignUp.scss';
 
-const SignUp: React.FC = () => {
+const SignUp: Page = () => {
   const history = useHistory();
   const { setToken } = useContext(AuthContext) as AuthContext;
   const { setAccount } = useContext(AccountContext) as AccountContext;
@@ -42,7 +44,7 @@ const SignUp: React.FC = () => {
 
       setToken(token);
       setAccount(await AccountService.me());
-      history.push('/sign-up/first-steps');
+      history.push(FirstSteps.path);
     } catch (status) {
       if (!isStatus(status)) throw status;
       switch (status) {
@@ -73,7 +75,7 @@ const SignUp: React.FC = () => {
 
   return (
     <div className="SignUp">
-      <BackButton onClick={() => history.push('/home')} />
+      <BackButton onClick={() => history.push(Start.path)} />
 
       <form onSubmit={handleSubmit}>
         <h2>Cadastro</h2>
@@ -118,5 +120,7 @@ const SignUp: React.FC = () => {
     </div>
   );
 };
+
+SignUp.path = "/sign-up"
 
 export default SignUp;

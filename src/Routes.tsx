@@ -13,14 +13,18 @@ const Routes: React.FC = () => {
 
   return (
     <Switch>
-      <Route path="/home" component={Start} />
-      <Route path="/sign-in" component={SignIn} />
-      <Route path="/sign-up" exact component={SignUp} />
+      <Route path={Start.path} component={Start} />
+      <Route path={SignIn.path} component={SignIn} />
+      <Route path={SignUp.path} exact component={SignUp} />
 
-      <AuthRoute path="/sign-up/first-steps" component={<FirstSteps />} />
-      <AuthRoute path="/app" component={<App />} />
+      <AuthRoute path={FirstSteps.path} component={<FirstSteps />} />
+      <AuthRoute path={App.path} component={
+        <Switch>
+          <Route path={App.path} component={App} />
+        </Switch>
+      } />
 
-      <Redirect to={authorized ? '/home' : '/app'} />
+      <Redirect to={authorized ? App.path : Start.path} />
     </Switch>
   );
 };

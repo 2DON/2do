@@ -11,6 +11,7 @@ import Input from '../../../components/input/Input';
 import AccountContext from '../../../context/AccountContext';
 import * as AccountService from '../../../services/AccountService';
 import '../../../styles/FullScreenQuestion.scss';
+import SignUp from '../SignUp';
 import './FirstSteps.scss';
 
 const SetupName: React.FC = () => {
@@ -135,7 +136,7 @@ const SetupAvatar: React.FC = () => {
   );
 };
 
-const FirstSteps: React.FC = () => {
+const FirstSteps: Page = () => {
   const match = useRouteMatch();
 
   return (
@@ -150,5 +151,7 @@ const FirstSteps: React.FC = () => {
     </Switch>
   );
 };
+
+FirstSteps.path =  `${SignUp.path}/first-steps`
 
 export default FirstSteps;

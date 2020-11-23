@@ -9,9 +9,11 @@ import * as AccountService from '../../services/AccountService';
 import * as AuthService from '../../services/AuthService';
 import * as Patterns from '../../utils/Patterns';
 import { isStatus, NOT_FOUND, UNAUTHORIZED } from '../../utils/Status';
+import App from '../app/App';
+import Start from '../start/Start';
 import './SignIn.scss';
 
-const SignIn: React.FC = () => {
+const SignIn: Page = () => {
   const history = useHistory();
   const { setToken } = useContext(AuthContext) as AuthContext;
   const { setAccount } = useContext(AccountContext) as AccountContext;
@@ -31,7 +33,7 @@ const SignIn: React.FC = () => {
       setToken(token);
       setAccount(await AccountService.me());
 
-      history.push('/app');
+      history.push(App.path);
     } catch (status) {
       if (!isStatus(status)) throw status;
       switch (status) {
@@ -49,7 +51,7 @@ const SignIn: React.FC = () => {
 
   return (
     <div className="SignIn">
-      <BackButton onClick={() => history.push('/home')} />
+      <BackButton onClick={() => history.push(Start.path)} />
 
       <img className="logo" src={logo} alt="2DO.svg" />
 
@@ -83,5 +85,7 @@ const SignIn: React.FC = () => {
     </div>
   );
 };
+
+SignIn.path = "/sign-in"
 
 export default SignIn;
