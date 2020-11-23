@@ -1,0 +1,1 @@
+type ProjectMemberPermission = 'VIEW' | 'MAN_TASKS' | 'MAN_MEMBERS' | 'MAN_PROJECT' | 'OWNER'

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext, useState } from 'react';
 import { FiUser } from 'react-icons/fi';
 import {
@@ -10,7 +9,7 @@ import {
 } from 'react-router-dom';
 import Input from '../../../components/input/Input';
 import AccountContext from '../../../context/AccountContext';
-import { edit } from '../../../services/AccountService';
+import * as AccountService from '../../../services/AccountService';
 import '../../../styles/FullScreenQuestion.scss';
 import './FirstSteps.scss';
 
@@ -26,8 +25,8 @@ const SetupName: React.FC = () => {
     formData.set('name', (formData.get('name') as string)?.trim());
 
     try {
-      const response = await edit(formData);
-      setAccount(response.data);
+      const account = await AccountService.update(formData);
+      setAccount(account);
       history.push(next);
     } catch {
       console.error('unknown error at first-steps/name');
@@ -71,11 +70,11 @@ const SetupAvatar: React.FC = () => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
-    if (!preview) history.push(next);
+    if (!preview) return; // TODO make avatar red? alert?
 
     try {
-      const response = await edit(formData);
-      setAccount(response.data);
+      const account = await AccountService.updateAvatar(formData);
+      setAccount(account);
       history.push(next);
     } catch {
       console.error('unknown error at first-steps/avatar');

@@ -1,0 +1,1 @@
+type StepStatus = 'IN_PROGRESS' | 'DONE';

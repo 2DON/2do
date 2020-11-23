@@ -1,7 +1,8 @@
 interface Team {
   id: number;
-  avatarUrl?: string;
+  icon?: string;
   name: string;
+  operator: boolean;
   createdAt: Date;
   createdBy: number;
   updatedAt: Date;
