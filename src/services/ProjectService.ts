@@ -1,6 +1,6 @@
 import api, { _ } from '../api';
 import { auth } from '../context/AuthContext';
-import { OK } from '../utils/Status';
+import { CREATED, OK } from '../utils/Status';
 
 export async function index(archived?: boolean): Promise<Project[]> {
 
@@ -32,7 +32,7 @@ export async function store(body: FormData): Promise<Project> {
     body,
     { headers: auth() }));
 
-  if (status === OK) {
+  if (status === CREATED) {
     return data;
   } else {
     throw status;

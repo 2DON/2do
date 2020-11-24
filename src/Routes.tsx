@@ -4,6 +4,7 @@ import AuthRoute from './components/AuthRoute';
 import AuthContext from './context/AuthContext';
 import { app_path, first_steps_path, sign_in_path, sign_up_path, start_path } from './pages';
 import App from './pages/app/App';
+import CreateProject, { ProjectFirstSteps } from './pages/create-project/CreateProject';
 import SignIn from './pages/signin/SignIn';
 import FirstSteps from './pages/signup/firststeps/FirstSteps';
 import SignUp from './pages/signup/SignUp';
@@ -24,6 +25,17 @@ const Routes: React.FC = () => {
           <Route path={app_path} exact component={App} />
         </Switch>
       } />
+
+      <AuthRoute path={app_path} exact component={App} />
+      <AuthRoute
+        path="/app/create-project"
+        exact
+        component={<CreateProject />}
+      />
+      <AuthRoute
+        path="/app/create-project/first-steps"
+        component={<ProjectFirstSteps />}
+      />
 
       <Redirect to={authorized ? app_path : start_path} />
     </Switch>

@@ -10,6 +10,10 @@
     margin-top: clamp(0.5em, 5vh, 1.5em);
   }
 
+  & .Textarea {
+    width: clamp(380px, 60%, 720px);
+  }
+
   & .Input {
     width: clamp(380px, 60%, 720px);
   }
