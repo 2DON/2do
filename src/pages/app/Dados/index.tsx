@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { FiUser } from 'react-icons/fi';
 import Input from '../../../components/input/Input';
 import AccountContext from '../../../context/AccountContext';

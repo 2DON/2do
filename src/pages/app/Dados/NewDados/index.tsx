@@ -1,9 +1,9 @@
-import React from "react";
+// import React from "react";
 
-const NewDados:React.FC = () => {
-	return <>
+// const NewDados:React.FC = () => {
+// 	return <>
 
-	</>
-}
+// 	</>
+// }
 
-export default const NewDados;
+// export default const NewDados;
