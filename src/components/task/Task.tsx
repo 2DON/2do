@@ -87,10 +87,26 @@ export const TaskList: React.FC<{project: Project}> = ({project}) => {
       })
   }, [project])
 
+  function save(form: HTMLFormElement) {
+    TaskService
+      .store(project.id, new FormData(form))
+      .then(task => {
+        setTasks([task, ...tasks])
+        form.reset();
+      });
+  }
+
   return (
-    <main>
-      <h2>Prujetu#e</h2>
-      {tasks.map(task => <Task key={task.id} projectId={5} task={task} />)}
+    <main className="TaskList">
+      <h2>{project.description}</h2>
+      <form className="Task New" onSubmit={e => {e.preventDefault(); save(e.currentTarget)}}>
+        <div className="base">
+          <section className="text">
+            <input type="text" name="description" id="description" placeholder="New Task Description" min="3"/>
+          </section>
+        </div>
+      </form>
+      {tasks.map(task => <Task key={task.id} projectId={project.id} task={task} />)}
     </main>
   );
 }

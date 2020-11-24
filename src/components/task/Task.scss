@@ -1,7 +1,9 @@
+@import '../../styles/colors';
+
 .Task, .SelectedTask {
 
   & + & {
-    border-top: 1px solid #fff8;
+    border-top: 1px solid $main-accent;
   }
 
   .base {
@@ -29,7 +31,7 @@
       }
 
       input:focus {
-        border-bottom: 1px solid #fff1;
+        border-bottom: 1px solid #fff2;
       }
     }
 
@@ -97,5 +99,23 @@
     padding: 0 1.5em .75em 1.5em;
 
     background-color: #fff1;
+  }
+}
+
+.TaskList {
+  h2 {
+    padding: .3em .8em;
+  }
+}
+
+.Task.New {
+  div {
+    section {
+      input {
+        margin: 1em 1em;
+
+        font-size: 18px;
+      }
+    }
   }
 }
