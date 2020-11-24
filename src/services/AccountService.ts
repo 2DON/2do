@@ -1,6 +1,7 @@
 import api, { _ } from '../api';
 import { auth } from '../context/AuthContext';
 import { OK } from '../utils/Status';
+import Keyv from 'keyv'
 
 export async function exists(email: string): Promise<boolean> {
   const { status, data } = await _(api.get(`/accounts/exists/${encodeURIComponent(email)}`));
@@ -95,4 +96,49 @@ export async function mockPremium() {
   if (status !== OK) {
     throw status;
   }
+}
+
+const accountCache = new Keyv<PublicAccount>();
+export async function findAndCache(...ids: number[]): Promise<void> {
+  if (!ids.length) return;
+
+  for(const account of await find(...ids)) {
+    await accountCache.set(String(account.id), account, /* 30min */ 1800000)
+  }
+}
+
+export async function findCached(...ids: number[]): Promise<Map<number, PublicAccount>> {
+  const accounts = new Map<number, PublicAccount>()
+
+  if (!ids) return accounts;
+
+  // get cache if not expired
+  for(const id of ids) {
+    const account = await accountCache.get(String(id));
+    if (account) {
+      accounts.set(id, account)
+      ids.splice(ids.indexOf(id), 1)
+    }
+  }
+
+  // fetch what are not present or expired
+  await findAndCache(...ids);
+  
+  // run again, but now with the items cached
+  for(const id of ids) {
+    const account = await accountCache.get(String(id));
+    if (account) {
+      accounts.set(id, account)
+      ids.splice(ids.indexOf(id), 1)
+    }
+  }
+
+  if (ids.length > 0) console.warn(`error finding accounts with the following ids: ${ids}`);
+  return accounts;
+}
+
+export async function findOneCached(id: number | undefined): Promise<PublicAccount | undefined> {
+  if (!id) return;
+
+  return (await findCached(id)).get(id);
 }

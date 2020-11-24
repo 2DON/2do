@@ -10,7 +10,6 @@ import * as AccountService from '../../services/AccountService';
 import * as AuthService from '../../services/AuthService';
 import * as Patterns from '../../utils/Patterns';
 import { isStatus, NOT_FOUND, UNAUTHORIZED } from '../../utils/Status';
-import App from '../app/App';
 import './SignIn.scss';
 
 const SignIn: React.FC = () => {

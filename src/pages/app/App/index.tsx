@@ -12,7 +12,7 @@ import ProjectContext, {
 import './styles.scss';
 import Colaboradores from '../Colaboradores';
 import TeamMember from '../TeamMember';
-import { Container } from '../../../components/task/Task'
+import { TaskList } from '../../../components/task/Task'
 
 const App: React.FC = () => {
   const chooseComponent = (selected: number) => {
@@ -34,45 +34,48 @@ const App: React.FC = () => {
     <div className="App">
       <ProjectContext.Provider value={projectContext}>
         <Sidebar />
-          <Container/>
-        {/* <main className="Project">
-          <h3>Projeto Integrador</h3>
-          <div id="idDiv">
-            <ul>
-              <li
-                className={`${selected === 0 ? 'selected' : ''}`}
-                onClick={() => setSelected(0)}
-              >
-                <BiData className="icon" /> <p>Meus Dados</p>
-              </li>
-              <li
-                className={`${selected === 1 ? 'selected' : ''}`}
-                onClick={() => setSelected(1)}
-              >
-                <BsListTask className="icon" /> <p>Tarefas</p>
-              </li>
-              <li
-                className={`${selected === 2 ? 'selected' : ''}`}
-                onClick={() => setSelected(2)}
-              >
-                <BiTask className="icon" /> <p>Para mim</p>
-              </li>
-              <li
-                className={`${selected === 3 ? 'selected' : ''}`}
-                onClick={() => setSelected(3)}
-              >
-                <VscPerson className="icon" /> <p>Colaboradores</p>
-              </li>
-              <li
-                className={`${selected === 4 ? 'selected' : ''}`}
-                onClick={() => setSelected(4)}
-              >
-                <AiOutlineTeam className="icon" /> <p>Membros Do Time</p>
-              </li>
-            </ul>
-            {chooseComponent(selected)}
-          </div>
-        </main> */}
+        <ProjectContext.Consumer>
+          {(ctx) => ctx?.project == null 
+            ? <main className="Project">
+                <h3>Projeto Integrador</h3>
+                <div id="idDiv">
+                  <ul>
+                    <li
+                      className={`${selected === 0 ? 'selected' : ''}`}
+                      onClick={() => setSelected(0)}
+                    >
+                      <BiData className="icon" /> <p>Meus Dados</p>
+                    </li>
+                    <li
+                      className={`${selected === 1 ? 'selected' : ''}`}
+                      onClick={() => setSelected(1)}
+                    >
+                      <BsListTask className="icon" /> <p>Tarefas</p>
+                    </li>
+                    <li
+                      className={`${selected === 2 ? 'selected' : ''}`}
+                      onClick={() => setSelected(2)}
+                    >
+                      <BiTask className="icon" /> <p>Para mim</p>
+                    </li>
+                    <li
+                      className={`${selected === 3 ? 'selected' : ''}`}
+                      onClick={() => setSelected(3)}
+                    >
+                      <VscPerson className="icon" /> <p>Colaboradores</p>
+                    </li>
+                    <li
+                      className={`${selected === 4 ? 'selected' : ''}`}
+                      onClick={() => setSelected(4)}
+                    >
+                      <AiOutlineTeam className="icon" /> <p>Membros Do Time</p>
+                    </li>
+                  </ul>
+                  {chooseComponent(selected)}
+                </div>
+              </main>
+            : <TaskList project={ctx.project} />}
+        </ProjectContext.Consumer>  
       </ProjectContext.Provider>
     </div>
   );

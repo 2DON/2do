@@ -5,9 +5,6 @@ import * as TaskService from '../../services/TaskService'
 import * as AccountService from '../../services/AccountService'
 import './Task.scss';
 
-let acc: PublicAccount | undefined;
-AccountService.find(1).then(pa => (acc = pa[0]));
-
 const TaskStatus: React.FC<{id: number, status: TaskStatus, onChange?:(event: React.ChangeEvent<HTMLSelectElement>) => void}> = ({id, status, onChange}) => {
   return (
     <select name="status" id="status" defaultValue={status} onChange={onChange}>       
@@ -21,7 +18,13 @@ const Task: React.FC<{projectId: number, task: Task}> = ({ projectId, task: _tas
   const [checked, setChecked] = useState(false);
   const [changed, setChanged] = useState(false);
 
+
   const [task, setTask] = useState(_task);
+  const [assignedTo, setAssignedTo] = useState<PublicAccount | undefined>()
+
+  useEffect(() => {
+    AccountService.findOneCached(task.assignedTo).then(setAssignedTo);
+  }, [task])
 
   function showButtons<T>(__: React.ChangeEvent<T>): void {
     if (!changed) setChanged(true);
@@ -33,10 +36,10 @@ const Task: React.FC<{projectId: number, task: Task}> = ({ projectId, task: _tas
       .then(task => {
         setChanged(false)
         setTask(task)
-        _task = task
       })
       .catch(() => {
         setChanged(false);
+        form.reset();
       });
   }
 
@@ -46,7 +49,7 @@ const Task: React.FC<{projectId: number, task: Task}> = ({ projectId, task: _tas
         <IoIosArrowUp onClick={() => setChecked(!checked)} className={`dropdown ${checked ? 'checked' : ''}`}/>
         <section className="text">
           <input onChange={showButtons} type="text" name="description" id="description" defaultValue={task.description} />
-          <span>5 of 12 {checked && task.assignedTo ? '' : `, assigned to ${acc?.name}`}</span>
+          <span>5 of 12 {!checked && task.assignedTo ? `, assigned to ${assignedTo?.name}` : ''}</span>
         </section>
         <section className="status">
           {checked || changed
@@ -60,26 +63,33 @@ const Task: React.FC<{projectId: number, task: Task}> = ({ projectId, task: _tas
       </div>
       {checked && <>
         <div className="editor">
-          <span>assigned to {acc?.name}</span>
+          <span>assigned to {assignedTo?.name}</span>
         </div>
       </>}
     </form>
   );
 }
 
-export const Container = () => {
+export const TaskList: React.FC<{project: Project}> = ({project}) => {
   const [tasks, setTasks] = useState<Task[]>([])
 
   useEffect(() => {
     TaskService
-      .index(5)
-      .then(_tasks => {
+      .index(project.id)
+      .then(async _tasks => {
+        const accountIds = new Set(_tasks
+          .map(task => task.assignedTo)
+          .filter(accountId => accountId != null) as number[])
+
+        await AccountService.findAndCache(...accountIds)
+
         setTasks(_tasks);
       })
-  }, [])
+  }, [project])
 
   return (
     <main>
+      <h2>Prujetu#e</h2>
       {tasks.map(task => <Task key={task.id} projectId={5} task={task} />)}
     </main>
   );

@@ -136,7 +136,7 @@ export async function toggleArchived(projectId: number): Promise<Project> {
  */
 export async function transferOwnership(projectId: number, newOwnerId: number): Promise<void> {
 
-  const { status, data } = await _(api.get(
+  const { status } = await _(api.get(
     `/projects/${projectId}/transfer-to/${newOwnerId}`,
     { headers: auth() }));
 
@@ -153,7 +153,7 @@ export async function transferOwnership(projectId: number, newOwnerId: number): 
  */
 export async function destroy(projectId: number): Promise<void> {
 
-  const { status, data } = await _(api.delete(
+  const { status } = await _(api.delete(
     `/projects/${projectId}`,
     { headers: auth() }));
 
