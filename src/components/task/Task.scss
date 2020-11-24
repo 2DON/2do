@@ -1,0 +1,101 @@
+.Task, .SelectedTask {
+
+  & + & {
+    border-top: 1px solid #fff8;
+  }
+
+  .base {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: .75em 1.5em .75em 0 ;
+
+    background-color: #fff1;
+
+    .text, .status {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .text {
+      height: 100%;
+      justify-content: flex-start;
+      flex: 5;
+
+      input, p {
+        background-color: transparent;
+        margin-right: 3em;
+      }
+
+      input:focus {
+        border-bottom: 1px solid #fff1;
+      }
+    }
+
+    .status {
+      justify-self: flex-end;
+      flex: 1;
+
+      select {
+        border-radius: 50px;
+        padding: .3em .7em;
+        margin-top: .5px;
+        
+        background-color: whitesmoke;
+        font-weight: 800;
+        font-family: 'Roboto Mono', monospace;
+      }
+
+      span {
+        padding: .4em .8em;
+        text-align: right;
+        width: 100%;
+        font-size: 14px;
+        font-family: 'Roboto Mono', monospace;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+          $size: 28px;
+          margin: 4px;
+          margin-bottom: 12px;
+          width: $size;
+          height: $size;
+          border-radius: 25%;
+          svg {
+            filter: brightness(3);
+            width: $size;
+            height: $size;
+          }
+        }
+      }
+    }
+
+    .dropdown {
+      width: 2em;
+      height: 2em;
+
+      margin: 0 14px;
+      transform: rotate(180deg);
+
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .dropdown.checked {
+      transform: rotate(0deg);
+    }
+  }
+
+  .editor {
+    width: 100%;
+    height: 5em;
+
+    padding: 0 1.5em .75em 1.5em;
+
+    background-color: #fff1;
+  }
+}

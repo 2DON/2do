@@ -12,6 +12,7 @@ import ProjectContext, {
 import './styles.scss';
 import Colaboradores from '../Colaboradores';
 import TeamMember from '../TeamMember';
+import { Container } from '../../../components/task/Task'
 
 const App: React.FC = () => {
   const chooseComponent = (selected: number) => {
@@ -33,7 +34,8 @@ const App: React.FC = () => {
     <div className="App">
       <ProjectContext.Provider value={projectContext}>
         <Sidebar />
-        <main className="Project">
+          <Container/>
+        {/* <main className="Project">
           <h3>Projeto Integrador</h3>
           <div id="idDiv">
             <ul>
@@ -70,7 +72,7 @@ const App: React.FC = () => {
             </ul>
             {chooseComponent(selected)}
           </div>
-        </main>
+        </main> */}
       </ProjectContext.Provider>
     </div>
   );

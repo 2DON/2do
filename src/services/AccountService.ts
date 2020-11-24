@@ -12,7 +12,7 @@ export async function exists(email: string): Promise<boolean> {
   }
 }
 
-export async function find(...ids: number[]): Promise<Account[]> {
+export async function find(...ids: number[]): Promise<PublicAccount[]> {
   const { status, data } = await _(
     api.get('/accounts', { headers: auth(), params: { ids: ids.join(',') } }))
 
