@@ -6,4 +6,4 @@ const NewDados:React.FC = () => {
 	</>
 }
 
-export default const NewDados;
+export default NewDados;

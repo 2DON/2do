@@ -7,4 +7,4 @@ const NewTask:React.FC = () => {
 	</>
 }
 
-export default const NewTask;
+export default NewTask;

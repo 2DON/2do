@@ -6,4 +6,4 @@ const NewTeamMember:React.FC = () => {
 	</>
 }
 
-export default const NewTeamMember;
+export default NewTeamMember;
