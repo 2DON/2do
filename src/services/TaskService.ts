@@ -56,7 +56,7 @@ export async function store(projectId: number, body: FormData): Promise<Task> {
  * - NOT_FOUND      not found task id and account id
  * - BAD_REQUEST    description.length() < 1 || >= 80
  */
-export async function uptade(projectId: number, taskId: number, body: FormData): Promise<Task> {
+export async function update(projectId: number, taskId: number, body: FormData): Promise<Task> {
     const { status, data } = await _(api.patch(
         `/projects/${projectId}/tasks/${taskId}`,
         body,

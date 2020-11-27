@@ -35,9 +35,25 @@ const Dados: React.FC = () => {
         defaultValue={account?.email}
       />
 
-      <Input placeholder="Senha" id="Senha" type="password" />
-      <button type="submit">Salvar Mudanças</button>
+      <Input
+        placeholder="Senha"
+        id="Senha"
+        type="password"
+      />
+
     </div>
+  );
+};
+
+const DataUser: React.FC<{ id: number, status: TaskStatus, onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void }> = ({ id, status, onChange }) => {
+
+  return (
+    <select>
+
+      <button type="submit">Salvar Mudanças</button>
+      <button type="reset">Cancelar</button>
+
+    </select>
   );
 };
 
