@@ -1,6 +1,6 @@
 import api, { _ } from '../api';
 import { auth } from '../context/AuthContext';
-import Cached from '../utils/Cached';
+import Cached, { AllCached } from '../utils/Cached';
 import { CREATED, OK } from '../utils/Status';
 
 export async function index(archived?: boolean): Promise<Project[]> {
@@ -162,3 +162,25 @@ export async function destroy(projectId: number): Promise<void> {
     throw status;
   }
 }
+
+class ProjectCache extends AllCached<Project> {
+
+  protected idOf(entity: Project): number {
+    return entity.id;
+  }
+
+  async cacheAll(): Promise<void> {
+    this.memo.clear();
+
+    for (const project of await index()) {
+      await this.add(project)
+    }
+  }
+
+  async findAll(): Promise<Map<number, Project>> {
+    return this.memo;
+  }
+
+}
+
+export const cached = new ProjectCache();

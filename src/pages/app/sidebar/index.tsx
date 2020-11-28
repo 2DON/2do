@@ -14,7 +14,7 @@ const Sidebar = () => {
   const { account } = useContext(AccountContext) as AccountContext;
   const [projects, setProjects] = useState<Project[]>([])
 
-  useEffect(() => {
+  useEffect(() => { // use cached
     ProjectService.index().then(projects => setProjects(projects));
   }, []);
 

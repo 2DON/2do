@@ -1,9 +1,7 @@
 import api, { _ } from '../api';
 import { auth } from '../context/AuthContext';
 import { OK } from '../utils/Status';
-import Keyv from 'keyv'
-import Cached from '../utils/Cached';
-import AccountContext from '../context/AccountContext';
+import { IdCached } from '../utils/Cached';
 
 export async function exists(email: string): Promise<boolean> {
   const { status, data } = await _(api.get(`/accounts/exists/${encodeURIComponent(email)}`));
@@ -102,7 +100,7 @@ export async function mockPremium() {
   }
 }
 
-class PublicAccountCache extends Cached<PublicAccount> {
+class PublicAccountCache extends IdCached<PublicAccount> {
 
   protected idOf(entity: PublicAccount): string {
     return String(entity.id);

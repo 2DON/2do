@@ -1,5 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import * as ProjectService from '../../../services/ProjectService'
 import { useParams } from 'react-router-dom'
+import { TaskList } from '../../../components/task/Task';
+import './styles.scss'
 
 interface ProjectRouteParams {
   projectId: string | undefined
@@ -7,14 +10,17 @@ interface ProjectRouteParams {
 
 const Project: React.FC = () => {
   const { projectId } = useParams<ProjectRouteParams>();
-
-  if (projectId == null) throw new Error('-> Project - projectId cannot be undefined');
+  const [project, setProject] = useState<Project>();
 
   useEffect(() => {
-    console.log(`loaded with projectId: ${projectId}`);
-  })
+    ProjectService.show(Number(projectId)).then(setProject);
+  }, [projectId])
 
-  return <pre>projectId: {projectId}</pre>
+  return (
+    <div className="Project">
+      {project && <TaskList project={project} />}
+    </div>
+  );
 }
 
 export default Project

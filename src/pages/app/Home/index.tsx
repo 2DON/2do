@@ -7,6 +7,7 @@ import { VscPerson } from "react-icons/vsc";
 import Colaboradores from "../Colaboradores";
 import Dados from "../Dados";
 import TeamMember from "../TeamMember";
+import './styles.scss'
 
 const Home = () => {
   const [selected, setSelected] = useState(0);
@@ -25,9 +26,9 @@ const Home = () => {
   }
 
   return (
-    <>
+    <div className="Home">
       <h3>Projeto Integrador</h3>
-      <div id="idDiv">
+      <div className="HomeIdk">
         <ul>
           <li
             className={`${selected === 0 ? 'selected' : ''}`}
@@ -62,7 +63,7 @@ const Home = () => {
         </ul>
         {chooseComponent(selected)}
       </div>
-    </>
+    </div>
   )}
 
 export default Home;
