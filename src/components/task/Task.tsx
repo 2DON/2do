@@ -37,7 +37,8 @@ const Task: React.FC<{ projectId: number, task: Task }> = ({ projectId, task: _t
   const [assignedTo, setAssignedTo] = useState<PublicAccount | undefined>()
 
   useEffect(() => {
-    AccountService.findOneCached(task.assignedTo).then(setAssignedTo);
+    if (task.assignedTo)
+      AccountService.cached.get(task.assignedTo).then(setAssignedTo);
     StepService.index(projectId, task.id).then(setSteps);
   }, [task])
 
@@ -113,7 +114,7 @@ const Task: React.FC<{ projectId: number, task: Task }> = ({ projectId, task: _t
   );
 }
 
-export const TaskList: React.FC<{ project: Project, step: Step }> = ({ project, step }) => {
+export const TaskList: React.FC<{ project: Project }> = ({ project }) => {
   const [tasks, setTasks] = useState<Task[]>([])
 
   useEffect(() => {
@@ -124,7 +125,7 @@ export const TaskList: React.FC<{ project: Project, step: Step }> = ({ project, 
           .map(task => task.assignedTo)
           .filter(accountId => accountId != null) as number[])
 
-        await AccountService.findAndCache(...accountIds)
+        await AccountService.cached.cacheAll(...accountIds);
 
         setTasks(_tasks);
       })

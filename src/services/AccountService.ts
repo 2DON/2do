@@ -2,6 +2,8 @@ import api, { _ } from '../api';
 import { auth } from '../context/AuthContext';
 import { OK } from '../utils/Status';
 import Keyv from 'keyv'
+import Cached from '../utils/Cached';
+import AccountContext from '../context/AccountContext';
 
 export async function exists(email: string): Promise<boolean> {
   const { status, data } = await _(api.get(`/accounts/exists/${encodeURIComponent(email)}`));
@@ -13,7 +15,9 @@ export async function exists(email: string): Promise<boolean> {
   }
 }
 
-export async function find(...ids: number[]): Promise<PublicAccount[]> {
+export async function find(...ids: number[] | string[]): Promise<PublicAccount[]> {
+  if (!ids.length) return [];
+
   const { status, data } = await _(
     api.get('/accounts', { headers: auth(), params: { ids: ids.join(',') } }))
 
@@ -40,9 +44,9 @@ export async function me(): Promise<Account> {
  * @param password  ?string
  * @param name      ?string
  * @param options   ?string
- * 
+ *
  * @throws
- * - BAD_REQUEST    
+ * - BAD_REQUEST
  *        !Patterns.EMAIL.matches(email) || email.length() > 45
  *        password.length() < 8 || password.getBytes().length > 72
  *        name.length() < 1 || name.length() > 45
@@ -60,9 +64,9 @@ export async function update(body: FormData): Promise<Account> {
 
 /**
  * accepted mime-types: "image/png", "image/jpeg", "application/octet-stream"
- * 
+ *
  * @param avatar    ?Blob
- * 
+ *
  * @throws
  * - BAD_REQUEST    already in use
  */
@@ -78,7 +82,7 @@ export async function updateAvatar(body: FormData): Promise<Account> {
 
 /**
  * @param password   string
- * 
+ *
  * @throws
  * - UNAUTHORIZED    incorrect password
  */
@@ -98,47 +102,52 @@ export async function mockPremium() {
   }
 }
 
-const accountCache = new Keyv<PublicAccount>();
-export async function findAndCache(...ids: number[]): Promise<void> {
-  if (!ids.length) return;
+class PublicAccountCache extends Cached<PublicAccount> {
 
-  for(const account of await find(...ids)) {
-    await accountCache.set(String(account.id), account, /* 30min */ 1800000)
+  protected idOf(entity: PublicAccount): string {
+    return String(entity.id);
   }
-}
 
-export async function findCached(...ids: number[]): Promise<Map<number, PublicAccount>> {
-  const accounts = new Map<number, PublicAccount>()
+  async cacheAll(...ids: number[]): Promise<void> {
+    const notFound = new Set()
 
-  if (!ids) return accounts;
+    for (const id of ids) {
+      if (!await this.get(id)) {
+        notFound.add(id)
+      }
+    }
 
-  // get cache if not expired
-  for(const id of ids) {
-    const account = await accountCache.get(String(id));
-    if (account) {
-      accounts.set(id, account)
-      ids.splice(ids.indexOf(id), 1)
+    for (const account of await find(...notFound)) {
+      await this.add(account)
+      notFound.delete(account.id)
+    }
+
+    if (notFound.size) {
+      console.warn(`-> cacheAll - not found: ${[...notFound].join(',')}`)
     }
   }
 
-  // fetch what are not present or expired
-  await findAndCache(...ids);
-  
-  // run again, but now with the items cached
-  for(const id of ids) {
-    const account = await accountCache.get(String(id));
-    if (account) {
-      accounts.set(id, account)
-      ids.splice(ids.indexOf(id), 1)
+  async findAll(...ids: number[]): Promise<Map<number, PublicAccount>> {
+    const map = new Map<number, PublicAccount>()
+
+    const notFound: number[] = []
+    for(const id of new Set(ids)) {
+      const account = await this.get(id);
+
+      if(account) {
+        map.set(id, account);
+      } else {
+        notFound.push(id)
+      }
     }
+
+    if (notFound.length) {
+      console.warn(`-> findAll - not found: ${notFound.join(',')}`)
+    }
+
+    return map;
   }
 
-  if (ids.length > 0) console.warn(`error finding accounts with the following ids: ${ids}`);
-  return accounts;
 }
 
-export async function findOneCached(id: number | undefined): Promise<PublicAccount | undefined> {
-  if (!id) return;
-
-  return (await findCached(id)).get(id);
-}
+export const cached = new PublicAccountCache();

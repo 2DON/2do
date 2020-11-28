@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "concurrently \"cross-env BROWSER=none yarn react:dev\" \"wait-on http://localhost:3000 && yarn run electron:dev\"",
     "react:dev": "react-scripts start",
-    "electron:dev": "yarn run electron:build && cross-env ELECTRON_ENABLE_LOGGING=true electron .",
+    "electron:dev": "yarn run electron:build && electron .",
     "build": "yarn run electron:build",
     "prebuild": "yarn run react:build",
     "react:build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",

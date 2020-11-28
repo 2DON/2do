@@ -5,7 +5,6 @@ import { BiTask, BiData } from 'react-icons/bi';
 import { AiOutlineTeam } from 'react-icons/ai';
 import Sidebar from '../../../components/sidebar/Sidebar';
 import Dados from '../Dados';
-import Tasks from '../Task';
 import ProjectContext, {
   useProjectContext,
 } from '../../../context/ProjectContext';
@@ -18,14 +17,12 @@ const App: React.FC = () => {
   const chooseComponent = (selected: number) => {
     if(selected === 0)
       return <Dados />;
-    if(selected === 1)
-      return <Tasks />;
     if(selected === 2)
       return <div style={{ backgroundColor: 'green', padding: 100 }} />;
     if(selected === 3)
       return <Colaboradores />;
     return <TeamMember />;
-    
+
   }
 
   const projectContext = useProjectContext();
@@ -35,7 +32,7 @@ const App: React.FC = () => {
       <ProjectContext.Provider value={projectContext}>
         <Sidebar />
         <ProjectContext.Consumer>
-          {(ctx) => ctx?.project == null 
+          {(ctx) => ctx?.project == null
             ? <main className="Project">
                 <h3>Projeto Integrador</h3>
                 <div id="idDiv">
@@ -75,7 +72,7 @@ const App: React.FC = () => {
                 </div>
               </main>
             : <TaskList project={ctx.project} />}
-        </ProjectContext.Consumer>  
+        </ProjectContext.Consumer>
       </ProjectContext.Provider>
     </div>
   );
