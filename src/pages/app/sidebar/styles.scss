@@ -1,4 +1,4 @@
-@import '../../styles/colors';
+@import '../../../styles/colors';
 
 $sidebar-icon-size: 64px;
 $sidebar-icon-vertical-spacing: 15px;
@@ -45,10 +45,12 @@ $sidebar-width: $sidebar-icon-vertical-spacing * 2 + $sidebar-icon-size +
 
     user-select: none;
 
+    color: white;
     background-color: rgba($color: #fff, $alpha: 0.1);
-    border: 1.5px solid #fff0;
+    border: 1.5px solid rgba($color: #fff, $alpha: 0.2);
     border-radius: 12%;
 
+    .Avatar,
     img,
     svg {
       border-radius: 12%;
@@ -72,15 +74,11 @@ $sidebar-width: $sidebar-icon-vertical-spacing * 2 + $sidebar-icon-size +
       }
     }
 
-    &.selected {
-      border: 1.5px solid rgba($color: #fff, $alpha: 1);
-    }
-
-    &:hover:not(.selected) {
+    &:hover {
       border: 1.5px solid rgba($color: #fff, $alpha: 0.8);
     }
 
-    &.selected::after {
+    &.active::after {
       content: '';
       position: absolute;
       right: 0;

@@ -26,7 +26,7 @@ const SignIn: React.FC = () => {
 
     try {
       const token = await AuthService.signIn(
-        (form.get('email') as string)?.trim(), 
+        (form.get('email') as string)?.trim(),
         form.get('password') as string);
 
       setToken(token);

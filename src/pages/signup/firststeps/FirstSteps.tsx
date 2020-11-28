@@ -78,7 +78,7 @@ const SetupAvatar: React.FC = () => {
     try {
       await AuthService.signUp(formData);
       sessionStorage.removeItem('sign-up-cache')
-      
+
       history.push(app_path);
       // TODO now the user needs to verify his email
     } catch {

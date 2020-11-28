@@ -1,6 +1,8 @@
 import Keyv from "keyv";
 
 export default abstract class Cached<Entity, ID = number> {
+  protected ttl = 900000 // 15 minutes
+
   /**
    * memorized values
    */
@@ -15,7 +17,7 @@ export default abstract class Cached<Entity, ID = number> {
    * caches the entity
    */
   async add(entity: Entity): Promise<void> {
-    this.memo.set(this.idOf(entity), entity)
+    this.memo.set(this.idOf(entity), entity, this.ttl)
   }
 
   /**

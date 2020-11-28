@@ -12,7 +12,7 @@ const Start: React.FC = () => {
   // AUTO LOGIN
   useEffect(() => {
     sessionStorage.removeItem('sign-up-cache')
-    
+
     if (!authorized) return;
 
     history.push(app_path);
