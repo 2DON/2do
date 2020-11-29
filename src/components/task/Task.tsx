@@ -38,7 +38,7 @@ const Task: React.FC<{ projectId: number, task: Task }> = ({ projectId, task: _t
 
   useEffect(() => {
     if (task.assignedTo)
-      AccountService.cached.get(task.assignedTo).then(setAssignedTo);
+      setAssignedTo(AccountService.cached.get(task.assignedTo));
     StepService.index(projectId, task.id).then(setSteps);
   }, [task])
 

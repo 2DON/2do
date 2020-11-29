@@ -14,10 +14,9 @@ const Project: React.FC = () => {
 
   useEffect(() => {
     if (projectId)
-      ProjectService
+      setProject(ProjectService
         .cached
-        .get(Number(projectId))
-        .then(setProject)
+        .get(Number(projectId)))
   }, [projectId])
 
   return (

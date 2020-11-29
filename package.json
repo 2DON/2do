@@ -20,16 +20,9 @@
     "test": "react-scripts test"
   },
   "dependencies": {
-    "@types/electron-devtools-installer": "^2.2.0",
-    "@types/jest": "26.0.14",
-    "@types/keyv": "^3.1.1",
-    "@types/node": "14.11.10",
-    "@types/react": "16.9.53",
-    "@types/react-dom": "16.9.8",
     "axios": "^0.21.0",
     "electron-devtools-installer": "^3.1.1",
     "electron-is-dev": "^1.2.0",
-    "keyv": "^4.0.3",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-icons": "^3.11.0",
@@ -39,6 +32,11 @@
     "web-vitals": "^0.2.4"
   },
   "devDependencies": {
+    "@types/electron-devtools-installer": "^2.2.0",
+    "@types/jest": "26.0.14",
+    "@types/node": "14.11.10",
+    "@types/react": "16.9.53",
+    "@types/react-dom": "16.9.8",
     "@types/react-router-dom": "^5.1.6",
     "@typescript-eslint/eslint-plugin": "^4.6.0",
     "@typescript-eslint/parser": "^4.6.0",

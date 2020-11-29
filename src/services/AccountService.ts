@@ -102,8 +102,8 @@ export async function mockPremium() {
 
 class PublicAccountCache extends IdCached<PublicAccount> {
 
-  protected idOf(entity: PublicAccount): string {
-    return String(entity.id);
+  protected idOf(entity: PublicAccount): number {
+    return entity.id;
   }
 
   async cacheAll(...ids: number[]): Promise<void> {

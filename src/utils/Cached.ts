@@ -1,36 +1,29 @@
 import Keyv from "keyv";
 import { isEntityName } from "typescript";
 
-export default interface Cached<Entity, ID> {
+export default abstract class Cached<Entity, ID> {
+
+  protected readonly memo = new Map<ID, Entity>();
+
+  protected abstract idOf(entity: Entity): ID;
+
   /**
    * caches the entity
    */
-  add(entity: Entity): Promise<void>;
+  add(entity: Entity): void {
+    this.memo.set(this.idOf(entity), entity)
+  }
 
   /**
    * find the entity if in cache
    */
-  get(id: ID): Promise<Entity | undefined>
+  get(id: ID): Entity | undefined {
+    return this.memo.get(id)
+  }
+
 }
 
-export abstract class IdCached<Entity, ID = number> implements Cached<Entity, ID> {
-
-  protected ttl = 900000 // 15 minutes
-
-  /**
-   * memorized values
-   */
-  protected readonly memo = new Keyv<Entity>({ ttl: this.ttl });
-
-  protected abstract idOf(entity: Entity): string;
-
-  async add(entity: Entity): Promise<void> {
-    this.memo.set(this.idOf(entity), entity)
-  }
-
-  async get(id: ID): Promise<Entity | undefined> {
-    return this.memo.get(String(id));
-  }
+export abstract class IdCached<Entity, ID = number> extends Cached<Entity, ID> {
 
   /**
    * fetches and caches all entities by id
@@ -52,19 +45,9 @@ export abstract class IdCached<Entity, ID = number> implements Cached<Entity, ID
 
 }
 
-export abstract class AllCached<Entity, ID = number> implements Cached<Entity, ID> {
-
-  protected readonly memo = new Map<ID, Entity>();
+export abstract class AllCached<Entity, ID = number> extends Cached<Entity, ID> {
 
   protected abstract idOf(entity: Entity): ID;
-
-  async add(entity: Entity): Promise<void> {
-    this.memo.set(this.idOf(entity), entity)
-  }
-
-  async get(id: ID): Promise<Entity | undefined> {
-    return this.memo.get(id)
-  }
 
   /**
    * fetches and caches all entities by id
