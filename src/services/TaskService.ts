@@ -23,10 +23,10 @@ export async function index(projectId: number): Promise<Task[]> {
 /**
  * @param description string
  * @param ordinal ?number
- * 
+ *
  * @throws
  * - UNAUTORIZED    if the current account cannot manage project members
- * - BAD_REQUEST    
+ * - BAD_REQUEST
  *          description.length() < 1 || >= 80
  */
 export async function store(projectId: number, body: FormData): Promise<Task> {
@@ -50,7 +50,7 @@ export async function store(projectId: number, body: FormData): Promise<Task> {
  * @param status ?string
  * @param options ?string
  * @param assingTo? :tring
- * 
+ *
  * @throws
  * - UNAUTORIZED    if the current account cannot manage project members
  * - NOT_FOUND      not found task id and account id
@@ -76,7 +76,7 @@ export async function update(projectId: number, taskId: number, body: FormData):
  */
 export async function destroy(projectId: number, taskId: number): Promise<void> {
     const { status } = await _(api.delete(
-        `/projects/${projectId}/tasks${taskId}`,
+        `/projects/${projectId}/tasks/${taskId}`,
         { headers: auth() }));
 
     if (status === OK) {

@@ -74,6 +74,11 @@ const Task: React.FC<{ projectId: number, task: Task }> = ({ projectId, task: _t
     })
   }
 
+  function destroyTask() {
+    TaskService.destroy(projectId, task.id);
+  }
+
+
   return (
     <div className="Task" >
       <form className="base" onSubmit={e => { e.preventDefault(); save(e.currentTarget) }}>
@@ -85,6 +90,7 @@ const Task: React.FC<{ projectId: number, task: Task }> = ({ projectId, task: _t
         <section className="status">
           {checked || changed
             ? <div className="actions">
+              <button><FiTrash2 onClick={destroyTask} /> </button>
               <button type="reset"><FcCancel /></button>
               <button type="submit"><FcCheckmark /></button>
             </div>
