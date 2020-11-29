@@ -1,6 +1,3 @@
-import Keyv from "keyv";
-import { isEntityName } from "typescript";
-
 export default abstract class Cached<Entity, ID> {
 
   protected readonly memo = new Map<ID, Entity>();
