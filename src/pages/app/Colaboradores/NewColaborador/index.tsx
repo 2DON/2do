@@ -6,4 +6,4 @@ const NewColaborador:React.FC = () => {
 	</>
 }
 
-export default const NewColaborador;
+export default NewColaborador;

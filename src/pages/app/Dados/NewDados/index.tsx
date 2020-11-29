@@ -1,9 +1,11 @@
-// import React from "react";
+import React from "react";
 
-// const NewDados:React.FC = () => {
+// const NewDados: React.FC = () => {
 // 	return <>
-
+//     <div></div>
 // 	</>
 // }
 
-// export default const NewDados;
+// export default NewDados;
+
+export default () => <div>2</div>
