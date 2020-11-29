@@ -114,12 +114,12 @@ const Task: React.FC<{ projectId: number, task: Task }> = ({ projectId, task: _t
   );
 }
 
-export const TaskList: React.FC<{ project: Project }> = ({ project }) => {
+export const TaskList: React.FC<{ projectId: number }> = ({ projectId }) => {
   const [tasks, setTasks] = useState<Task[]>([])
 
   useEffect(() => {
     TaskService
-      .index(project.id)
+      .index(projectId)
       .then(async _tasks => {
         const accountIds = new Set(_tasks
           .map(task => task.assignedTo)
@@ -129,24 +129,21 @@ export const TaskList: React.FC<{ project: Project }> = ({ project }) => {
 
         setTasks(_tasks);
       })
-  }, [project])
+  }, [projectId])
 
 
 
   function save(form: HTMLFormElement) {
     TaskService
-      .store(project.id, new FormData(form))
+      .store(projectId, new FormData(form))
       .then(task => {
         setTasks([task, ...tasks])
         form.reset();
       });
   }
 
-
-
   return (
-    <main className="TaskList">
-      <h2>{project.description}</h2>
+    <>
       <form className="Task New" onSubmit={e => { e.preventDefault(); save(e.currentTarget) }}>
         <div className="base">
           <section className="text">
@@ -154,8 +151,8 @@ export const TaskList: React.FC<{ project: Project }> = ({ project }) => {
           </section>
         </div>
       </form>
-      {tasks.map(task => <Task key={task.id} projectId={project.id} task={task} />)}
-    </main>
+      {tasks.map(task => <Task key={task.id} projectId={projectId} task={task} />)}
+    </>
   );
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
+import { start_path } from '../pages';
 
 const AuthRoute: React.FC<AuthRouteProps> = ({
   path,
@@ -18,7 +19,7 @@ const AuthRoute: React.FC<AuthRouteProps> = ({
           ) : (
             <Redirect
               to={{
-                pathname: '/home',
+                pathname: start_path,
                 state: { from: location },
               }}
             />

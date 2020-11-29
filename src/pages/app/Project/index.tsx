@@ -13,12 +13,17 @@ const Project: React.FC = () => {
   const [project, setProject] = useState<Project>();
 
   useEffect(() => {
-    ProjectService.show(Number(projectId)).then(setProject);
+    if (projectId)
+      ProjectService
+        .cached
+        .get(Number(projectId))
+        .then(setProject)
   }, [projectId])
 
   return (
     <div className="Project">
-      {project && <TaskList project={project} />}
+      <h2>{project?.description}</h2>
+      <TaskList projectId={Number(projectId)} />
     </div>
   );
 }

@@ -29,7 +29,7 @@ const Routes: React.FC = () => {
         path="/app/create-project/first-steps"
         component={<ProjectFirstSteps />}
       />
-      <AuthRoute path={app_path} component={<App/>}/>
+      <AuthRoute path={app_path} component={<App/>} />
 
       <Redirect to={authorized ? app_path : start_path} />
     </Switch>
