@@ -74,7 +74,6 @@ const Task: React.FC<{ projectId: number, task: Task }> = ({ projectId, task: _t
     })
   }
 
-
   return (
     <div className="Task" >
       <form className="base" onSubmit={e => { e.preventDefault(); save(e.currentTarget) }}>
@@ -108,47 +107,8 @@ const Task: React.FC<{ projectId: number, task: Task }> = ({ projectId, task: _t
           </select>
           <FiTrash2 name="delete" className="img" onClick={() => destroy(step.id)} />
         </form>)}
-
       </>}
     </div >
-  );
-}
-
-export const TaskList: React.FC<{ projectId: number }> = ({ projectId }) => {
-  const [tasks, setTasks] = useState<Task[]>([])
-
-  useEffect(() => {
-    TaskService
-      .index(projectId)
-      .then(async _tasks => {
-        const accountIds = new Set(_tasks
-          .map(task => task.assignedTo)
-          .filter(accountId => accountId != null) as number[])
-
-        await AccountService.cached.cacheAll(...accountIds);
-
-        setTasks(_tasks);
-      })
-  }, [projectId])
-
-
-
-  function save(form: HTMLFormElement) {
-    TaskService
-      .store(projectId, new FormData(form))
-      .then(task => {
-        setTasks([task, ...tasks])
-        form.reset();
-      });
-  }
-
-  return (
-    <>
-      <form className="Task New" onSubmit={e => { e.preventDefault(); save(e.currentTarget) }}>
-        <input type="text" name="description" id="description" placeholder="type your new task here..." min="3" />
-      </form>
-      {tasks.map(task => <Task key={task.id} projectId={projectId} task={task} />)}
-    </>
   );
 }
 
