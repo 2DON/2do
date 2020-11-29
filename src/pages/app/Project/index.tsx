@@ -23,6 +23,7 @@ const Project: React.FC = () => {
   return (
     <div className="Project">
       <h2>{project?.description}</h2>
+      {project?.observation && <p>{project?.observation}</p>}
       <TaskList projectId={Number(projectId)} />
     </div>
   );

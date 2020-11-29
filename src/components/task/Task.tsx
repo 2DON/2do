@@ -145,11 +145,7 @@ export const TaskList: React.FC<{ projectId: number }> = ({ projectId }) => {
   return (
     <>
       <form className="Task New" onSubmit={e => { e.preventDefault(); save(e.currentTarget) }}>
-        <div className="base">
-          <section className="text">
-            <input type="text" name="description" id="description" placeholder="New Task Description" min="3" />
-          </section>
-        </div>
+        <input type="text" name="description" id="description" placeholder="type your new task here..." min="3" />
       </form>
       {tasks.map(task => <Task key={task.id} projectId={projectId} task={task} />)}
     </>
