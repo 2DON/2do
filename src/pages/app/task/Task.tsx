@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { IoIosArrowUp } from 'react-icons/io';
 import { FiTrash2 } from 'react-icons/fi';
 import { FcCancel, FcCheckmark } from 'react-icons/fc'
-import * as TaskService from '../../services/TaskService'
-import * as AccountService from '../../services/AccountService'
-import * as StepService from '../../services/StepService'
+import * as TaskService from '../../../services/TaskService'
+import * as AccountService from '../../../services/AccountService'
+import * as StepService from '../../../services/StepService'
 import './Task.scss';
-import timed from '../../utils/timed';
+import timed from '../../../utils/timed';
+import { TaskReducerAction, TaskReducerOverride } from '../TaskList/reducer';
 
 const TaskStatus: React.FC<{ id: number, status: TaskStatus, onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void }> = ({ id, status, onChange }) => {
   return (
@@ -17,7 +18,7 @@ const TaskStatus: React.FC<{ id: number, status: TaskStatus, onChange?: (event: 
   )
 }
 
-const Task: React.FC<{ projectId: number, task: Task }> = ({ projectId, task: _task }) => {
+const Task: React.FC<{ projectId: number, task: Task, dispatch: React.Dispatch<TaskReducerAction | TaskReducerOverride>; }> = ({ dispatch, projectId, task: _task }) => {
   const [checked, setChecked] = useState(false);
   const [changed, setChanged] = useState(false);
   const [steps, setSteps] = useState<Step[]>([]);
@@ -46,12 +47,13 @@ const Task: React.FC<{ projectId: number, task: Task }> = ({ projectId, task: _t
     if (!changed) setChanged(true);
   }
 
-  function save(form: HTMLFormElement) {
+  function update(form: HTMLFormElement) {
     TaskService
       .update(projectId, task.id, new FormData(form))
-      .then(task => {
+      .then(_task => {
         setChanged(false)
-        setTask(task)
+        dispatch({ type: 'mod', payload: _task })
+        setTask(_task)
       })
       .catch(() => {
         setChanged(false);
@@ -75,13 +77,14 @@ const Task: React.FC<{ projectId: number, task: Task }> = ({ projectId, task: _t
   }
 
   function destroyTask() {
-    TaskService.destroy(projectId, task.id);
+    TaskService.destroy(projectId, task.id).then(() => {
+      dispatch({ type: 'rem', payload: task })
+    });
   }
-
 
   return (
     <div className="Task" >
-      <form className="base" onSubmit={e => { e.preventDefault(); save(e.currentTarget) }}>
+      <form className="base" onSubmit={e => { e.preventDefault(); update(e.currentTarget) }}>
         <IoIosArrowUp onClick={() => setChecked(!checked)} className={`dropdown ${checked ? 'checked' : ''}`} />
         <section className="text">
           <input onChange={showButtons} type="text" name="description" id="description" defaultValue={task.description} />

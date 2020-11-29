@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useReducer } from "react"
 import * as AccountService from '../../../services/AccountService'
 import * as TaskService from '../../../services/TaskService'
-import Task from "../../../components/task/Task"
+import Task from "../task/Task"
+import reducer from "./reducer"
 
 
 interface TaskListParams {
@@ -9,7 +10,7 @@ interface TaskListParams {
 }
 
 const TaskList: React.FC<TaskListParams> = ({ projectId }) => {
-  const [tasks, setTasks] = useState<Task[]>([])
+  const [tasks, dispatch] = useReducer(reducer, []);
 
   useEffect(() => {
     TaskService
@@ -21,7 +22,7 @@ const TaskList: React.FC<TaskListParams> = ({ projectId }) => {
 
         await AccountService.cached.cacheAll(...accountIds);
 
-        setTasks(_tasks);
+        dispatch({ override: _tasks });
       })
   }, [projectId])
 
@@ -29,7 +30,7 @@ const TaskList: React.FC<TaskListParams> = ({ projectId }) => {
     TaskService
       .store(projectId, new FormData(form))
       .then(task => {
-        setTasks([task, ...tasks])
+        dispatch({ type: 'add', payload: task })
         form.reset();
       });
   }
@@ -39,7 +40,7 @@ const TaskList: React.FC<TaskListParams> = ({ projectId }) => {
       <form className="Task New" onSubmit={e => { e.preventDefault(); create(e.currentTarget) }}>
         <input type="text" name="description" id="description" placeholder="type your new task here..." min="3" />
       </form>
-      {tasks.map(task => <Task key={task.id} projectId={projectId} task={task} />)}
+      {tasks.map(task => <Task dispatch={dispatch} key={task.id} projectId={projectId} task={task} />)}
     </>
   )
 }
