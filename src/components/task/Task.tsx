@@ -85,7 +85,7 @@ const Task: React.FC<{ projectId: number, task: Task }> = ({ projectId, task: _t
         <IoIosArrowUp onClick={() => setChecked(!checked)} className={`dropdown ${checked ? 'checked' : ''}`} />
         <section className="text">
           <input onChange={showButtons} type="text" name="description" id="description" defaultValue={task.description} />
-          <span>5 of 12 {!checked && task.assignedTo ? `, assigned to ${assignedTo?.name}` : ''}</span>
+          {checked && <span>{steps.filter(step => step.status === "DONE").length} of {steps.length} {!checked && task.assignedTo ? `, assigned to ${assignedTo?.name}` : ''}</span>}
         </section>
         <section className="status">
           {checked || changed
@@ -94,7 +94,7 @@ const Task: React.FC<{ projectId: number, task: Task }> = ({ projectId, task: _t
               <button type="reset"><FcCancel /></button>
               <button type="submit"><FcCheckmark /></button>
             </div>
-            : <span>1 of 5</span>}
+            : <span>{steps.filter(step => step.status === "DONE").length} of {steps.length} {!checked && task.assignedTo ? `, assigned to ${assignedTo?.name}` : ''}</span>}
           <TaskStatus onChange={showButtons} id={task.id} status={task.status} />
         </section>
       </form>
