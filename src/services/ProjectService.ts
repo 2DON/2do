@@ -1,6 +1,6 @@
 import api, { _ } from '../api';
 import { auth } from '../context/AuthContext';
-import Cached, { AllCached } from '../utils/Cached';
+import { AllCached } from '../utils/Cached';
 import { CREATED, OK } from '../utils/Status';
 
 export async function index(archived?: boolean): Promise<Project[]> {
