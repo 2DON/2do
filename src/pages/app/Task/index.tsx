@@ -5,9 +5,9 @@ import { FcCancel, FcCheckmark } from 'react-icons/fc'
 import * as TaskService from '../../../services/TaskService'
 import * as AccountService from '../../../services/AccountService'
 import * as StepService from '../../../services/StepService'
-import './Task.scss';
-import timed from '../../../utils/timed';
 import { TaskReducerAction, TaskReducerOverride } from '../TaskList/reducer';
+import timed from '../../../utils/timed';
+import './styles.scss';
 
 const TaskStatus: React.FC<{ id: number, status: TaskStatus, onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void }> = ({ id, status, onChange }) => {
   return (

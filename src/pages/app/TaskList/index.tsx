@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from "react"
 import * as AccountService from '../../../services/AccountService'
 import * as TaskService from '../../../services/TaskService'
-import Task from "../task/Task"
+import Task from "../Task"
 import reducer from "./reducer"
 
 
