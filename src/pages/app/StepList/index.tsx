@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer } from "react"
-import { useState } from "react";
 import { FiTrash2 } from "react-icons/fi";
 import * as StepService from '../../../services/StepService'
 import timed from "../../../utils/timed";
@@ -60,8 +59,8 @@ const StepList: React.FC<StepListProps> = ({ projectId, taskId, updateStepCounts
 
   return (
     <>
-      <form onSubmit={e => { e.preventDefault(); create(e.currentTarget) }} className="NewStep">
-        <input placeholder="New Step" name="description" min="3" />
+      <form className="Step New" onSubmit={e => { e.preventDefault(); create(e.currentTarget) }} >
+        <input placeholder="type your new step here..." name="description" min="3" />
       </form>
       {steps.map(step => <form
         className="Step"
@@ -74,7 +73,7 @@ const StepList: React.FC<StepListProps> = ({ projectId, taskId, updateStepCounts
           <option value="IN_PROGRESS">IN_PROGRESS</option>
           <option value="DONE">DONE</option>
         </select>
-        <FiTrash2 name="delete" className="img" onClick={() => destroy(step)} />
+        <FiTrash2 name="delete" onClick={() => destroy(step)} />
       </form>)}
     </>
   )

@@ -56,13 +56,12 @@ const Task: React.FC<{ projectId: number, task: Task, dispatch: React.Dispatch<T
           {checked && <span>{done} of {total} {!checked && task.assignedTo ? `, assigned to ${assignedTo?.name}` : ''}</span>}
         </section>
         <section className="status">
-          {checked || changed
-            ? <div className="actions">
+          {(checked || changed)
+            && <div className="actions">
               <button><FiTrash2 onClick={destroy} /> </button>
               <button type="reset"><FcCancel /></button>
               <button type="submit"><FcCheckmark /></button>
-            </div>
-            : <span>{done} of {total} {!checked && task.assignedTo ? `, assigned to ${assignedTo?.name}` : ''}</span>}
+            </div>}
           <TaskStatus onChange={showButtons} status={task.status} />
         </section>
       </form>

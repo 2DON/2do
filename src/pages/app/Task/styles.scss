@@ -21,11 +21,11 @@
 
       input, p {
         background-color: transparent;
-        margin-right: 3em;
+        border-bottom: 1px solid #0000;
       }
 
       input:focus {
-        border-bottom: 1px solid #fff2;
+        border-bottom: 1px solid $elevation-08;
       }
     }
 
@@ -91,7 +91,10 @@
 
     padding: 0 1.5em .75em 1.5em;
 
-    background-color: #fff1;
+    border-bottom: 1px solid $elevation-08;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    box-shadow: 0 4px 8px -5px $elevation-08;
   }
 }
 

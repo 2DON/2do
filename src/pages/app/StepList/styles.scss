@@ -1,47 +1,56 @@
-.NewStep {
-  background-color: #fff1;
-  padding: 0;
-  font-size: 18px;
+@import '../../../styles/colors';
+
+
+.Step:not(.New) {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
 
   input {
+    width: 100%;
+    margin: .7em 1.3em;
+    padding: .2em;
     background-color: transparent;
-    padding: 1em;
-    width: 90%;
-    border-bottom: 1px solid #fff2;
+    border-bottom: 1px solid #0000;
   }
-}
 
+  input:focus {
+    border-bottom: 1px solid $elevation-08;
+  }
 
-.Step {
-  background-color:#fff1;
-  padding: 0.75em;
-  font-size: 18px;
-  display: flex;
-
-   & input {
-     padding: 0 0.5em .75em 0.5em;
-     justify-content: flex-end;
-     width: 90%;
-     background-color: transparent;
-     border-bottom:  1px solid #fff2;
-   }
-
-   & select {
+  select {
     border-radius: 50px;
     padding: .3em .7em;
     margin-top: .5px;
+
     background-color: whitesmoke;
     font-weight: 800;
     font-family: 'Roboto Mono', monospace;
-   }
-
-  .img {
-    display: flex;
-    size:25px;
-    justify-content: center;
-    align-content: center;
-    margin-top: 9px;
-    margin-left: 5px;
-    visibility: 0;
   }
+
+  svg {
+    margin: 1em;
+    width: 34px;
+    height: 34px;
+  }
+}
+
+.Step.New {
+  input {
+    margin: 1em 1.3em;
+    font-size: 18px;
+    background-color: transparent;
+
+    &::placeholder {
+      color: $on-surface-medium;
+    }
+  }
+}
+
+.Step:not(:last-child) {
+  border-bottom: 1px solid $elevation-08;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  box-shadow: 0 4px 8px -5px $elevation-08;
 }
