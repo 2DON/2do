@@ -2,8 +2,9 @@ import React, { useContext } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import AuthRoute from './components/AuthRoute';
 import AuthContext from './context/AuthContext';
-import { app_path, first_steps_path, sign_in_path, sign_up_path, start_path } from './pages';
+import { app_path, first_steps_path, project_path, sign_in_path, sign_up_path, start_path } from './pages';
 import App from './pages/app/App';
+import ProjectEditor from './pages/app/ProjectEditor';
 import CreateProject, { ProjectFirstSteps } from './pages/create-project/CreateProject';
 import SignIn from './pages/signin/SignIn';
 import FirstSteps from './pages/signup/firststeps/FirstSteps';
@@ -29,6 +30,7 @@ const Routes: React.FC = () => {
         path="/app/create-project/first-steps"
         component={<ProjectFirstSteps />}
       />
+      <AuthRoute path={`${project_path}/:projectId/edit`} component={<ProjectEditor />} />
       <AuthRoute path={app_path} component={<App/>} />
 
       <Redirect to={authorized ? app_path : start_path} />
