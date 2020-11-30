@@ -20,13 +20,6 @@ const Routes: React.FC = () => {
       <Route path={sign_up_path} exact component={SignUp} />
       <Route path={first_steps_path} component={FirstSteps} />
 
-      <AuthRoute path={app_path} exact component={
-        <Switch>
-          <Route path={app_path} exact component={App} />
-        </Switch>
-      } />
-
-      <AuthRoute path={app_path} exact component={App} />
       <AuthRoute
         path="/app/create-project"
         exact
@@ -36,6 +29,7 @@ const Routes: React.FC = () => {
         path="/app/create-project/first-steps"
         component={<ProjectFirstSteps />}
       />
+      <AuthRoute path={app_path} component={<App/>} />
 
       <Redirect to={authorized ? app_path : start_path} />
     </Switch>

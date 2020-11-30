@@ -1,7 +1,7 @@
 
 import api, { _ } from '../api';
 import { auth } from '../context/AuthContext';
-import { OK } from '../utils/Status';
+import { CREATED, OK } from '../utils/Status';
 
 /**
  * @throws
@@ -23,10 +23,10 @@ export async function index(projectId: number): Promise<Task[]> {
 /**
  * @param description string
  * @param ordinal ?number
- * 
+ *
  * @throws
  * - UNAUTORIZED    if the current account cannot manage project members
- * - BAD_REQUEST    
+ * - BAD_REQUEST
  *          description.length() < 1 || >= 80
  */
 export async function store(projectId: number, body: FormData): Promise<Task> {
@@ -35,7 +35,7 @@ export async function store(projectId: number, body: FormData): Promise<Task> {
         body,
         { headers: auth() }));
 
-    if (status === OK) {
+    if (status === CREATED) {
         return data;
     } else {
         throw status;
@@ -50,15 +50,15 @@ export async function store(projectId: number, body: FormData): Promise<Task> {
  * @param status ?string
  * @param options ?string
  * @param assingTo? :tring
- * 
+ *
  * @throws
  * - UNAUTORIZED    if the current account cannot manage project members
  * - NOT_FOUND      not found task id and account id
  * - BAD_REQUEST    description.length() < 1 || >= 80
  */
-export async function uptade(projectId: number, taskId: number, body: FormData): Promise<Task> {
+export async function update(projectId: number, taskId: number, body: FormData): Promise<Task> {
     const { status, data } = await _(api.patch(
-        `/projects/${projectId}/tasks${taskId}`,
+        `/projects/${projectId}/tasks/${taskId}`,
         body,
         { headers: auth() }));
 
@@ -76,7 +76,7 @@ export async function uptade(projectId: number, taskId: number, body: FormData):
  */
 export async function destroy(projectId: number, taskId: number): Promise<void> {
     const { status } = await _(api.delete(
-        `/projects/${projectId}/tasks${taskId}`,
+        `/projects/${projectId}/tasks/${taskId}`,
         { headers: auth() }));
 
     if (status === OK) {

@@ -4,7 +4,7 @@ import { TOKEN_EXPIRED_VALUE, TOKEN_HEADER } from '../config';
 function isTokenExpired(token: string) {
   const payload = JSON.parse(atob(token.split('.')[1])) as { exp: number };
 
-  return payload.exp * 1000 < Date.now();
+  return payload.exp < Math.floor(Date.now() / 1000);
 }
 
 export function useAuthContext(): AuthContext {

@@ -1,5 +1,6 @@
 import api, { _ } from '../api';
 import { auth } from '../context/AuthContext';
+import Cached, { AllCached } from '../utils/Cached';
 import { CREATED, OK } from '../utils/Status';
 
 export async function index(archived?: boolean): Promise<Project[]> {
@@ -136,7 +137,7 @@ export async function toggleArchived(projectId: number): Promise<Project> {
  */
 export async function transferOwnership(projectId: number, newOwnerId: number): Promise<void> {
 
-  const { status, data } = await _(api.get(
+  const { status } = await _(api.get(
     `/projects/${projectId}/transfer-to/${newOwnerId}`,
     { headers: auth() }));
 
@@ -153,7 +154,7 @@ export async function transferOwnership(projectId: number, newOwnerId: number): 
  */
 export async function destroy(projectId: number): Promise<void> {
 
-  const { status, data } = await _(api.delete(
+  const { status } = await _(api.delete(
     `/projects/${projectId}`,
     { headers: auth() }));
 
@@ -161,3 +162,25 @@ export async function destroy(projectId: number): Promise<void> {
     throw status;
   }
 }
+
+class ProjectCache extends AllCached<Project> {
+
+  protected idOf(entity: Project): number {
+    return entity.id;
+  }
+
+  async cacheAll(): Promise<void> {
+    this.memo.clear();
+
+    for (const project of await index()) {
+      await this.add(project)
+    }
+  }
+
+  async findAll(): Promise<Map<number, Project>> {
+    return this.memo;
+  }
+
+}
+
+export const cached = new ProjectCache();

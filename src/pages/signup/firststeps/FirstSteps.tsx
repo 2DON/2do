@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 import Input from '../../../components/input/Input';
 import AccountContext from '../../../context/AccountContext';
-import AuthContext from '../../../context/AuthContext';
+import { app_path } from '../../../pages';
 import * as AccountService from '../../../services/AccountService';
 import * as AuthService from '../../../services/AuthService';
 import '../../../styles/FullScreenQuestion.scss';
@@ -17,8 +17,6 @@ import './FirstSteps.scss';
 
 const SetupName: React.FC = () => {
   const next = '/sign-up/first-steps/avatar';
-  const { setToken } = useContext(AuthContext) as AuthContext;
-  const { setAccount } = useContext(AccountContext) as AccountContext;
   const history = useHistory();
 
   async function handleSubmit(event: SubmitEvent) {
@@ -80,8 +78,8 @@ const SetupAvatar: React.FC = () => {
     try {
       await AuthService.signUp(formData);
       sessionStorage.removeItem('sign-up-cache')
-      
-      alert('plz verify your email and click on the verification link :)');
+
+      history.push(app_path);
       // TODO now the user needs to verify his email
     } catch {
       console.error('unknown error at first-steps/name');

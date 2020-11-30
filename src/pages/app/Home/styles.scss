@@ -1,0 +1,44 @@
+@import "../../../styles/colors";
+
+.Home {
+  display: flex;
+  flex-direction: column;
+  & h3 {
+    font-family: 'Roboto Mono', monospace;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 48px;
+    letter-spacing: -0.4px;
+    margin: 20px;
+  }
+  & .HomeIdk {
+    display: flex;
+
+    & ul {
+      display: flex;
+      flex-direction: column;
+      margin-left: 10px;
+
+      & li {
+        display: flex;
+        font-size: 18px;
+        margin: 7px;
+        padding: 13px 60px 13px 10px;
+        justify-content: flex-start;
+        align-items: center;
+
+        &:hover,
+        &.selected {
+          background-color: $primary-200;
+          color: black;
+        }
+        & .icon {
+          display: flex;
+          font-size: 25px;
+          margin-right: 17px;
+        }
+      }
+    }
+  }
+}

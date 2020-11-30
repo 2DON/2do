@@ -1,68 +1,111 @@
+@import '../../../styles/colors';
 
-input[type='checkbox']:hover:checked {
-    
-} 
+.Task, .SelectedTask {
 
-.lbl-toggle {
-     display: block;  
-     font-family: 'Roboto Mono' monospace; 
-     font-size: 18;   
-     text-align: center;
-     justify-content: center; 
-     height: 100px;
-     width: 400px; 
-     color: #DDD; 
-     background: #0069ff; 
- 
-     border-radius: 7px; 
-     transition: all 0.25s 
-    } 
+  .base {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: .75em 1.5em .75em 0 ;
 
-     .lbl-toggle:hover { 
-         color: #FFF;
-         
-        } 
+    .text, .status {
+      display: flex;
+      flex-direction: column;
+    }
 
-         .lbl-toggle::before { 
-             display: flex;
-              border-top: 5px solid transparent;
-               border-bottom: 5px solid transparent; 
-               border-left: 5px solid currentColor; 
-               align-content: center; 
-                text-align: center;
-               margin: 15px; 
-               transform: translateY(-2px);
-                transition: transform .2s ease-out; 
-            } 
+    .text {
+      height: 100%;
+      justify-content: flex-start;
+      flex: 5;
 
-                .toggle:checked+.lbl-toggle::before { 
-                    transform: rotate(90deg) translateX(-3px); 
-                } 
+      input, p {
+        background-color: transparent;
+        border-bottom: 1px solid #0000;
+      }
 
-                    .collapsible-content { 
-                        max-height: 0px; 
-                        overflow: hidden; 
-                        transition: max-height .25s ease-in-out; 
-                    } 
+      input:focus {
+        border-bottom: 1px solid $elevation-08;
+      }
+    }
 
-                        .toggle:checked + .lbl-toggle + .collapsible-content { 
-                            max-height: 500px;
-                            max-width: 400px; 
-                        } 
+    .status {
+      justify-self: flex-end;
+      flex: 1;
 
-                            .toggle:checked+.lbl-toggle { 
-                                border-bottom-right-radius: 0;
-                                 border-bottom-left-radius: 0; 
-                                } 
+      select {
+        border-radius: 50px;
+        padding: .3em .7em;
+        margin-top: .5px;
 
-                                 .collapsible-content .content-inner { 
-                                     background: rgba(0, 105, 255, .2); 
-                                     border-bottom: 1px solid rgba(0, 105, 255, .45);
-                                      border-bottom-left-radius: 7px; 
-                                      border-bottom-right-radius: 7px;
-                                       padding: 10px; 
-                                    } 
+        background-color: whitesmoke;
+        font-weight: 800;
+        font-family: 'Roboto Mono', monospace;
+      }
 
-                                       .collapsible-content p { 
-                                           margin-bottom: 0; 
-                                        }
+      span {
+        padding: .4em .8em;
+        text-align: right;
+        width: 100%;
+        font-size: 14px;
+        font-family: 'Roboto Mono', monospace;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+          $size: 22px;
+          margin: 4px;
+          margin-bottom: 12px;
+          width: $size;
+          height: $size;
+          border-radius: 25%;
+          svg {
+            width: $size;
+            height: $size;
+          }
+        }
+      }
+    }
+
+    .dropdown {
+      width: 2em;
+      height: 2em;
+
+      margin: 0 14px;
+      transform: rotate(180deg);
+
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .dropdown.checked {
+      transform: rotate(0deg);
+    }
+  }
+
+  .editor {
+    width: 100%;
+    height: 5em;
+
+    padding: 0 1.5em .75em 1.5em;
+
+    border-bottom: 1px solid $elevation-08;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    box-shadow: 0 4px 8px -5px $elevation-08;
+  }
+}
+
+.Task.New {
+  input {
+    margin: 1em 1em;
+    font-size: 18px;
+    background-color: transparent;
+
+    &::placeholder {
+      color: $on-surface-medium;
+    }
+  }
+}

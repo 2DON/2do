@@ -4,7 +4,7 @@ import { Route, Switch, useHistory, useRouteMatch } from 'react-router-dom';
 import BackButton from '../../components/backbutton/BackButton';
 import Input from '../../components/input/Input';
 import Textarea from '../../components/textarea/Textarea';
-import { index, store, update } from '../../services/ProjectService';
+import { store, update } from '../../services/ProjectService';
 import '../signup/firststeps/FirstSteps.scss';
 import './CreateProject.scss';
 
@@ -82,7 +82,6 @@ const SetupAvatar: React.FC = () => {
   async function handleSubmit(event: SubmitEvent) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const projects: Promise<Project[]> | null = index();
 
     if (!preview) history.push(next);
 

@@ -1,10 +1,10 @@
 import api, { _ } from '../api';
 import { auth } from '../context/AuthContext';
-import { OK } from '../utils/Status';
+import { CREATED, OK } from '../utils/Status';
 
 
 /**
- * 
+ *
  * @throws
  * - UNAUTHORIZED   project and account exists and the account is part of the project
  */
@@ -24,10 +24,10 @@ export async function index(projectId: number, taskId: number): Promise<Step[]> 
 /**
  * @param description string
  * @param ordinal ?number
- * 
+ *
  * @throws
  * - UNAUTHORIZED    if the current account cannot manage steps
- * - BAD_REQUEST     
+ * - BAD_REQUEST
  *        (description.length() < 1 || >= 80
  */
 export async function store(projectId: number, taskId: number, body: FormData): Promise<Step> {
@@ -36,7 +36,7 @@ export async function store(projectId: number, taskId: number, body: FormData): 
         body,
         { headers: auth() }));
 
-    if (status === OK) {
+    if (status === CREATED) {
         return data;
     } else {
         throw status;
@@ -49,11 +49,11 @@ export async function store(projectId: number, taskId: number, body: FormData): 
  * @param status ?string
  * @param ordinal ?number
  * @param observation ?string
- * 
+ *
  * @throws
  * - UNAUTHORIZED   not have permission to modified
  * - NOT_FOUND      not found task id, project id or step id
- * - BAD_REQUEST    
+ * - BAD_REQUEST
  *          description.length() < 1 || >= 80
  */
 export async function update(projectId: number, taskId: number, stepId: number, body: FormData): Promise<Step> {
