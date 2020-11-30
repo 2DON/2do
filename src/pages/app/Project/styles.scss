@@ -33,6 +33,20 @@
   h2 {
     @extend .defaults;
     padding: .2em .5em;
+
+    position: relative;
+
+    svg {
+      position: absolute;
+      color: $on-surface-medium;
+      top: 6px;
+      right: 6px;
+      font-size: 28px;
+    }
+
+    svg:hover {
+      color: $on-surface-high;
+    }
   }
 
   p {
