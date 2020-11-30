@@ -56,14 +56,13 @@
         justify-content: flex-end;
 
         button {
-          $size: 28px;
+          $size: 22px;
           margin: 4px;
           margin-bottom: 12px;
           width: $size;
           height: $size;
           border-radius: 25%;
           svg {
-            filter: brightness(3);
             width: $size;
             height: $size;
           }
@@ -107,51 +106,3 @@
     }
   }
 }
-
-.NewStep {
-  background-color: #fff1;
-  padding: 0;
-  font-size: 18px;
-
-  input {
-    background-color: transparent;
-    padding: 1em;
-    width: 90%;
-    border-bottom: 1px solid #fff2;
-  }
-}
-
-
-.Step {
-  background-color:#fff1;
-  padding: 0.75em;
-  font-size: 18px;
-  display: flex;
-
-   & input {
-     padding: 0 0.5em .75em 0.5em;
-     justify-content: flex-end;
-     width: 90%;
-     background-color: transparent;
-     border-bottom:  1px solid #fff2;
-   }
-
-   & select {
-    border-radius: 50px;
-    padding: .3em .7em;
-    margin-top: .5px;
-    background-color: whitesmoke;
-    font-weight: 800;
-    font-family: 'Roboto Mono', monospace;
-   }
-  }
-
-  .img {
-    display: flex;
-    size:25px;
-    justify-content: center;
-    align-content: center;
-    margin-top: 9px;
-    margin-left: 5px;
-    visibility: 0;
-  }
