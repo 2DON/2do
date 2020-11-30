@@ -5,9 +5,12 @@ import BackButton from '../../components/backbutton/BackButton';
 import Input from '../../components/input/Input';
 import AccountContext from '../../context/AccountContext';
 import AuthContext from '../../context/AuthContext';
-import { info } from '../../services/AccountService';
-import { signIn } from '../../services/AuthService';
-import { email as emailPattern } from '../../utils/Patterns';
+import { app_path, start_path } from '../../pages';
+import * as AccountService from '../../services/AccountService';
+import * as AuthService from '../../services/AuthService';
+import * as Patterns from '../../utils/Patterns';
+import { isStatus, NOT_FOUND, UNAUTHORIZED } from '../../utils/Status';
+import App from '../app/App';
 import './SignIn.scss';
 
 const SignIn: React.FC = () => {
@@ -23,22 +26,21 @@ const SignIn: React.FC = () => {
     const form = new FormData(event.currentTarget);
 
     try {
-      const token = await signIn(
-        (form.get('email') as string)?.trim(),
-        (form.get('password') as string)?.trim()
-      );
+      const token = await AuthService.signIn(
+        (form.get('email') as string)?.trim(), 
+        form.get('password') as string);
 
       setToken(token);
+      setAccount(await AccountService.me());
 
-      setAccount(await info());
-
-      history.push('/app');
-    } catch (err) {
-      switch (err.response.status) {
-        case 404:
+      history.push(app_path);
+    } catch (status) {
+      if (!isStatus(status)) throw status;
+      switch (status) {
+        case NOT_FOUND:
           setErrors({ email: 'conta não encontrada' });
           break;
-        case 403:
+        case UNAUTHORIZED:
           setErrors({ password: 'senha invalida' });
           break;
         default:
@@ -49,7 +51,7 @@ const SignIn: React.FC = () => {
 
   return (
     <div className="SignIn">
-      <BackButton onClick={() => history.push('/home')} />
+      <BackButton onClick={() => history.push(start_path)} />
 
       <img className="logo" src={logo} alt="2DO.svg" />
 
@@ -60,7 +62,7 @@ const SignIn: React.FC = () => {
           id="email"
           type="email"
           required
-          pattern={emailPattern}
+          pattern={Patterns.email}
           onChange={errors?.email ? () => setErrors(null) : undefined}
           invalid={!!errors?.email}
           message={errors?.email}

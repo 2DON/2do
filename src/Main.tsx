@@ -4,7 +4,7 @@ import { SELF_HOSTED } from './config';
 import AccountContext, { useAccountContext } from './context/AccountContext';
 import AuthContext, { useAuthContext } from './context/AuthContext';
 import Routes from './Routes';
-import { info } from './services/AccountService';
+import { me } from './services/AccountService';
 
 // TODO: installer icon
 
@@ -22,7 +22,7 @@ const Main: React.FC = () => {
   useEffect(() => {
     (async () => {
       if (authContext.authorized && !accountContext.account) {
-        accountContext.setAccount(await info());
+        accountContext.setAccount(await me());
       }
     })();
   }, [accountContext, authContext.authorized]);

@@ -1,0 +1,47 @@
+@import '../../../styles/colors';
+
+.Data {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto Mono', monospace;
+  margin-left: 6%;
+  height: 150%;
+  width: 70%;
+
+  & img,
+  svg {
+    border-radius: 12%;
+    width: 62px;
+    height: 62px;
+    display: flex;
+    margin: 20px;
+  }
+}
+
+#title {
+  font-size: 18px;
+  font-family: 'Roboto Mono' monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#edit {
+  border-radius: 12%;
+  width: 20px;
+  height: 20px;
+  margin-left: 840px;
+}
+
+button {
+  height: 30px;
+  width: 256px;
+  align-self: flex-end;
+  color: black;
+  background-color: cyan;
+}
+
+#avatar {
+  align-self: center;
+}

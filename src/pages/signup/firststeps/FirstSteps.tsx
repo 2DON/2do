@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext, useState } from 'react';
 import { FiUser } from 'react-icons/fi';
 import {
@@ -10,12 +9,15 @@ import {
 } from 'react-router-dom';
 import Input from '../../../components/input/Input';
 import AccountContext from '../../../context/AccountContext';
-import { edit } from '../../../services/AccountService';
+import AuthContext from '../../../context/AuthContext';
+import * as AccountService from '../../../services/AccountService';
+import * as AuthService from '../../../services/AuthService';
 import '../../../styles/FullScreenQuestion.scss';
 import './FirstSteps.scss';
 
 const SetupName: React.FC = () => {
   const next = '/sign-up/first-steps/avatar';
+  const { setToken } = useContext(AuthContext) as AuthContext;
   const { setAccount } = useContext(AccountContext) as AccountContext;
   const history = useHistory();
 
@@ -23,15 +25,11 @@ const SetupName: React.FC = () => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
-    formData.set('name', (formData.get('name') as string)?.trim());
+    const { email, password } = JSON.parse(sessionStorage.getItem('sign-up-cache') as string) as {email: string, password: string};
 
-    try {
-      const response = await edit(formData);
-      setAccount(response.data);
-      history.push(next);
-    } catch {
-      console.error('unknown error at first-steps/name');
-    }
+    sessionStorage.setItem('sign-up-cache', JSON.stringify({ email, password, name: (formData.get('name') as string)?.trim() }))
+
+    history.push(next);
   }
 
   return (
@@ -71,11 +69,27 @@ const SetupAvatar: React.FC = () => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
-    if (!preview) history.push(next);
+    if (!preview) return; // TODO make avatar red? alert?
+
+    const { email, password, name } = JSON.parse(sessionStorage.getItem('sign-up-cache') as string);
+
+    formData.set('email', email);
+    formData.set('password', password);
+    formData.set('name', name);
 
     try {
-      const response = await edit(formData);
-      setAccount(response.data);
+      await AuthService.signUp(formData);
+      sessionStorage.removeItem('sign-up-cache')
+      
+      alert('plz verify your email and click on the verification link :)');
+      // TODO now the user needs to verify his email
+    } catch {
+      console.error('unknown error at first-steps/name');
+    }
+
+    try {
+      const account = await AccountService.updateAvatar(formData);
+      setAccount(account);
       history.push(next);
     } catch {
       console.error('unknown error at first-steps/avatar');

@@ -1,6 +1,5 @@
 interface TeamMember {
-  account: id;
-  team: Team;
+  accountId: id;
   operator: boolean;
   createdAt: Date;
   createdBy: number;

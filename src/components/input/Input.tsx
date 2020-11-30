@@ -4,6 +4,7 @@ import './Input.scss';
 const Input: React.FC<InputProps> = ({
   id,
   placeholder,
+  defaultValue = '',
   type = 'text',
   required = false,
   pattern,
@@ -16,6 +17,7 @@ const Input: React.FC<InputProps> = ({
   <div className={`Input ${invalid ? 'invalid' : ''}`}>
     <div>
       <input
+        defaultValue={defaultValue}
         type={type}
         name={id}
         id={id}
@@ -35,6 +37,7 @@ const Input: React.FC<InputProps> = ({
 interface InputProps {
   id: string;
   placeholder: string;
+  defaultValue?: string;
   type?: 'date' | 'datetime-local' | 'email' | 'password' | 'text' | 'url';
   required?: boolean;
   pattern?: string;

@@ -2,7 +2,7 @@ interface Step {
   id: number;
   ordinal: number;
   description: string;
-  status: 'IN_PROGRESS' | 'DONE';
+  status: StepStatus;
   observation?: string;
   createdAt: Date;
   createdBy: number;
