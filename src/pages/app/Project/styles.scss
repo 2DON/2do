@@ -4,7 +4,6 @@
 .Project {
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
   overflow-y: auto;
 
   &::-webkit-scrollbar {
@@ -26,8 +25,7 @@
   }
 
   .defaults {
-    width: 95%;
-    margin: 3% 2% 2% 2%;
+    margin: 14px 12px 12px 12px;
     border-radius: 8px;
     background-color: $elevation-01;
   }
