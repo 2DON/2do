@@ -4,13 +4,13 @@ import { GrGroup } from "react-icons/gr"
 import { MdKeyboardArrowLeft } from "react-icons/md"
 import { Link, NavLink, Redirect, Route, Switch, useParams, useRouteMatch } from "react-router-dom"
 import { project_path } from "../../../pages"
+import ProjectDetails from "./Details"
 import './styles.scss'
 
 const activeClassName = 'active'
 
 const ProjectEditor = () => {
   const { projectId } = useParams<Dict<string>>();
-  const match = useRouteMatch()
   const path = project_path.replace(/:projectId/, projectId)
 
   return (
@@ -38,8 +38,8 @@ const ProjectEditor = () => {
       </header>
       <main>
         <Switch>
-          <Route path={`${path}/edit/details`} component={() => <h1>Details</h1>} />
-          <Route path={`${path}/edit/members`} component={() => <h1>Members</h1>} />
+          <Route path={`${project_path}/edit/details`} component={ProjectDetails} />
+          <Route path={`${project_path}/edit/members`} component={() => <h1>Members</h1>} />
           <Redirect to={`${path}/edit/details`} />
         </Switch>
       </main>

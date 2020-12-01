@@ -6,27 +6,22 @@ import * as ProjectService from '../../../services/ProjectService'
 import TaskList from '../TaskList'
 import './styles.scss'
 
-interface ProjectRouteParams {
-  projectId: string | undefined
-}
-
 const Project: React.FC = () => {
   const history = useHistory()
-  const { projectId } = useParams<ProjectRouteParams>()
+  const { projectId } = useParams<Dict<string>>()
   const [project, setProject] = useState<Project>()
 
   useEffect(() => {
-    if (projectId)
-      setProject(ProjectService
-        .cached
-        .get(Number(projectId)))
+    setProject(ProjectService
+      .cached
+      .get(Number(projectId)))
   }, [projectId])
 
   return (
     <div className="Project">
       <h2>
         {project?.description}
-        <BsGear onClick={() => history.push(project_edit_path.replace(/:projectId/, projectId as string))} />
+        <BsGear onClick={() => history.push(project_edit_path.replace(/:projectId/, projectId))} />
       </h2>
       {project?.observation && <p>{project?.observation}</p>}
       <TaskList projectId={Number(projectId)} />

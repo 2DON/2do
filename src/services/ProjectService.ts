@@ -1,7 +1,7 @@
 import api, { _ } from '../api';
 import { auth } from '../context/AuthContext';
 import { AllCached } from '../utils/Cached';
-import { CREATED, OK } from '../utils/Status';
+import { CREATED, isStatus, OK } from '../utils/Status';
 
 export async function index(archived?: boolean): Promise<Project[]> {
 
@@ -46,7 +46,6 @@ export async function store(body: FormData): Promise<Project> {
  * -  NOT_FOUND
  */
 export async function show(projectId: number): Promise<Project> {
-
   const { status, data } = await _(api.get(
     `/projects/${projectId}`,
     { headers: auth() }));
@@ -169,6 +168,21 @@ class ProjectCache extends AllCached<Project> {
     return entity.id;
   }
 
+  async getOrFetch(id: number): Promise<Project | undefined> {
+    let entity = this.get(id);
+
+    if (entity == null) {
+      try {
+        entity = await show(id)
+      } catch(err) {
+        if (!isStatus(err)) throw err
+        entity = undefined
+      }
+    }
+
+    return entity;
+  }
+
   async cacheAll(): Promise<void> {
     this.memo.clear();
 
@@ -178,7 +192,14 @@ class ProjectCache extends AllCached<Project> {
   }
 
   async findAll(): Promise<Map<number, Project>> {
-    return this.memo;
+    var map = new Map<number, Project>()
+
+    for (const key of this.memo.keys()) {
+      const project = this.get(key)
+      if (project != null) map.set(key, project);
+    }
+
+    return map;
   }
 
 }
