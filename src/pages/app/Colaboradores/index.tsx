@@ -1,6 +1,11 @@
 import React from 'react';
 import './styles.scss';
 
+/**
+ * @function
+ * @description returns a list with collaborators
+ * @returns React.FC
+ */
 const Colaboradores: React.FC = () => {
   const projects = [
     {

@@ -8,6 +8,11 @@ import { app_path, project_path } from '../../../pages';
 import Home from '../Home';
 import FullLoadingScreen from '../../../components/FullLoadingScreen';
 
+/**
+ * @function
+ * @description returns main screen and select route
+ * @return React.FC
+ */
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true)
 

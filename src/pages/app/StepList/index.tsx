@@ -5,12 +5,23 @@ import timed from "../../../utils/timed";
 import reducer from "../TaskList/reducer";
 import './styles.scss'
 
+/**
+ * @interface
+ * @description set types of StepList's params
+ */
 interface StepListProps {
   projectId: number;
   taskId: number;
   updateStepCounts: React.Dispatch<React.SetStateAction<[number, number]>>;
 }
 
+/**
+ * @function
+ * @description return a list of steps
+ * @param projectId: number
+ * @param taskId: number
+ * @param updateStepCounts: React.dispatch
+ */
 const StepList: React.FC<StepListProps> = ({ projectId, taskId, updateStepCounts }) => {
   const [steps, dispatch] = useReducer(reducer, []);
 

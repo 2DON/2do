@@ -9,6 +9,11 @@ import Dados from "../Dados";
 import TeamMember from "../TeamMember";
 import './styles.scss'
 
+/**
+ * @function
+ * @description returns the main screen of application
+ * @returns any
+ */
 const Home = () => {
   const [selected, setSelected] = useState(0);
 

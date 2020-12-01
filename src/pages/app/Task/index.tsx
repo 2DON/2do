@@ -9,6 +9,13 @@ import './styles.scss';
 import TaskStatus from './status';
 import StepList from '../StepList';
 
+/**
+ * @description returns the task of a project's step
+ * @param dispatch
+ * @param projectId
+ * @param task: _task
+ * @return React.FC
+ */
 const Task: React.FC<{ projectId: number, task: Task, dispatch: React.Dispatch<TaskReducerAction | TaskReducerOverride>; }> = ({ dispatch, projectId, task: _task }) => {
   const [checked, setChecked] = useState(false);
   const [changed, setChanged] = useState(false);

@@ -5,6 +5,11 @@ import AccountContext from '../../../context/AccountContext';
 import { email as emailPattern } from '../../../utils/Patterns';
 import './styles.scss';
 
+/**
+ * @function
+ * @description returns user data
+ * @returns React.FC
+ */
 const Dados: React.FC = () => {
 
   const { account } = useContext(AccountContext) as AccountContext;
@@ -45,6 +50,11 @@ const Dados: React.FC = () => {
   );
 };
 
+/**
+ * @function
+ * @description returns buttons to save and cancel operation
+ * @return React;FC
+ */
 const DataUser: React.FC<{ id: number, status: TaskStatus, onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void }> = ({ id, status, onChange }) => {
 
   return (

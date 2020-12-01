@@ -5,10 +5,19 @@ import { useParams } from 'react-router-dom'
 import './styles.scss'
 import TaskList from '../TaskList'
 
+/**
+ * @interface
+ * @description is the interface of the routes params
+ */
 interface ProjectRouteParams {
   projectId: string | undefined
 }
 
+/**
+ * @function
+ * @description return projects
+ * @returns React.FC
+ */
 const Project: React.FC = () => {
   const { projectId } = useParams<ProjectRouteParams>()
   const [project, setProject] = useState<Project>()

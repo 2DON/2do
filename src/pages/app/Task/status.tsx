@@ -1,10 +1,19 @@
 import React from "react";
 
+/**
+ * @interface
+ * @description properties of a task status
+ */
 interface TaskStatusProps {
   status: TaskStatus,
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void
 }
 
+/**
+ * @description status of a task, with progress and other data
+ * @param status
+ * @param onChange
+ */
 const TaskStatus: React.FC<TaskStatusProps> = ({ status, onChange }) => {
   return (
     <select

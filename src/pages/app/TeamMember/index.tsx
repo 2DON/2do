@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * @function
+ * @description return the members of a team
+ * @return React.FC
+ */
 const TeamMember: React.FC = () => {
   const teams = [
     {

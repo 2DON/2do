@@ -8,8 +8,17 @@ import { app_path, project_path } from '../../../pages';
 import * as ProjectService from '../../../services/ProjectService';
 import './styles.scss';
 
+/**
+ * @const
+ * @type String
+ */
 const activeClassName = "active"
 
+/**
+ * @function
+ * @description is the sidebar
+ * @returns any
+ */
 const Sidebar = () => {
   const { account } = useContext(AccountContext) as AccountContext;
   const [projects, setProjects] = useState<Project[]>([])

@@ -4,11 +4,18 @@ import * as TaskService from '../../../services/TaskService'
 import Task from "../Task"
 import reducer from "./reducer"
 
-
+/**
+ * @interface
+ */
 interface TaskListParams {
   projectId: number;
 }
 
+/**
+ * @description return a list of tasks
+ * @param projectId: number
+ * @return React.FC
+ */
 const TaskList: React.FC<TaskListParams> = ({ projectId }) => {
   const [tasks, dispatch] = useReducer(reducer, []);
 
