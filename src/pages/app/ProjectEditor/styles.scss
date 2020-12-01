@@ -1,0 +1,71 @@
+@import '../../../styles/colors';
+@import '../../../styles/extension';
+
+.ProjectEditor {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100%;
+
+  .Menu {
+    @extend .flex-center;
+
+    background-color: $elevation-01;
+    width: 100%;
+    height: 3em;
+
+    .Back {
+      position: absolute;
+      left: 12px;
+      font-size: 2em;
+      border-radius: 4px;
+
+      color: $on-surface-high;
+
+      &:hover {
+        background-color: rgba($on-surface-high, 0.25);
+      }
+
+      &:focus:not(:active) {
+        border: 1px solid $on-surface-high;
+        background-color: rgba($on-surface-high, 0.12);
+      }
+
+      &:active {
+        background-color: rgba($on-surface-high, 0.1);
+      }
+    }
+
+    .Link {
+      @extend .flex-center;
+
+      padding: 0 1.4em;
+      height: 100%;
+      color: $on-surface-high;
+      text-decoration: none;
+
+      svg {
+        margin-right: .5em;
+      }
+
+      &[href$=members] svg { // svg is hardcoded to be black, lets cheat :}
+        filter: invert(1);
+      }
+
+      transition: background-color 0.3s ease-out;
+
+      &.active {
+        background-color: $elevation-02;
+      }
+    }
+  }
+
+  main {
+    width: 100%;
+    height: 100%;
+    @extend .flex-center;
+    align-items: flex-start;
+  }
+}

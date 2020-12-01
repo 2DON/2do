@@ -1,32 +1,37 @@
 import React, { useEffect, useState } from 'react'
+import { BsGear } from 'react-icons/bs'
+import { useHistory, useParams } from 'react-router-dom'
+import { project_edit_path } from '../../../pages'
 import * as ProjectService from '../../../services/ProjectService'
-import { FaRegEdit } from 'react-icons/fa'
-import { useParams } from 'react-router-dom'
-import './styles.scss'
 import TaskList from '../TaskList'
-
-interface ProjectRouteParams {
-  projectId: string | undefined
-}
+import './styles.scss'
 
 const Project: React.FC = () => {
-  const { projectId } = useParams<ProjectRouteParams>()
+  const history = useHistory()
+  const { projectId } = useParams<Dict<string>>()
   const [project, setProject] = useState<Project>()
 
   useEffect(() => {
-    if (projectId)
-      setProject(ProjectService
-        .cached
-        .get(Number(projectId)))
+    setProject(ProjectService
+      .cached
+      .get(Number(projectId)))
   }, [projectId])
 
   return (
     <div className="Project">
       <h2>
         {project?.description}
-        <FaRegEdit />
+        <BsGear onClick={() => history.push(project_edit_path.replace(/:projectId/, projectId))} />
       </h2>
-      {project?.observation && <p>{project?.observation}</p>}
+      {project?.observation &&
+        <p>{project?.observation
+          .split('\n')
+          .map((text, index) => (
+            <span key={index}>
+              {text}<br/>
+            </span>
+          ))}
+        </p>}
       <TaskList projectId={Number(projectId)} />
     </div>
   );

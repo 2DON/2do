@@ -1,0 +1,102 @@
+@import '../../../../styles/colors';
+@import '../../../../styles/extension';
+
+.ProjectDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: 720px;
+
+  .Named {
+    flex: 1;
+    margin: .5em;
+
+    &:first-child {
+      margin-top: 1em;
+    }
+
+    &:last-child {
+      margin-bottom: 1em;
+    }
+
+    textarea.field {
+      height: 10em;
+    }
+
+    &.Icon {
+      max-height: 155px;
+    }
+
+    &.Desc {
+      max-height: 110px;
+    }
+
+    &.Obs {
+      max-height: 256px;
+    }
+  }
+
+  .Icon {
+    cursor: pointer;
+
+    img, svg {
+      width: 80px;
+      height: 80px;
+    }
+
+    span p {
+      width: 100%;
+      align-self: right;
+      font-size: .8em;
+      color: rgba($on-surface-disabled, .3);
+      margin-bottom: .5em;
+    }
+
+    &:hover {
+      background-color: $surface-overlay-hover;
+    }
+
+    section {
+      width: 100%;
+      @extend .flex-center;
+    }
+  }
+
+  .icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 4px;
+    padding: 1em;
+
+    transition: background-color 0.3s ease;
+
+    span {
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 1.2em;
+      letter-spacing: 1.25px;
+
+      margin-top: 0.75em;
+    }
+  }
+
+  footer {
+    margin-top: auto;
+    width: 100%;
+    justify-self: flex-end;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+    button {
+      margin: 1em;
+      width: 45%;
+    }
+  }
+}

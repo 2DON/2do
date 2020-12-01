@@ -30,7 +30,7 @@ const App: React.FC = () => {
       <main>
         <Switch>
           <Route path={app_path} exact component={Home}/>
-          <Route path={`${project_path}/:projectId`} component={Project} />
+          <Route path={project_path} component={Project} />
         </Switch>
       </main>
     </div>
