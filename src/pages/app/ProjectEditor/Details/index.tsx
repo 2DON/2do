@@ -84,7 +84,6 @@ const ProjectDetails = () => {
           )}
         </section>
       </label>
-      {/* <Input /> */}
       <label className="Named Desc">
         <span>Description</span>
         <input

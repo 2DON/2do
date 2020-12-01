@@ -5,6 +5,7 @@ import { MdKeyboardArrowLeft } from "react-icons/md"
 import { Link, NavLink, Redirect, Route, Switch, useParams, useRouteMatch } from "react-router-dom"
 import { project_path } from "../../../pages"
 import ProjectDetails from "./Details"
+import ProjectMembers from "./Members"
 import './styles.scss'
 
 const activeClassName = 'active'
@@ -39,7 +40,7 @@ const ProjectEditor = () => {
       <main>
         <Switch>
           <Route path={`${project_path}/edit/details`} component={ProjectDetails} />
-          <Route path={`${project_path}/edit/members`} component={() => <h1>Members</h1>} />
+          <Route path={`${project_path}/edit/members`} component={ProjectMembers} />
           <Redirect to={`${path}/edit/details`} />
         </Switch>
       </main>

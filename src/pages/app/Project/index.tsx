@@ -23,7 +23,15 @@ const Project: React.FC = () => {
         {project?.description}
         <BsGear onClick={() => history.push(project_edit_path.replace(/:projectId/, projectId))} />
       </h2>
-      {project?.observation && <p>{project?.observation}</p>}
+      {project?.observation &&
+        <p>{project?.observation
+          .split('\n')
+          .map((text, index) => (
+            <span key={index}>
+              {text}<br/>
+            </span>
+          ))}
+        </p>}
       <TaskList projectId={Number(projectId)} />
     </div>
   );
