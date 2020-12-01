@@ -4,7 +4,7 @@ import { MdViewQuilt } from 'react-icons/md';
 import { Link, NavLink } from 'react-router-dom';
 import Avatar from '../../../components/App';
 import AccountContext from '../../../context/AccountContext';
-import { app_path, project_path } from '../../../pages';
+import { app_path, project_base_path } from '../../../pages';
 import * as ProjectService from '../../../services/ProjectService';
 import './styles.scss';
 
@@ -39,7 +39,7 @@ const Sidebar = () => {
           className="SidebarTile"
           title={project.description}
 
-          to={`${project_path}/${project.id}`}
+          to={`${project_base_path}/${project.id}`}
           activeClassName={activeClassName}
         >
           {project.icon

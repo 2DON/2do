@@ -106,6 +106,16 @@ class PublicAccountCache extends IdCached<PublicAccount> {
     return entity.id;
   }
 
+  async getOrFetch(id: number): Promise<PublicAccount | undefined> {
+    let entity = this.get(id);
+
+    if (entity == null) {
+      ;[entity] = await find(id)
+    }
+
+    return entity;
+  }
+
   async cacheAll(...ids: number[]): Promise<void> {
     const notFound = new Set()
 

@@ -1,0 +1,37 @@
+@import './colors';
+@import './extension';
+
+.Named {
+  @extend .flex-center;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 100%;
+  padding: 1em 2em;
+  border-radius: 4px;
+  background-color: $elevation-01;
+
+  span {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.2em;
+    letter-spacing: 1.25px;
+    color: $on-surface-disabled;
+    margin-bottom: .2em;
+  }
+
+  .field {
+    width: 100%;
+    font-size: 20px;
+    background-color: transparent;
+    font-family: 'Roboto', sans-serif;
+    border: none;
+    resize: none;
+    color: $on-surface-high;
+  }
+
+  .field::placeholder {
+    color: $on-surface-medium;
+  }
+}
