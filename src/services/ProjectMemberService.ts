@@ -2,6 +2,13 @@ import api, { _ } from '../api';
 import { auth } from '../context/AuthContext';
 import { OK } from '../utils/Status';
 
+/**
+ * @function
+ * @async
+ * @description returns the index of project members
+ * @param projectId: number
+ * @returns Promise<ProjectMember[]>
+ */
 export async function index(projectId: number): Promise<ProjectMember[]> {
 
   const { status, data } = await _(api.get(
@@ -16,6 +23,8 @@ export async function index(projectId: number): Promise<ProjectMember[]> {
 }
 
 /**
+ * @function
+ * @async
  * @param accountId string
  * @param teamId? string
  * @param permission string
@@ -39,9 +48,12 @@ export async function add(projectId: number, body: FormData): Promise<ProjectMem
 }
 
 /**
+ * @function
+ * @async
  * @param accountId string
  * @param teamId? string
  * @param permission? string
+ * @returns Promise<ProjectMember>
  *
  * @throws
  * -  BAD_REQUEST
@@ -62,6 +74,12 @@ export async function update(projectId: number, accountId: number, body: FormDat
 }
 
 /**
+ * @function
+ * @async
+ * @param projectId: number
+ * @param accountId: number
+ * @returns Promise<void>
+ *
  * @throws
  *
  * -  BAD_REQUEST

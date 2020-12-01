@@ -4,6 +4,8 @@ import { auth } from '../context/AuthContext';
 import { CREATED, OK } from '../utils/Status';
 
 /**
+ * @function
+ * @async
  * @throws
  * - NOT_FOUND
  */
@@ -21,8 +23,11 @@ export async function index(projectId: number): Promise<Task[]> {
 }
 
 /**
+ * @function
+ * @async
  * @param description string
  * @param ordinal ?number
+ * @returns Promise<Task>
  *
  * @throws
  * - UNAUTORIZED    if the current account cannot manage project members
@@ -45,11 +50,14 @@ export async function store(projectId: number, body: FormData): Promise<Task> {
 
 
 /**
+ * @function
+ * @async
  * @param description ?string
  * @param ordinal ?number
  * @param status ?string
  * @param options ?string
- * @param assingTo? :tring
+ * @param assingTo? :string
+ * @returns Promise<Task>
  *
  * @throws
  * - UNAUTORIZED    if the current account cannot manage project members
@@ -70,6 +78,9 @@ export async function update(projectId: number, taskId: number, body: FormData):
 }
 
 /**
+ * @function
+ * @async
+ * @returns Promise<Task>
  * @throws
  * - UNAUTORIZED    if the current account cannot manage project members
  * - NOT_FOUND

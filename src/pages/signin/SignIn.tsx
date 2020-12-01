@@ -12,6 +12,11 @@ import * as Patterns from '../../utils/Patterns';
 import { isStatus, NOT_FOUND, UNAUTHORIZED } from '../../utils/Status';
 import './SignIn.scss';
 
+/**
+ * @function
+ * @description login the user / start session
+ * @returns React.FC
+ */
 const SignIn: React.FC = () => {
   const history = useHistory();
   const { setToken } = useContext(AuthContext) as AuthContext;

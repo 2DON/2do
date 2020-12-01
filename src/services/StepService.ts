@@ -4,6 +4,8 @@ import { CREATED, OK } from '../utils/Status';
 
 
 /**
+ * @function
+ * @async
  *
  * @throws
  * - UNAUTHORIZED   project and account exists and the account is part of the project
@@ -22,6 +24,8 @@ export async function index(projectId: number, taskId: number): Promise<Step[]> 
 
 
 /**
+ * @function
+ * @async
  * @param description string
  * @param ordinal ?number
  *
@@ -45,6 +49,8 @@ export async function store(projectId: number, taskId: number, body: FormData): 
 
 
 /**
+ * @function
+ * @async
  * @param descriprion ?string
  * @param status ?string
  * @param ordinal ?number
@@ -72,6 +78,8 @@ export async function update(projectId: number, taskId: number, stepId: number, 
 
 
 /**
+ * @function
+ * @async
  * @throws
  * - UNAUTHORIZED    not have permission to delete the step
  * - NOT_FOUND       not find step id, task id or project id

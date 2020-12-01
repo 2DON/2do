@@ -5,6 +5,11 @@ import AuthContext from '../../context/AuthContext';
 import { app_path, sign_in_path, sign_up_path } from '../../pages';
 import './Start.scss';
 
+/**
+ * @function
+ * @description is the first screen of the system, with icon and login options
+ * @returns React.FC
+ */
 const Start: React.FC = () => {
   const history = useHistory();
   const { authorized } = useContext(AuthContext) as AuthContext;

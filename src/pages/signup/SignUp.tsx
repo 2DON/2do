@@ -10,6 +10,11 @@ import { CONFLICT, isStatus } from '../../utils/Status';
 import timed from '../../utils/timed';
 import './SignUp.scss';
 
+/**
+ * @function
+ * @description create new user
+ * @returns React.FC
+ */
 const SignUp: React.FC = () => {
   const history = useHistory();
   const [errors, setErrors] = useState<Dict<string> | null>(null);

@@ -2,6 +2,10 @@ import api, { _ } from '../api';
 import { TOKEN_HEADER } from '../config';
 import { CREATED, OK } from '../utils/Status';
 
+/**
+ * @const
+ * @description it's a token
+ */
 const HEADER = TOKEN_HEADER.toLowerCase();
 
 /**   

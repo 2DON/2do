@@ -3,6 +3,9 @@ import { auth } from '../context/AuthContext';
 import Cached, { AllCached } from '../utils/Cached';
 import { CREATED, OK } from '../utils/Status';
 
+/**
+ * @function
+ * @async
 export async function index(archived?: boolean): Promise<Project[]> {
 
   const { status, data } = await _(api.get(
@@ -17,6 +20,8 @@ export async function index(archived?: boolean): Promise<Project[]> {
 }
 
 /**
+ * @function
+ * @async
  * @param description string
  * @param observation? string
  * @param ordinal? boolean
@@ -41,6 +46,8 @@ export async function store(body: FormData): Promise<Project> {
 }
 
 /**
+ * @function
+ * @async
  * @throws
  *
  * -  NOT_FOUND
@@ -59,6 +66,9 @@ export async function show(projectId: number): Promise<Project> {
 }
 
 /**
+ * @function
+ * @async
+ *
  * @param description string
  * @param observation? string
  * @param ordinal? boolean
@@ -84,6 +94,9 @@ export async function update(projectId: number, body: FormData): Promise<Project
 }
 
 /**
+ * @function
+ * @async
+ *
  * @throws
  *
  * -  BAD_REQUEST
@@ -105,6 +118,8 @@ export async function updateIcon(projectId: number, body: FormData): Promise<Pro
 }
 
 /**
+ * @function
+ * @async
  * @throws
  *
  * -  NOT_FOUND
@@ -127,6 +142,9 @@ export async function toggleArchived(projectId: number): Promise<Project> {
 }
 
 /**
+ * @function
+ * @async
+ *
  * @throws
  *
  * -  BAD_REQUEST
@@ -147,6 +165,11 @@ export async function transferOwnership(projectId: number, newOwnerId: number): 
 }
 
 /**
+ * @function
+ * @async
+ * @param projectId: number
+ * @returns Promise<void>
+ *
  * @throws
  *
  * -  BAD_REQUEST
@@ -163,12 +186,26 @@ export async function destroy(projectId: number): Promise<void> {
   }
 }
 
+/**
+ * @class
+ * @extends AllCached<Project>
+ */
 class ProjectCache extends AllCached<Project> {
 
+  /**
+   * @protected
+   * @param entity: PublicAccount
+   * @returns number
+   */
   protected idOf(entity: Project): number {
     return entity.id;
   }
 
+  /**
+   * @async
+   * @param ...ids: number[]
+   * @returns Promise<void>
+   */
   async cacheAll(): Promise<void> {
     this.memo.clear();
 
@@ -177,10 +214,19 @@ class ProjectCache extends AllCached<Project> {
     }
   }
 
+  /**
+   * @async
+   * @param ...ids: number[]
+   * @returns Promise<Map<number, PublicAccount>>
+   */
   async findAll(): Promise<Map<number, Project>> {
     return this.memo;
   }
 
 }
 
+/**
+ * @const
+ * @type ProjectCache
+ */
 export const cached = new ProjectCache();

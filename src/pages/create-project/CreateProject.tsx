@@ -8,6 +8,11 @@ import { store, update } from '../../services/ProjectService';
 import '../signup/firststeps/FirstSteps.scss';
 import './CreateProject.scss';
 
+/**
+ * @function
+ * @description screen to create a new project
+ * @returns React.FC
+ */
 const CreateProject: React.FC = () => {
   const next = '/app/CreateProject/index/first-steps/avatarUrl';
   const history = useHistory();
@@ -73,6 +78,11 @@ const CreateProject: React.FC = () => {
   );
 };
 
+/**
+ * @function
+ * @description set the avatar of an object
+ * @returns React.FC
+ */
 const SetupAvatar: React.FC = () => {
   const next = '/app';
   const history = useHistory();
@@ -147,6 +157,11 @@ const SetupAvatar: React.FC = () => {
   );
 };
 
+/**
+ * @function
+ * @description route the form of project creation
+ * @returns React.FC
+ */
 export const ProjectFirstSteps: React.FC = () => {
   const match = useRouteMatch();
 
