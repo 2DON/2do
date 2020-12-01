@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { FaRegEdit } from 'react-icons/fa'
+import { BsGear } from 'react-icons/bs'
 import { useHistory, useParams } from 'react-router-dom'
+import { project_edit_path } from '../../../pages'
 import * as ProjectService from '../../../services/ProjectService'
 import TaskList from '../TaskList'
 import './styles.scss'
@@ -25,7 +26,7 @@ const Project: React.FC = () => {
     <div className="Project">
       <h2>
         {project?.description}
-        <FaRegEdit onClick={() => history.push(`${history.location}/edit`)} />
+        <BsGear onClick={() => history.push(project_edit_path.replace(/:projectId/, projectId as string))} />
       </h2>
       {project?.observation && <p>{project?.observation}</p>}
       <TaskList projectId={Number(projectId)} />
