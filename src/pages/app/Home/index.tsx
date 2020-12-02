@@ -13,15 +13,11 @@ const Home = () => {
   const [selected, setSelected] = useState(0);
 
   const chooseComponent = (selected: number) => {
-    switch(selected) {
+    switch (selected) {
       case 0:
         return <Dados />;
       case 2:
         return <div style={{ backgroundColor: 'green', padding: 100 }} />;
-      case 3:
-        return <Colaboradores />;
-      default:
-        return <TeamMember />;
     }
   }
 
@@ -48,22 +44,11 @@ const Home = () => {
           >
             <BiTask className="icon" /> <p>Para mim</p>
           </li>
-          <li
-            className={`${selected === 3 ? 'selected' : ''}`}
-            onClick={() => setSelected(3)}
-          >
-            <VscPerson className="icon" /> <p>Colaboradores</p>
-          </li>
-          <li
-            className={`${selected === 4 ? 'selected' : ''}`}
-            onClick={() => setSelected(4)}
-          >
-            <AiOutlineTeam className="icon" /> <p>Membros Do Time</p>
-          </li>
         </ul>
         {chooseComponent(selected)}
       </div>
     </div>
-  )}
+  )
+}
 
 export default Home;
