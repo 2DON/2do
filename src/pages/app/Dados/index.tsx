@@ -1,16 +1,41 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { FiUser } from 'react-icons/fi';
 import Input from '../../../components/input/Input';
 import AccountContext from '../../../context/AccountContext';
 import { email as emailPattern } from '../../../utils/Patterns';
+import * as AccountService from '../../../services/AccountService'
 import './styles.scss';
+import timed from '../../../utils/timed';
 
 const Dados: React.FC = () => {
 
   const { account } = useContext(AccountContext) as AccountContext;
+  const [errors, setErrors] = useState<Dict<string> | null>(null);
+  const emailRegex = new RegExp(emailPattern);
+
+  const error = timed(500, async (email: string) => {
+    if (errors?.email) setErrors(null);
+
+    if (!emailRegex.test(email)) {
+      setErrors({ email: 'email invalido' });
+      return;
+    }
+
+  }
+  )
+
+  function update(form: HTMLFormElement) {
+    const formData = new FormData(form)
+    if (formData.get('email') === account?.email) {
+      formData.delete('email');
+    }
+    AccountService.update(formData);
+
+  }
+
 
   return (
-    <div className="Data">
+    <form className="Data" onSubmit={e => { e.preventDefault(); update(e.currentTarget) }}>
       <p id="title">Avatar</p>
       <p id="avatar">
         {account?.avatarUrl &&
@@ -20,41 +45,37 @@ const Dados: React.FC = () => {
             <FiUser />
           )}
       </p>
+
       <Input
         placeholder="Nome"
-        id="Nome"
+        id="name"
         type="text"
         defaultValue={account?.name}
+        min={3}
+
       />
 
       <Input
         placeholder="Email"
-        id="Email"
-        type="email"
-        pattern={emailPattern}
+        id="email"
         defaultValue={account?.email}
+        pattern={emailPattern}
+        onChange={(event) => error(event.target.value.trim())}
+        invalid={!!errors?.email}
+        message={errors?.email}
       />
 
-      <Input
-        placeholder="Senha"
-        id="Senha"
-        type="password"
-      />
-
-    </div>
-  );
-};
-
-const DataUser: React.FC<{ id: number, status: TaskStatus, onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void }> = ({ id, status, onChange }) => {
-
-  return (
-    <select>
 
       <button type="submit">Salvar Mudanças</button>
       <button type="reset">Cancelar</button>
 
-    </select>
+
+
+    </form>
   );
 };
+
+
+
 
 export default Dados;
