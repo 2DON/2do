@@ -8,6 +8,7 @@ import { TaskReducerAction, TaskReducerOverride } from '../TaskList/reducer';
 import './styles.scss';
 import TaskStatus from './status';
 import StepList from '../StepList';
+import AssignedTo from '../AssignedTo';
 
 const Task: React.FC<{ projectId: number, task: Task, dispatch: React.Dispatch<TaskReducerAction | TaskReducerOverride>; }> = ({ dispatch, projectId, task: _task }) => {
   const [checked, setChecked] = useState(false);
@@ -67,7 +68,7 @@ const Task: React.FC<{ projectId: number, task: Task, dispatch: React.Dispatch<T
       </form>
       {checked && <>
         <div className="editor">
-          <span>assigned to {assignedTo?.name}</span>
+          <span>assigned to <AssignedTo projectId={projectId} taskId={task.id} updateStepCounts={updateStepCounts} />{/*assignedTo?.name*/}</span>
         </div>
         <StepList projectId={projectId} taskId={task.id} updateStepCounts={updateStepCounts} />
       </>}

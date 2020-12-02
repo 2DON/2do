@@ -1,8 +1,11 @@
-import React, { useEffect, useReducer } from "react"
+import React, { useEffect, useReducer, useState } from "react"
 import { FiTrash2 } from "react-icons/fi";
-import * as StepService from '../../../services/StepService'
+import * as AccountService from '../../../services/AccountService'
+import * as ProjectService from '../../../services/ProjectService'
+import * as TaskService from '../../../services/TaskService'
+import * as ProjectMemberService from '../../../services/ProjectMemberService';
 import timed from "../../../utils/timed";
-import reducer from "../TaskList/reducer";
+import reducer from "./reducer";
 import './styles.scss'
 
 interface AssignedToProps {
@@ -12,69 +15,45 @@ interface AssignedToProps {
 }
 
 const AssignedTo: React.FC<AssignedToProps> = ({ projectId, taskId, updateStepCounts }) => {
-  const [steps, dispatch] = useReducer(reducer, []);
+  const [projectMembers, dispatchProjectMembers] = useReducer(reducer, []);
+  const [accounts, setAccounts] = useState<Map<number, PublicAccount>>(new Map())
 
   useEffect(() => {
-    StepService
-      .index(projectId, taskId)
-      .then(steps_ => {
-        dispatch({ override: steps_ })
-      });
-  }, [projectId, taskId])
+    ProjectMemberService
+      .index(projectId)
+      .then(async members_ => {
+        const accounts_ = await AccountService
+          .cached
+          .findAndCacheAll(...members_.map(member => member.accountId))
 
-  // update `'done' of 'total'` on Task
-  useEffect(() => {
-    const total = steps.length;
-    const done = steps.reduce(
-      (found, step) => step.status === 'DONE' ? found + 1 : found, 0);
-    updateStepCounts([done, total])
-  }, [steps]);
+        setAccounts(accounts_);
+        dispatchProjectMembers({override: members_});
+      })
+  }, [])
 
-  function create(form: HTMLFormElement) {
-    StepService
-      .store(projectId, taskId, new FormData(form))
-      .then(step => {
-        dispatch({ type: 'add', payload: step })
-        form.reset();
-      });
+  function changeAssigned(form: HTMLFormElement){
+    TaskService.update(projectId, taskId, new FormData(form));
   }
 
-  const update = (stepId: number, form: HTMLFormElement) => {
-    StepService
-      .update(projectId, taskId, stepId, new FormData(form))
-      .then(step => {
-        dispatch({ type: 'mod', payload: step })
-      })
+  const update = (taskId:number, form: HTMLFormElement) => {
+    TaskService
+      .update(projectId, taskId, new FormData(form));
   }
 
   const updateTimed = timed(1000, update);
 
-  function destroy(step: Step) {
-    StepService
-    .destroy(projectId, taskId, step.id)
-    .then(() => {
-      dispatch({ type: 'rem', payload: step})
-    })
-  }
-
   return (
     <>
-      <form className="Assigned New" onSubmit={e => { e.preventDefault(); create(e.currentTarget) }} >
-        <input placeholder="type the collaborator to assign..." name="description" min="3" />
-      </form>
-      {steps.map(step => <form
+      <form
         className="Assign"
-        key={step.id}
         onSubmit={e => e.preventDefault()}
-        onChange={e => updateTimed(step.id, e.currentTarget)}
+        onChange={e => updateTimed(taskId, e.currentTarget)}
       >
-        <input type="text" name="description" defaultValue={step.description} />
-        <select name="status" defaultValue={step.status}>
-          // <option value="IN_PROGRESS">IN_PROGRESS</option> {/* TODO request */}
-          <option value="DONE">DONE</option>
-        </select>
-        <FiTrash2 name="delete" onClick={() => destroy(step)} />
-      </form>)}
+        <input list="assignedTo" type="text" name="assignedTo" defaultValue={projectMembers.length > 0 ? accounts.get(projectMembers[0].accountId)?.name : undefined} />
+        <datalist id="assignedTo" defaultValue={projectMembers.length > 0? projectMembers[0]?.accountId : undefined}>
+          {projectMembers.map(projectMember => <option value={projectMember.accountId}>{accounts.get(projectMember.accountId)?.name}</option>)}
+        </datalist>
+      </form>
     </>
   )
 }
