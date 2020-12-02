@@ -1,0 +1,32 @@
+@import '../../../../styles/colors';
+
+.Members {
+
+    & table, th, td {
+        border: 3px solid black;
+        padding: 1em;
+        font-size: 15;
+    }
+    }
+
+
+  th, td {
+    padding: 20px;
+    font-family: 'Roboto Mono' monospace;
+  }
+
+table {
+    margin: 35px;
+    border-collapse: collapse;
+   
+}
+
+  tr{
+        opacity: 0.7;
+      transition-duration: 0.4s;
+  }
+
+  tr:hover {
+      background-color: $primary-300;
+      opacity: 1.3;
+    }
