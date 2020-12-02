@@ -40,6 +40,18 @@ export async function store(body: FormData): Promise<Project> {
   }
 }
 
+export async function stats(projectId: number) {
+  const { status, data } = await _(api.get(
+    `/projects/${projectId}/stats`,
+    { headers: auth() }));
+
+  if (status === OK) {
+    return data;
+  } else {
+    throw status;
+  }
+}
+
 /**
  * @throws
  *
